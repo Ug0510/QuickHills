@@ -1,0 +1,74 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.quickhills.customer",
+            "sha256_cert_fingerprints": [
+                "09:52:BA:ED:A6:E1:84:25:48:5B:D7:17:32:58:B4:D7:A0:E2:82:23:87:17:88:D0:91:CC:9F:EA:8D:55:C1:0A"
+            ]
+        }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.quickhills.customer",
+            "sha256_cert_fingerprints": [
+                "03:65:72:4A:AD:78:70:08:0F:43:55:20:EA:E3:95:E7:11:7D:EF:08:50:4A:74:22:5A:8F:C1:43:6B:44:87:B3"
+            ]
+        }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.quickhills.customer",
+            "sha256_cert_fingerprints": [
+                "64:D7:05:84:2E:9E:35:69:B8:28:96:C7:E7:BE:67:CF:08:27:3D:50:68:94:1A:32:E0:4C:AF:82:BA:75:D2:32"
+            ]
+        }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.quickhills.partner",
+            "sha256_cert_fingerprints": [
+                "09:52:BA:ED:A6:E1:84:25:48:5B:D7:17:32:58:B4:D7:A0:E2:82:23:87:17:88:D0:91:CC:9F:EA:8D:55:C1:0A"
+            ]
+        }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.quickhills.partner",
+            "sha256_cert_fingerprints": [
+                "03:65:72:4A:AD:78:70:08:0F:43:55:20:EA:E3:95:E7:11:7D:EF:08:50:4A:74:22:5A:8F:C1:43:6B:44:87:B3"
+            ]
+        }
+    },
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.quickhills.partner",
+            "sha256_cert_fingerprints": [
+                "3D:21:9C:21:31:B7:A6:DA:4B:9F:FF:31:4E:75:53:1C:E7:E7:4D:A6:14:F1:D0:A4:60:2D:15:5D:BB:A2:2E:BF"
+            ]
+        }
+    }
+]
