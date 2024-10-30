@@ -821,7 +821,7 @@ var render = function () {
                       staticClass: "breadcrumb-item active",
                       attrs: { "aria-current": "page" },
                     },
-                    [_vm._v(_vm._s(_vm.__("taxes")) + " Taxes")]
+                    [_vm._v(_vm._s(_vm.__("taxes")))]
                   ),
                 ]),
               ]

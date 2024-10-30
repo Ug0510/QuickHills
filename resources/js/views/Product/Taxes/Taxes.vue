@@ -11,7 +11,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><router-link to="/dashboard">{{ __('dashboard') }}</router-link></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ __('taxes') }} Taxes</li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ __('taxes') }}</li>
                     </ol>
                 </nav>
             </div>
