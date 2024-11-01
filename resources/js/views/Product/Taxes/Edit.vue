@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-group">
                     <label>{{ __('percentage') }}</label>
-                    <input type="text" class="form-control" v-model="percentage" placeholder="10.00" >
+                    <input type="text" class="form-control" v-model="percentage" placeholder="15.00" step="0.01">
                     <span v-if="validationError" class="error">{{ validationError }}</span>
                 </div>
                 <div class="form-group" v-if="id">

@@ -703,7 +703,7 @@ var render = function () {
                   },
                 ],
                 staticClass: "form-control",
-                attrs: { type: "text", placeholder: "10.00" },
+                attrs: { type: "text", placeholder: "15.00", step: "0.01" },
                 domProps: { value: _vm.percentage },
                 on: {
                   input: function ($event) {
