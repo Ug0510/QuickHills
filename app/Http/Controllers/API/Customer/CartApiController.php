@@ -34,94 +34,127 @@ use Response;
 
 class CartApiController extends Controller
 {
-    public function getUserCart(Request $request) {
-        // Validate latitude and longitude
+    public function getUserCart(Request $request){
+        /*$request->city_id = 1;
+        $request->latitude = 23.2419997;
+        $request->longitude = 69.6669324;*/
+
         $validator = Validator::make($request->all(), [
             'latitude' => 'required',
             'longitude' => 'required',
-        ], [
+        ],[
             'latitude.required' => 'The latitude field is required.',
             'longitude.required' => 'The longitude field is required.'
         ]);
-    
         if ($validator->fails()) {
             return CommonHelper::responseError($validator->errors()->first());
         }
-    
-        $type = $request->get('type', '');
+
+        /*$limit = ($request->limit)??10;
+        $offset = ($request->offset)??0;*/
+
+        $type = $request->get('type','');
         $user_id = $request->user('api-customers') ? $request->user('api-customers')->id : '';
-    
-        $variant_ids = explode(",", $request->variant_ids);
-    
-        if (ProductHelper::isItemAvailableInUserCart($user_id)) {
-            $res = Cart::select('carts.*', 'products.slug', 'products.cod_allowed', 'products.image', 'products.is_unlimited_stock', 'products.seller_id',
-                'sellers.longitude', 'sellers.latitude', 'sellers.city_id')
+
+        $variant_ids = explode(",",$request->variant_ids);
+
+        if(ProductHelper::isItemAvailableInUserCart($user_id)){
+
+            $res = Cart::select('carts.*','products.slug','products.cod_allowed','products.image', 'products.is_unlimited_stock', 'products.seller_id',
+                'sellers.longitude',  'sellers.latitude', 'sellers.city_id')
                 ->Join('products', 'carts.product_id', '=', 'products.id')
                 ->Join('product_variants', 'carts.product_variant_id', '=', 'product_variants.id')
                 ->leftJoin('sellers', 'products.seller_id', '=', 'sellers.id')
-                ->where('carts.save_for_later', '=', 0)
-                ->where('user_id', '=', $user_id);
-    
-            if ($request->variant_ids && $request->variant_ids !== "") {
+                ->where('carts.save_for_later','=',0)
+                ->where('user_id','=',$user_id);
+            if($request->variant_ids && $request->variant_ids !== ""){
                 $res = $res->whereIn('carts.product_variant_id', $variant_ids);
             }
-    
-            $res = $res->orderBy('created_at', 'DESC')->get();
-    
-            $seller_ids = array_values(array_unique(array_column($res->toArray(), 'seller_id')));
-            $res = $res->makeHidden(['user_id', 'id', 'save_for_later', 'type', 'stock_unit_name', 'image', 'images', 'created_at', 'updated_at', 'seller_id']);
-    
-            $total_tax = 0; // Initialize total tax variable
-    
+            $res = $res->orderBy('created_at','DESC')
+                //->skip($offset)->take($limit)
+                ->get();
+
+            $seller_ids = array_values(array_unique( array_column($res->toArray(),'seller_id')));
+
+            $res = $res->makeHidden(['user_id','id','save_for_later','type','stock_unit_name','image','images','created_at','updated_at','seller_id']);
+
             foreach ($res as $key => $row) {
-                if (isset($row->city_id) && $row->city_id != 0 && $row->city_id != "") {
-                    if (CommonHelper::isDeliverable($row->city_id, $request->latitude, $request->longitude)) {
-                        $row['is_deliverable'] = 1;
-                    } else {
-                        $row['is_deliverable'] = 0;
-                    }
+
+                /*$vertices_x = $row->boundary_points ? array_column(json_decode($row->boundary_points, true), "lng") : [];    // lng x-coordinates of the vertices of the polygon
+                $vertices_y = $row->boundary_points ? array_column(json_decode($row->boundary_points, true), "lat") : [];    // lat y-coordinates of the vertices of the polygonn
+                $points_polygon = count($vertices_x);  // number vertices - zero-based array
+                if (CommonHelper::isInPolygon($points_polygon, $vertices_x, $vertices_y, $request->longitude, $request->latitude)) {
+                    $row['is_deliverable'] = 1;
                 } else {
                     $row['is_deliverable'] = 0;
+                }*/
+
+                // if(isset($row->max_deliverable_distance) && $row->max_deliverable_distance != 0 && $row->max_deliverable_distance != ""){
+                //     if(CommonHelper::isDeliverable($row->max_deliverable_distance, $row->longitude, $row->latitude, $request->longitude, $request->latitude)){
+                //         $row['is_deliverable'] = 1;
+                //     }else{
+                //         $row['is_deliverable'] = 0;
+                //     }
+                // }else{
+                //     $row['is_deliverable'] = 0;
+                // }
+
+                if(isset($row->city_id) && $row->city_id != 0 && $row->city_id != ""){
+                    if(CommonHelper::isDeliverable($row->city_id, $request->latitude, $request->longitude )){
+                        $row['is_deliverable'] = 1;
+                    }else{
+                        $row['is_deliverable'] = 0;
+                    }
+                }else{
+                    $row['is_deliverable'] = 0;
                 }
-    
-                $item = ProductVariant::select('product_variants.*', 'products.cod_allowed', 'products.seller_id as seller_id', 'products.name',
-                    'products.type as d_type', 'products.cod_allowed', 'products.slug', 'products.image',
-                    'products.total_allowed_quantity',
-                    DB::raw('(CASE WHEN taxes.percentage != "0" THEN taxes.percentage ELSE "0" END) AS tax_percentage'),
-                    DB::raw('(CASE WHEN taxes.title != "" THEN taxes.title ELSE "" END) AS tax_title'), 'product_variants.measurement',
-                    DB::raw('(select short_code from units where units.id = product_variants.stock_unit_id) AS stock_unit_name'))
+
+
+                $item = ProductVariant::select('product_variants.*','products.cod_allowed','products.seller_id as seller_id','products.name',
+                        'products.type as d_type','products.cod_allowed','products.slug','products.image',
+                        'products.total_allowed_quantity',
+                        DB::raw('(CASE WHEN taxes.percentage != "0" THEN taxes.percentage ELSE "0" END) AS tax_percentage'),
+                        DB::raw('(CASE WHEN taxes.title != "" THEN taxes.title ELSE "" END) AS tax_title'), 'product_variants.measurement',
+                        DB::raw('(select short_code from units where units.id = product_variants.stock_unit_id) AS stock_unit_name')
+                    )
                     ->Join('products', 'product_variants.product_id', '=', 'products.id')
                     ->leftJoin('taxes', 'products.tax_id', '=', 'taxes.id')
-                    ->where('product_variants.id', $row->product_variant_id)
+                    ->where('product_variants.id',$row->product_variant_id )
                     ->groupBy('product_variants.id')
-                    ->orderBy('created_at', 'DESC')
+                    ->orderBy('created_at','DESC')
                     ->first();
-    
-                $item = $item->makeHidden(['image', 'created_at', 'updated_at']);
-    
+                $item = $item->makeHidden(['image','created_at','updated_at']);
+
+
+
+                //$res[$key]->image = CommonHelper::getImages($res->product_id);
+                //$res[$key]->item = $item;
+
                 $res[$key]->type = $item->type;
                 $res[$key]->measurement = $item->measurement;
-    
+
                 $taxed = ProductHelper::getTaxableAmount($item->id);
-                $total_tax += $taxed->taxable_amount; // Accumulate tax
-    
-                $res[$key]->discounted_price = CommonHelper::doubleNumber($taxed->taxable_discounted_price ?? $item->discounted_price);
-                $res[$key]->price = CommonHelper::doubleNumber($taxed->taxable_price ?? $item->price);
+                /*$res[$key]->discounted_price = ($item->discounted_price != 0 && $item->discounted_price != "") ? $taxed->taxable_amount : $item->discounted_price;
+                $res[$key]->price = ($item->discounted_price == 0 || $item->discounted_price == "") ? $taxed->taxable_amount : $item->price;
+                $res[$key]->taxable_amount = $taxed->taxable_amount;*/
+
+                $res[$key]->discounted_price =  CommonHelper::doubleNumber($taxed->taxable_discounted_price?? $item->discounted_price);
+                $res[$key]->price = CommonHelper::doubleNumber($taxed->taxable_price??$item->price);
                 $res[$key]->taxable_amount = CommonHelper::doubleNumber($taxed->taxable_amount);
-    
+
                 $res[$key]->stock = $item->stock;
-                $res[$key]->images = CommonHelper::getImages($row['id'], $row->product_variant_id);
+                $res[$key]->images = CommonHelper::getImages($row['id'],$row->product_variant_id);
                 $res[$key]->total_allowed_quantity = $item->total_allowed_quantity;
                 $res[$key]->name = $item->name;
-                $res[$key]->unit_code = $item->unit->short_code ?? '';
+                $res[$key]->unit_code = $item->unit->short_code??'';
                 $res[$key]->stock_unit_name = $item->stock_unit_name;
                 $res[$key]->status = $item->status;
             }
-    
-            // Handle "Save for Later" items if needed
-            if ($request->is_checkout != 1) {
-                $result = Cart::with('images')->select('carts.*', 'products.cod_allowed', 'products.image', 'products.is_unlimited_stock',
-                    'sellers.longitude', 'sellers.latitude')
+
+            /*Save for Later*/
+            if($request->is_checkout != 1) {
+                $result = Cart::with('images')->select('carts.*','products.cod_allowed', 'products.image', 'products.is_unlimited_stock',
+                    'sellers.longitude',  'sellers.latitude')
                     ->Join('products', 'carts.product_id', '=', 'products.id')
                     ->Join('product_variants', 'carts.product_variant_id', '=', 'product_variants.id')
                     ->leftJoin('sellers', 'products.seller_id', '=', 'sellers.id')
@@ -129,44 +162,64 @@ class CartApiController extends Controller
                     ->where('user_id', '=', $user_id)
                     ->orderBy('created_at', 'DESC')
                     ->get();
-    
+                  
                 $result = $result->makeHidden(['user_id', 'id', 'save_for_later', 'type', 'stock_unit_name', 'image', 'images', 'created_at', 'updated_at', 'boundary_points']);
                 foreach ($result as $key => $rows) {
-                    if (isset($rows->max_deliverable_distance) && $rows->max_deliverable_distance != 0) {
-                        if (CommonHelper::isDeliverable($rows->max_deliverable_distance, $rows->longitude, $rows->latitude, $request->longitude, $request->latitude)) {
-                            $rows['is_deliverable'] = 1;
-                        } else {
-                            $rows['is_deliverable'] = 0;
-                        }
+
+                    /*$vertices_x = $rows->boundary_points ? array_column(json_decode($rows->boundary_points, true), "lng") : [];    // lng x-coordinates of the vertices of the polygon
+                    $vertices_y = $rows->boundary_points ? array_column(json_decode($rows->boundary_points, true), "lat") : [];    // lat y-coordinates of the vertices of the polygon
+                    $points_polygon = count($vertices_x);  // number vertices - zero-based array
+                    if (CommonHelper::isInPolygon($points_polygon, $vertices_x, $vertices_y, $request->longitude, $request->latitude)) {
+                        $rows['is_deliverable'] = 1;
                     } else {
                         $rows['is_deliverable'] = 0;
+                    }*/
+
+                    if(isset($rows->max_deliverable_distance) && $rows->max_deliverable_distance != 0 && $rows->max_deliverable_distance != ""){
+                        if(CommonHelper::isDeliverable($rows->max_deliverable_distance, $rows->longitude, $rows->latitude, $request->longitude, $request->latitude)){
+                            $rows['is_deliverable'] = 1;
+                        }else{
+                            $rows['is_deliverable'] = 0;
+                        }
+                    }else{
+                        $rows['is_deliverable'] = 0;
                     }
-    
+
                     $item = ProductVariant::select('product_variants.*', 'products.cod_allowed', 'products.seller_id as seller_id', 'products.name',
                         'products.type as d_type', 'products.cod_allowed', 'products.slug', 'products.image',
                         'products.total_allowed_quantity',
                         DB::raw('(CASE WHEN taxes.percentage != "0" THEN taxes.percentage ELSE "0" END) AS tax_percentage'),
                         DB::raw('(CASE WHEN taxes.title != "" THEN taxes.title ELSE "" END) AS tax_title'), 'product_variants.measurement',
-                        DB::raw('(select short_code from units where units.id = product_variants.stock_unit_id) AS stock_unit_name'))
+                        DB::raw('(select short_code from units where units.id = product_variants.stock_unit_id) AS stock_unit_name')
+                    )
                         ->leftJoin('products', 'product_variants.product_id', '=', 'products.id')
                         ->leftJoin('taxes', 'products.tax_id', '=', 'taxes.id')
                         ->where('product_variants.id', '=', $rows->product_variant_id)
                         ->groupBy('product_variants.id')
                         ->orderBy('created_at', 'DESC')
                         ->first();
-    
                     $item = $item->makeHidden(['image', 'created_at', 'updated_at']);
-    
+                    //$result[$key]->image = CommonHelper::getImages($request->product_id);
+                    //$result[$key]->item = $item;
+
                     $result[$key]->type = $item->type;
                     $result[$key]->measurement = $item->measurement;
-    
+
+
                     $taxed = ProductHelper::getTaxableAmount($item->id);
-                    $total_tax += $taxed->taxable_amount; // Accumulate tax for saved items
-    
-                    $result[$key]->discounted_price = CommonHelper::doubleNumber($taxed->taxable_discounted_price ?? $item->discounted_price);
-                    $result[$key]->price = CommonHelper::doubleNumber($taxed->taxable_price ?? $item->price);
+
+                    /*$result[$key]->discounted_price = $item->discounted_price;
+                    $result[$key]->price = $item->price;
+                    $result[$key]->taxable_amount = $taxed->taxable_amount;*/
+
+                    /*$result[$key]->discounted_price = ($item->discounted_price != 0 && $item->discounted_price != "") ? $taxed->taxable_amount : $item->discounted_price;
+                    $result[$key]->price = ($item->discounted_price == 0 || $item->discounted_price == "") ? $taxed->taxable_amount : $item->price;
+                    $result[$key]->taxable_amount = $taxed->taxable_amount;*/
+
+                    $result[$key]->discounted_price =  CommonHelper::doubleNumber($taxed->taxable_discounted_price??$item->discounted_price);
+                    $result[$key]->price = CommonHelper::doubleNumber($taxed->taxable_price??$item->price);
                     $result[$key]->taxable_amount = CommonHelper::doubleNumber($taxed->taxable_amount);
-    
+
                     $result[$key]->stock = $item->stock;
                     $result[$key]->images = CommonHelper::getImages($rows['id'], $rows->product_variant_id);
                     $result[$key]->total_allowed_quantity = $item->total_allowed_quantity;
@@ -176,43 +229,81 @@ class CartApiController extends Controller
                     $result[$key]->status = $item->status;
                 }
             }
-    
+
             if (!empty($res) || !empty($result)) {
+
                 $total = CommonHelper::getCartCount($user_id);
                 $sub_total = $total->total_amount;
-    
-                $saved_amount = $total->save_price - $total->total_amount;
+
+                $saved_amount =  $total->save_price -  $total->total_amount;
                 $saved_amount = ($saved_amount <= 0) ? 0 : $saved_amount;
-    
-                $response = [];
-                if (isset($request->is_checkout) && $request->is_checkout == 1) {
-                    // Additional logic for checkout can be added here
+
+                if( isset($request->is_checkout) && $request->is_checkout == 1){
+
+                    $cod_payment_method = Setting::get_value('cod_payment_method');
+                    if($cod_payment_method == 1){
+                        $cod_mode = Setting::get_value('cod_mode');
+                        if($cod_mode == Setting::$codModeGlobal){
+                            $response['cod_allowed'] = 1;
+                        }else{
+                            $codArray = array_values(array_unique(array_column($res->toArray(),'cod_allowed')));
+                            $cod_allowed = implode(',',$codArray);
+                            if($cod_allowed == 1){
+                                $response['cod_allowed'] = intval($cod_allowed);
+                            }else{
+                                $response['cod_allowed'] = 0;
+                            }
+                        }
+                    }else{
+                        $response['cod_allowed'] = 0;
+                    }
+
+                    $response['product_variant_id'] = $total->product_variant_id;
+                    $response['quantity'] = $total->quantity;
+
+                    $data = CommonHelper::getAllDeliveryCharge($request->latitude, $request->longitude, $seller_ids, $sub_total);
+
+                    //dd($data);
+
+                    if($data['status'] == 0){
+                        return CommonHelper::responseError(__('sorry_we_are_not_delivering_on_selected_address'));
+                    }else{
+
+                        $total_amount = $total->total_amount + $data['data']['total_delivery_charge'];
+
+                        if(isset($request->promocode_id) && $request->promocode_id && $request->promocode_id != ""){
+
+                            $promocode_details = CommonHelper::getValidatedPromoCode($request->promocode_id, $sub_total, $user_id);
+                            $response['promocode_details'] = $promocode_details;
+                            $total_amount = $total_amount - $promocode_details['discount'];
+                        }
+
+                        $response['delivery_charge'] = $data['data'];
+                        $response['total_amount'] = $total_amount;
+                    }
+
+
                 }
-    
-                // Include total tax in response
-                $response['total_tax'] = CommonHelper::doubleNumber($total_tax);
-    
-                // Include other data in response
                 $user_balance = CommonHelper::getUserWalletBalance($user_id);
+            
                 $response['user_balance'] = $user_balance;
                 $response['sub_total'] = $sub_total;
                 $response['saved_amount'] = $saved_amount;
-                $response['tax'] = CommonHelper::doubleNumber($total_tax); // Add tax to response
-    
-                if ($request->is_checkout != 1) {
+                $response['tax'] = 300;
+
+                if($request->is_checkout != 1){
                     $response['cart'] = $res;
                     $response['save_for_later'] = $result;
                 }
-    
+
                 return CommonHelper::responseWithData($response, $total->cart_items_count);
             } else {
                 return CommonHelper::responseError(__('no_items_found_in_users_cart'));
             }
-        } else {
+        }else{
             return CommonHelper::responseError(__('no_items_found_in_users_cart'));
         }
     }
-    
 
     public function addToCart(Request $request)
     {
@@ -230,7 +321,6 @@ class CartApiController extends Controller
         $variant_id = $request->product_variant_id;
         $qty = $request->get('qty', '');
         $user = auth()->user();
-        $total_tax = 0;
         $one_seller_cart_exist =  (int)Setting::where('variable','one_seller_cart')->exists();
         //$one_seller_cart =  (int)Setting::where('variable','one_seller_cart')->first();
         $one_seller_cart = ($one_seller_cart_exist = Setting::where('variable', 'one_seller_cart')->exists()) ? (int) Setting::where('variable', 'one_seller_cart')->value('value') : 0;
