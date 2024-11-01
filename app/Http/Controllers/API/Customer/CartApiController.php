@@ -289,7 +289,7 @@ class CartApiController extends Controller
                 $response['user_balance'] = $user_balance;
                 $response['sub_total'] = $sub_total;
                 $response['saved_amount'] = $saved_amount;
-                $response['tax'] = 300;
+                $response['tax'] = 9;
 
                 if($request->is_checkout != 1){
                     $response['cart'] = $res;
