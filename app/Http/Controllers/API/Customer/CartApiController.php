@@ -38,6 +38,7 @@ class CartApiController extends Controller
         /*$request->city_id = 1;
         $request->latitude = 23.2419997;
         $request->longitude = 69.6669324;*/
+        $totalTax = 0;
 
         $validator = Validator::make($request->all(), [
             'latitude' => 'required',
@@ -141,6 +142,9 @@ class CartApiController extends Controller
                 $res[$key]->discounted_price =  CommonHelper::doubleNumber($taxed->taxable_discounted_price?? $item->discounted_price);
                 $res[$key]->price = CommonHelper::doubleNumber($taxed->taxable_price??$item->price);
                 $res[$key]->taxable_amount = CommonHelper::doubleNumber($taxed->taxable_amount);
+
+                $itemTax = ($item->price * $item->tax_percentage) / 100; // Calculate tax for the item
+                $totalTax += $itemTax;
 
                 $res[$key]->stock = $item->stock;
                 $res[$key]->images = CommonHelper::getImages($row['id'],$row->product_variant_id);
@@ -286,12 +290,12 @@ class CartApiController extends Controller
                 }
                 
                 // **Insert Tax Calculation Here**
-                $totalTax = 0; // Initialize total tax variable
+                // $totalTax = 0; // Initialize total tax variable
 
-                foreach ($res as $item) {
-                    $itemTax = ($item->price * $item->tax_percentage) / 100; // Calculate tax for the item
-                    $totalTax += $itemTax; // Accumulate total tax
-                }
+                // foreach ($res as $item) {
+                //     $itemTax = ($item->price * $item->tax_percentage) / 100; // Calculate tax for the item
+                //     $totalTax += $itemTax; // Accumulate total tax
+                // }
 
                 $user_balance = CommonHelper::getUserWalletBalance($user_id);
             
