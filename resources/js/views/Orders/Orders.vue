@@ -85,6 +85,11 @@
                                 </button>
                             </b-col>
                         </div>
+                        <div>
+                            <button @click="downloadOrders" class="btn btn-primary">
+                             Download Orders
+                            </button>
+                        </div>
                         <div class="table-responsive mt-3">
                         <b-table
                             responsive="sm"
@@ -179,6 +184,8 @@
 import DateRangePicker from 'vue2-daterange-picker'
 import moment from "moment";
 import axios from "axios";
+import * as XLSX from 'xlsx';
+
 export default {
     name: "range_dates",
     components: {DateRangePicker},
@@ -292,6 +299,62 @@ export default {
       //this.deliveryDateRange = { startDate, endDate };
       return [startDate, endDate];
     },
+    downloadOrders() {
+    this.isLoading = true;  // Show loading indicator
+
+    const param = {
+        "startDate": (this.dateRange.startDate != null && moment(this.dateRange.startDate).isValid()) ? moment(this.dateRange.startDate).format('YYYY-MM-DD') : "",
+        "endDate": (this.dateRange.endDate != null && moment(this.dateRange.endDate).isValid()) ? moment(this.dateRange.endDate).format('YYYY-MM-DD') : "",
+        startDeliveryDate: (this.deliveryDateRange.startDate != null && moment(this.deliveryDateRange.startDate).isValid()) ? moment(this.deliveryDateRange.startDate).format('YYYY-MM-DD') : '',
+        endDeliveryDate: (this.deliveryDateRange.endDate != null && moment(this.deliveryDateRange.endDate).isValid()) ? moment(this.deliveryDateRange.endDate).format('YYYY-MM-DD') : '',
+        "seller": this.seller,
+        "status": this.status,
+        search: this.search
+    };
+
+    axios.get(this.$apiUrl + '/orders', {
+        params: {
+            ...param,
+            page: 1, // Always get the first page to fetch all orders
+            per_page: 1000 // Use a high number to fetch all orders (or adjust as needed)
+        }
+    }).then((response) => {
+        const ordersData = response.data.data.orders.map(order => ({
+            ID: order.id,
+            User: order.user_name,
+            Seller: order.seller_name,
+            Mobile: order.mobile,
+            Total: order.total,
+            DeliveryCharge: order.delivery_charge,
+            WalletUsed: order.wallet_balance,
+            FinalTotal: order.final_total,
+            PaymentMethod: order.payment_method,
+            DeliveryTime: order.delivery_time,
+        }));
+
+        // Create a new workbook and a worksheet
+        const worksheet = XLSX.utils.json_to_sheet(ordersData);
+        const workbook = XLSX.utils.book_new();
+
+        // Append the worksheet to the workbook
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Orders");
+
+        // Generate the file and trigger the download
+        XLSX.writeFile(workbook, "orders.xlsx");
+    }).catch(error => {
+        this.isLoading = false; // Hide loading indicator on error
+        if (error?.request?.statusText) {
+            this.showError(error.request.statusText);
+        } else if (error.message) {
+            this.showError(error.message);
+        } else {
+            this.showError(__('something_went_wrong'));
+        }
+    }).finally(() => {
+        this.isLoading = false; // Ensure loading is hidden after operation
+    });
+}
+,
     getYesterdayRange() {
       let endDate = new Date();
       endDate.setDate(endDate.getDate() - 1); // Yesterday
