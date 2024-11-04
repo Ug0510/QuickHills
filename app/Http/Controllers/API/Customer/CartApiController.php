@@ -284,12 +284,21 @@ class CartApiController extends Controller
 
 
                 }
+                
+                // **Insert Tax Calculation Here**
+                $totalTax = 0; // Initialize total tax variable
+
+                foreach ($res as $item) {
+                    $itemTax = ($item->price * $item->tax_percentage) / 100; // Calculate tax for the item
+                    $totalTax += $itemTax; // Accumulate total tax
+                }
+
                 $user_balance = CommonHelper::getUserWalletBalance($user_id);
             
                 $response['user_balance'] = $user_balance;
                 $response['sub_total'] = $sub_total;
                 $response['saved_amount'] = $saved_amount;
-                $response['tax'] = 9;
+                $response['tax'] = $totalTax;
 
                 if($request->is_checkout != 1){
                     $response['cart'] = $res;
