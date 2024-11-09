@@ -372,6 +372,7 @@ class OrdersApiController extends Controller
             }
 
             $final_total = floatval($order->final_total);
+            $delivery_charge = floatval($order->delivery_charge);
 
             $bonus_type = $deliveryBoy->bonus_type;
             $bonus_details['final_total'] = $final_total;
@@ -383,7 +384,7 @@ class OrdersApiController extends Controller
                 $bonus_min_amount = floatval($deliveryBoy->bonus_min_amount);
                 $bonus_max_amount = floatval($deliveryBoy->bonus_max_amount);
 
-                $bonus_amount = floatval( ($final_total *  $bonus_percentage)/100);
+                $bonus_amount = floatval( ($delivery_charge *  $bonus_percentage)/100);
 
                 if($bonus_amount < $bonus_min_amount && $bonus_min_amount != 0){
                     $bonus_amount = $bonus_min_amount;
