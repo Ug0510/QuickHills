@@ -2,18 +2,19 @@
     <div>
         <div class="page-heading">
             <div class="row">
-            <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>{{ __('manage_sellers') }}</h3>
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>{{ __('manage_sellers') }}</h3>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><router-link to="/dashboard">{{ __('dashboard') }}</router-link>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ __('manage_sellers') }}</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
-            <div class="col-12 col-md-6 order-md-2 order-first">
-                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><router-link to="/dashboard">{{ __('dashboard') }}</router-link></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{ __('manage_sellers') }}</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
             <div class="row">
                 <div class="col-12 col-md-12 order-md-1 order-last">
                     <div class="card">
@@ -21,7 +22,9 @@
                             <h4>{{ __('sellers') }}</h4>
                             <span class="pull-right">
                                 <!-- <a href="javascript:void(0)" @click="updateSellerCommission()" class="btn btn-primary" v-b-tooltip.hover  title="If you found seller commission not crediting using cron job you can update seller commission from here!">Update seller commission</a> -->
-                                <router-link to="/sellers/create" class="btn btn-primary" v-b-tooltip.hover  title="Add New Seller" v-if="$can('seller_create')">{{ __('add_seller') }}</router-link>
+                                <router-link to="/sellers/create" class="btn btn-primary" v-b-tooltip.hover
+                                    title="Add New Seller" v-if="$can('seller_create')">{{ __('add_seller')
+                                    }}</router-link>
                             </span>
                         </div>
                         <div class="card-body">
@@ -30,8 +33,10 @@
                                 <b-col md="3">
 
                                     <div class="form-group">
-                                        <h6 for="filterStatus">Filter Seller by Status {{ __('filter_seller_by_status') }}</h6>
-                                        <select id="filterStatus" name="filterStatus" v-model="filterStatus" @change="getRecords()" class="form-control form-select">
+                                        <h6 for="filterStatus">Filter Seller by Status {{ __('filter_seller_by_status')
+                                            }}</h6>
+                                        <select id="filterStatus" name="filterStatus" v-model="filterStatus"
+                                            @change="getRecords()" class="form-control form-select">
                                             <option value=""> {{ __('all') }}</option>
                                             <option value="0"> {{ __('registered') }}</option>
                                             <option value="1"> {{ __('approve') }}</option>
@@ -43,107 +48,100 @@
                                 </b-col>
                                 <b-col md="3" offset-md="5">
                                     <h6 class="box-title">{{ __('search') }}</h6>
-                                    <b-form-input
-                                        id="filter-input"
-                                        v-model="filter"
-                                        type="search"
-                                        placeholder="Search"
-                                    ></b-form-input>
+                                    <b-form-input id="filter-input" v-model="filter" type="search"
+                                        placeholder="Search"></b-form-input>
                                 </b-col>
                                 <b-col md="1" class="text-center">
-                                    <button class="btn btn-primary btn_refresh" v-b-tooltip.hover :title="__('refresh')" @click="getRecords()">
+                                    <button class="btn btn-primary btn_refresh" v-b-tooltip.hover :title="__('refresh')"
+                                        @click="getRecords()">
                                         <i class="fa fa-refresh" aria-hidden="true"></i>
                                     </button>
                                 </b-col>
-                            </b-row>
-                            <b-row class="table-responsive">
-                            <b-table
-                                :items="records"
-                                :fields="fields"
-                                :current-page="currentPage"
-                                :per-page="perPage"
-                                :filter="filter"
-                                :filter-included-fields="filterOn"
-                                :sort-by.sync="sortBy"
-                                :sort-desc.sync="sortDesc"
-                                :sort-direction="sortDirection"
-                                :bordered="true"
-                                :busy="isLoading"
-                                stacked="md"
-                                show-empty
-                                small>
-                                <template #table-busy>
-                                    <div class="text-center text-black my-2">
-                                        <b-spinner class="align-middle"></b-spinner>
-                                        <strong>{{ __('loading') }}...</strong>
-                                    </div>
-                                </template>
-
-                                <template #cell(email)="row">
-                                    {{ row.item.email | emailMask }}
-                                </template>
-                                <template #cell(mobile)="row">
-                                    {{ row.item.mobile | mobileMask }}
-                                </template>
-
-                                <template #cell(logo)="row">
-                                    <span v-if="!row.item.logo"> {{ __('no_image') }}</span>
-                                    <img v-else :src="$storageUrl + row.item.logo" height="50" />
-                                </template>
-                                <template #cell(catWiseEditCommission)="row">
-                                    <button class="btn btn-sm btn-primary" @click="edit_record = row.item" v-if="$can('seller_update')"><i class="fa fa-edit"></i></button>
-                                </template>
-
-                                <template #cell(status)="row">
-                                    <label v-if="row.item.status == 0" class='badge bg-primary'>{{ __('registered') }}</label>
-                                    <label v-else-if="row.item.status == 1" class='badge bg-success'>{{ __('approved') }}</label>
-                                    <label v-else-if="row.item.status == 2" class='badge bg-warning'>{{ __('not_approved') }}</label>
-                                    <label v-else-if="row.item.status == 3" class='badge bg-danger'> {{ __('deactive') }}</label>
-                                    <label v-else-if="row.item.status == 7" class='badge bg-danger'> {{ __('removed') }}</label>
-                                </template>
-                                <template #cell(require_products_approval)="row">
-                                    <label v-if="row.item.require_products_approval == 1" class='badge bg-success'> {{ __('yes') }}</label>
-                                    <label v-else-if="row.item.require_products_approval == 0" class='badge bg-danger'> {{ __('no') }}</label>
-                                </template>
-                                <template #cell(actions)="row">
-                                    <router-link :to="{ name: 'EditSeller',params: { id: row.item.id, record : row.item }}" v-b-tooltip.hover title="Edit" class="btn btn-primary btn-sm" v-if="$can('seller_update')" v-b-tooltip.hover :title="__('edit')">
-                                        <i class="fa fa-pencil-alt"></i>
-                                    </router-link>
-                                    <button class="btn btn-sm btn-danger" @click="deleteSeller(row.index,row.item.id)" v-if="$can('seller_delete')" v-b-tooltip.hover :title="__('delete')">
-                                        <i class="fa fa-trash"></i>
+                                <!-- Add the download button to export data -->
+                                <div class="text-center d-flex justify-content-start mb-2 mt-0 pt-0">
+                                    <button class="btn btn-primary btn_refresh" v-b-tooltip.hover
+                                        :title="__('download')" @click="downloadSellers">
+                                        <i class="fa fa-download" aria-hidden="true"></i> Download Sellers
                                     </button>
-                                </template>
+                                </div>
+                            </b-row>
+                            
+                           
+                            <b-row class="table-responsive">
+                                <b-table :items="records" :fields="fields" :current-page="currentPage"
+                                    :per-page="perPage" :filter="filter" :filter-included-fields="filterOn"
+                                    :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :sort-direction="sortDirection"
+                                    :bordered="true" :busy="isLoading" stacked="md" show-empty small>
+                                    <template #table-busy>
+                                        <div class="text-center text-black my-2">
+                                            <b-spinner class="align-middle"></b-spinner>
+                                            <strong>{{ __('loading') }}...</strong>
+                                        </div>
+                                    </template>
 
-                            </b-table>
+                                    <template #cell(email)="row">
+                                        {{ row.item.email | emailMask }}
+                                    </template>
+                                    <template #cell(mobile)="row">
+                                        {{ row.item.mobile | mobileMask }}
+                                    </template>
+
+                                    <template #cell(logo)="row">
+                                        <span v-if="!row.item.logo"> {{ __('no_image') }}</span>
+                                        <img v-else :src="$storageUrl + row.item.logo" height="50" />
+                                    </template>
+                                    <template #cell(catWiseEditCommission)="row">
+                                        <button class="btn btn-sm btn-primary" @click="edit_record = row.item"
+                                            v-if="$can('seller_update')"><i class="fa fa-edit"></i></button>
+                                    </template>
+
+                                    <template #cell(status)="row">
+                                        <label v-if="row.item.status == 0" class='badge bg-primary'>{{ __('registered')
+                                            }}</label>
+                                        <label v-else-if="row.item.status == 1" class='badge bg-success'>{{
+                                            __('approved') }}</label>
+                                        <label v-else-if="row.item.status == 2" class='badge bg-warning'>{{
+                                            __('not_approved') }}</label>
+                                        <label v-else-if="row.item.status == 3" class='badge bg-danger'> {{
+                                            __('deactive') }}</label>
+                                        <label v-else-if="row.item.status == 7" class='badge bg-danger'> {{
+                                            __('removed') }}</label>
+                                    </template>
+                                    <template #cell(require_products_approval)="row">
+                                        <label v-if="row.item.require_products_approval == 1" class='badge bg-success'>
+                                            {{ __('yes') }}</label>
+                                        <label v-else-if="row.item.require_products_approval == 0"
+                                            class='badge bg-danger'> {{ __('no') }}</label>
+                                    </template>
+                                    <template #cell(actions)="row">
+                                        <router-link
+                                            :to="{ name: 'EditSeller', params: { id: row.item.id, record: row.item } }"
+                                            v-b-tooltip.hover title="Edit" class="btn btn-primary btn-sm"
+                                            v-if="$can('seller_update')" v-b-tooltip.hover :title="__('edit')">
+                                            <i class="fa fa-pencil-alt"></i>
+                                        </router-link>
+                                        <button class="btn btn-sm btn-danger"
+                                            @click="deleteSeller(row.index, row.item.id)" v-if="$can('seller_delete')"
+                                            v-b-tooltip.hover :title="__('delete')">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </template>
+
+                                </b-table>
                             </b-row>
 
                             <b-row>
-                                <b-col  md="2" class="my-1">
-                                    <b-form-group
-                                        :label="__('per_page')"
-                                        label-for="per-page-select"
-                                        label-align-sm="right"
-                                        label-size="sm"
-                                        class="mb-0">
-                                        <b-form-select
-                                            id="per-page-select"
-                                            v-model="perPage"
-                                            :options="pageOptions"
-                                            size="sm"
-                                            class="form-control form-select"
-                                        ></b-form-select>
+                                <b-col md="2" class="my-1">
+                                    <b-form-group :label="__('per_page')" label-for="per-page-select"
+                                        label-align-sm="right" label-size="sm" class="mb-0">
+                                        <b-form-select id="per-page-select" v-model="perPage" :options="pageOptions"
+                                            size="sm" class="form-control form-select"></b-form-select>
                                     </b-form-group>
                                 </b-col>
-                                <b-col  md="4" class="my-1" offset-md="6">
-                                    <label>{{__('total_records')}} :- {{ totalRows }} </label>
-                                    <b-pagination
-                                        v-model="currentPage"
-                                        :total-rows="totalRows"
-                                        :per-page="perPage"
-                                        align="fill"
-                                        size="sm"
-                                        class="my-0"
-                                    ></b-pagination>
+                                <b-col md="4" class="my-1" offset-md="6">
+                                    <label>{{ __('total_records') }} :- {{ totalRows }} </label>
+                                    <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage"
+                                        align="fill" size="sm" class="my-0"></b-pagination>
                                 </b-col>
                             </b-row>
 
@@ -153,35 +151,33 @@
             </div>
         </div>
         <!-- Add / Edit -->
-        <app-edit-record
-            v-if="edit_record"
-            :record="edit_record"
-            @modalClose="hideModal()"
-        ></app-edit-record>
+        <app-edit-record v-if="edit_record" :record="edit_record" @modalClose="hideModal()"></app-edit-record>
     </div>
 </template>
 <script>
 import EditRecord from './Commissions/Edit.vue';
+import * as XLSX from 'xlsx'; 
+
 export default {
     components: {
-        'app-edit-record' : EditRecord,
+        'app-edit-record': EditRecord,
     },
-    data: function() {
+    data: function () {
         return {
             fields: [
-                { key: 'id', label:  __('id') , sortable: true, sortDirection: 'desc' },
-                { key: 'name', label:  __('name'), class: 'text-center', sortable: true, sortDirection: 'desc' },
-                { key: 'store_name', label:  __('store_name'), class: 'text-center', sortable: true, sortDirection: 'desc' },
-                { key: 'email', label:  __('email'), class: 'text-center', sortable: true, sortDirection: 'desc' },
-                { key: 'mobile', label:  __('mobile'), class: 'text-center', sortable: true, sortDirection: 'desc' },
-                { key: 'balance', label:  __('balance'), class: 'text-center', sortable: true, sortDirection: 'desc' },
-                { key: 'logo', label:  __('logo'), class: 'text-center', sortable: true, sortDirection: 'desc' },
-                { key: 'commission', label:  __('commission'), class: 'text-center', sortable: true, sortDirection: 'desc' },
-                { key: 'categories_array', label:  __('categories'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'id', label: __('id'), sortable: true, sortDirection: 'desc' },
+                { key: 'name', label: __('name'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'store_name', label: __('store_name'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'email', label: __('email'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'mobile', label: __('mobile'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'balance', label: __('balance'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'logo', label: __('logo'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'commission', label: __('commission'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'categories_array', label: __('categories'), class: 'text-center', sortable: true, sortDirection: 'desc' },
                 // { key: 'catWiseEditCommission', label: 'Cat. Wise Comm.', class: 'text-center'},
-                { key: 'status', label:  __('status'), class: 'text-center', sortable: true, sortDirection: 'desc' },
-                { key: 'require_products_approval', label:  __('require_products_approval'), class: 'text-center', sortable: true, sortDirection: 'desc' },
-                { key: 'actions', label:  __('action') }
+                { key: 'status', label: __('status'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'require_products_approval', label: __('require_products_approval'), class: 'text-center', sortable: true, sortDirection: 'desc' },
+                { key: 'actions', label: __('action') }
             ],
             totalRows: 1,
             currentPage: 1,
@@ -195,15 +191,15 @@ export default {
             page: 1,
 
             isLoading: false,
-            sectionStyle : 'style_1',
-            max_visible_units : 12,
-            max_col_in_single_row : 3,
+            sectionStyle: 'style_1',
+            max_visible_units: 12,
+            max_col_in_single_row: 3,
             records: [],
-            edit_record : null,
-            filterStatus : ""
+            edit_record: null,
+            filterStatus: ""
         }
     },
-    created: function() {
+    created: function () {
         this.category_id = this.$route.params.id;
         this.$eventBus.$on('recordSaved', (message) => {
             this.showMessage('success', message);
@@ -216,21 +212,53 @@ export default {
         this.getRecords();
     },
     methods: {
-        getRecords(){
+        getRecords() {
             this.isLoading = true;
             //axios.get(this.$apiUrl + '/sellers/'+this.filterStatus)
             axios.get(this.$apiUrl + '/sellers', {
                 params: {
-                        filterStatus: this.filterStatus
+                    filterStatus: this.filterStatus
                 }
             }).then((response) => {
-                    this.isLoading = false
-                    let data = response.data;
-                    this.records = data.data;
-                    this.totalRows = this.records.length
-                });
-            },
-        deleteSeller(index, id){
+                this.isLoading = false
+                let data = response.data;
+                this.records = data.data;
+                this.totalRows = this.records.length
+            });
+        },
+        downloadSellers() {
+    this.isLoading = true;
+    // Make an API call without pagination parameters to fetch all sellers
+    axios.get(this.$apiUrl + '/sellers', {
+        params: {
+            filterStatus: this.filterStatus,
+            // You can add any other filtering parameters you are using
+        }
+    }).then((response) => {
+        this.isLoading = false;
+        let data = response.data.data;
+
+        // Check if we have data, then convert it to XLSX format
+        if (data && data.length > 0) {
+            const ws = XLSX.utils.json_to_sheet(data);  // Convert the data to worksheet
+            const wb = XLSX.utils.book_new();  // Create a new workbook
+            XLSX.utils.book_append_sheet(wb, ws, 'Sellers');  // Append sheet to workbook
+
+            // Generate the file name based on the filter
+            const fileName = `sellers_${this.filterStatus || 'all'}.xlsx`;
+
+            // Trigger download of the file
+            XLSX.writeFile(wb, fileName);
+        } else {
+            this.showMessage('warning', __('No data available for export.'));
+        }
+    }).catch(error => {
+        this.isLoading = false;
+        console.error("Error fetching data for download", error);
+        this.showMessage('error', __('Error fetching data.'));
+    });
+},
+        deleteSeller(index, id) {
             this.$swal.fire({
                 title: "Are you Sure?",
                 text: "You want be able to revert this",
@@ -244,9 +272,9 @@ export default {
                 if (result.value) {
                     this.isLoading = true
                     let postData = {
-                        id : id
+                        id: id
                     }
-                    axios.post(this.$apiUrl + '/sellers/delete',postData)
+                    axios.post(this.$apiUrl + '/sellers/delete', postData)
                         .then((response) => {
                             this.isLoading = false
                             let data = response.data;
@@ -257,7 +285,7 @@ export default {
                 }
             });
         },
-        updateSellerCommission(){
+        updateSellerCommission() {
             this.$swal.fire({
                 title: "Are you sure you want to credit seller commission?",
                 text: "You want be able to revert this",
@@ -276,7 +304,7 @@ export default {
                             if (data.status === 1) {
                                 //this.showSuccess(data.message)
                                 this.showMessage('success', data.message);
-                            }else{
+                            } else {
                                 this.showError(data.message);
                             }
                             this.isLoading = false

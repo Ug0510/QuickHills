@@ -166,7 +166,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <!-- <div class="form-group col-md-4">
                                         <label>{{__('commission')}}<i class="text-danger">*</i></label>
                                         <input type="number" class="form-control" v-model="commission"
                                                placeholder="Enter commission (%)" @input="validateCommission">
@@ -175,7 +175,7 @@
                                             <a href="javascript:void(0)" @click="commissionRule = true"
                                                title="How it works">How seller commission works?</a>
                                         </span>
-                                    </div>
+                                    </div> -->
                                     <br>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">

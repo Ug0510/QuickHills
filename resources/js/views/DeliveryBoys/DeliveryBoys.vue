@@ -9,7 +9,8 @@
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><router-link to="/dashboard">{{ __('dashboard') }}</router-link></li>
+                                <li class="breadcrumb-item"><router-link to="/dashboard">{{ __('dashboard')
+                                        }}</router-link></li>
                                 <li class="breadcrumb-item active" aria-current="page"> {{ __('delivery_boys') }}</li>
                             </ol>
                         </nav>
@@ -21,8 +22,10 @@
                     <div class="card-header">
                         <h4 class="card-title"> {{ __('delivery_boys') }}</h4>
                         <span class="pull-right">
-                            <router-link to="/delivery_boys/create" class="btn btn-primary" v-b-tooltip.hover  title="Add New Seller" v-if="$can('delivery_boy_create')">Add Delivery boys{{ __('add_delivery_boys') }}</router-link>
-<!--                            <button class="btn btn-primary"  @click="create_new=true" v-if="$can('delivery_boy_create')">Add</button>-->
+                            <router-link to="/delivery_boys/create" class="btn btn-primary" v-b-tooltip.hover
+                                title="Add New Seller" v-if="$can('delivery_boy_create')">Add Delivery boys{{
+                                    __('add_delivery_boys') }}</router-link>
+                            <!--                            <button class="btn btn-primary"  @click="create_new=true" v-if="$can('delivery_boy_create')">Add</button>-->
                         </span>
                     </div>
                     <div class="card-body">
@@ -32,7 +35,8 @@
 
                                 <div class="form-group">
                                     <h6 for="filterStatus"> {{ __('filter_delivery_boy_by_status') }}</h6>
-                                    <select id="filterStatus" name="filterStatus" v-model="filterStatus" @change="getDeliveryBoys()" class="form-control form-select">
+                                    <select id="filterStatus" name="filterStatus" v-model="filterStatus"
+                                        @change="getDeliveryBoys()" class="form-control form-select">
                                         <option value="">{{ __('all') }}</option>
                                         <option value="0">{{ __('registered') }}</option>
                                         <option value="1">{{ __('approved') }}</option>
@@ -45,129 +49,120 @@
 
                             <b-col md="3" offset-md="5">
                                 <h6 class="box-title">{{ __('search') }}</h6>
-                                <b-form-input
-                                    id="filter-input"
-                                    v-model="filter"
-                                    type="search"
-                                    placeholder="Search"
-                                ></b-form-input>
+                                <b-form-input id="filter-input" v-model="filter" type="search"
+                                    placeholder="Search"></b-form-input>
                             </b-col>
                             <b-col md="1" class="text-center">
-                                <button class="btn btn-primary btn_refresh" v-b-tooltip.hover :title="__('refresh')" @click="getDeliveryBoys()">
+                                <button class="btn btn-primary btn_refresh" v-b-tooltip.hover :title="__('refresh')"
+                                    @click="getDeliveryBoys()">
                                     <i class="fa fa-refresh" aria-hidden="true"></i>
                                 </button>
                             </b-col>
+                            <!-- Download Button -->
+                            <div class="d-flex justify-content-start">
+                                <button class="btn btn-success" v-b-tooltip.hover :title="__('download')"
+                                    @click="downloadExcel">
+                                    <i class="fa fa-download" aria-hidden="true"></i> Download DeliveryBoys List
+                                </button>
+                            </div>
                         </b-row>
                         <div class="table-responsive">
-                        <b-table
-                            :items="deliveryBoys"
-                            :fields="fields"
-                            :current-page="currentPage"
-                            :per-page="perPage"
-                            :filter="filter"
-                            :filter-included-fields="filterOn"
-                            :sort-by.sync="sortBy"
-                            :sort-desc.sync="sortDesc"
-                            :sort-direction="sortDirection"
-                            :bordered="true"
-                            :busy="isLoading"
-                            stacked="md"
-                            show-empty
-                            small>
+                            <b-table :items="deliveryBoys" :fields="fields" :current-page="currentPage"
+                                :per-page="perPage" :filter="filter" :filter-included-fields="filterOn"
+                                :sort-by.sync="sortBy" :sort-desc.sync="sortDesc" :sort-direction="sortDirection"
+                                :bordered="true" :busy="isLoading" stacked="md" show-empty small>
 
-                            <template #table-busy>
-                                <div class="text-center text-black my-2">
-                                    <b-spinner class="align-middle"></b-spinner>
-                                    <strong>{{ __('loading') }}...</strong>
-                                </div>
-                            </template>
-                            <template #head(balance)="row">
-                                {{ __('balance') }}{{' ('+$currency+')' }}
-                            </template>
-                            <template #head(cash_received)="row">
-                               {{ __('cash_received') }} {{'('+$currency+')' }}
-                            </template>
+                                <template #table-busy>
+                                    <div class="text-center text-black my-2">
+                                        <b-spinner class="align-middle"></b-spinner>
+                                        <strong>{{ __('loading') }}...</strong>
+                                    </div>
+                                </template>
+                                <template #head(balance)="row">
+                                    {{ __('balance') }}{{ ' (' + $currency + ')' }}
+                                </template>
+                                <template #head(cash_received)="row">
+                                    {{ __('cash_received') }} {{ '(' + $currency + ')' }}
+                                </template>
 
-                            <template #cell(mobile)="row">
-                                {{ row.item.mobile | mobileMask }}
-                            </template>
+                                <template #cell(mobile)="row">
+                                    {{ row.item.mobile | mobileMask }}
+                                </template>
 
-                            <template #cell(bonus_percentage)="row">
-                                <small :id="'bonus'+row.item.id" class="d-inline-flex mb-3 px-2 py-1 text-muted bg-secondary bg-opacity-10 border border-secondary border-opacity-10 rounded-2">
-                                    <i class="fa fa-info-circle"></i>
-                                </small>
-                                <b-popover :target="'bonus'+row.item.id" triggers="hover" placement="left">
-                                    <template #title>
-                                        {{ __('bonus_details') }}
-                                    </template>
-                                    <table class="table table-borderless">
-                                        <tr>
-                                            <th>{{ __('bonus_type') }}</th>
-                                            <td class="text-center">{{ row.item.bonus_type === 1?"Commission":"Fixed/Salaried" }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>{{ __('min_amount') }} ({{ $currency }})</th>
-                                            <td class="text-end">{{ row.item.bonus_min_amount }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>{{ __('max_amount') }} ({{ $currency }})</th>
-                                            <td class="text-end">{{ row.item.bonus_max_amount }}</td>
-                                        </tr>
-                                    </table>
-                                </b-popover>
-                                {{ row.item.bonus_percentage }}
-                            </template>
+                                <template #cell(bonus_percentage)="row">
+                                    <small :id="'bonus' + row.item.id"
+                                        class="d-inline-flex mb-3 px-2 py-1 text-muted bg-secondary bg-opacity-10 border border-secondary border-opacity-10 rounded-2">
+                                        <i class="fa fa-info-circle"></i>
+                                    </small>
+                                    <b-popover :target="'bonus' + row.item.id" triggers="hover" placement="left">
+                                        <template #title>
+                                            {{ __('bonus_details') }}
+                                        </template>
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <th>{{ __('bonus_type') }}</th>
+                                                <td class="text-center">{{ row.item.bonus_type ===
+                                                    1 ? "Commission" : "Fixed/Salaried" }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>{{ __('min_amount') }} ({{ $currency }})</th>
+                                                <td class="text-end">{{ row.item.bonus_min_amount }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>{{ __('max_amount') }} ({{ $currency }})</th>
+                                                <td class="text-end">{{ row.item.bonus_max_amount }}</td>
+                                            </tr>
+                                        </table>
+                                    </b-popover>
+                                    {{ row.item.bonus_percentage }}
+                                </template>
 
-                            <template #cell(status)="row">
-                                <label v-if="row.item.status == 0" class='badge bg-primary'>{{ __('registered') }}</label>
-                                <label v-else-if="row.item.status == 1" class='badge bg-success'>{{ __('active') }}</label>
-                                <label v-else-if="row.item.status == 2" class='badge bg-warning'>{{ __('not_approved') }}</label>
-                                <label v-else-if="row.item.status == 3" class='badge bg-danger'>{{ __('deactive') }}</label>
-                                <label v-else-if="row.item.status == 7" class='badge bg-danger'>{{ __('removed') }}</label>
-                            </template>
+                                <template #cell(status)="row">
+                                    <label v-if="row.item.status == 0" class='badge bg-primary'>{{ __('registered')
+                                        }}</label>
+                                    <label v-else-if="row.item.status == 1" class='badge bg-success'>{{ __('active')
+                                        }}</label>
+                                    <label v-else-if="row.item.status == 2" class='badge bg-warning'>{{
+                                        __('not_approved') }}</label>
+                                    <label v-else-if="row.item.status == 3" class='badge bg-danger'>{{ __('deactive')
+                                        }}</label>
+                                    <label v-else-if="row.item.status == 7" class='badge bg-danger'>{{ __('removed')
+                                        }}</label>
+                                </template>
 
-                            <template #cell(is_available)="row">
-                                <span v-if="row.item.status == 1" class="badge bg-success">{{ __('yes') }}</span>
-                                <span v-else class="badge bg-danger">{{ __('no') }}</span>
-                            </template>
+                                <template #cell(is_available)="row">
+                                    <span v-if="row.item.status == 1" class="badge bg-success">{{ __('yes') }}</span>
+                                    <span v-else class="badge bg-danger">{{ __('no') }}</span>
+                                </template>
 
-                            <template #cell(actions)="row">
-                                <router-link :to="{ name: 'EditDeliveryBoy',params: { id: row.item.id, record : row.item }}" v-b-tooltip.hover title="Edit" class="btn btn-primary btn-sm" v-if="$can('seller_update')" v-b-tooltip.hover :title="__('edit')">
-                                    <i class="fa fa-pencil-alt"></i>
-                                </router-link>
+                                <template #cell(actions)="row">
+                                    <router-link
+                                        :to="{ name: 'EditDeliveryBoy', params: { id: row.item.id, record: row.item } }"
+                                        v-b-tooltip.hover title="Edit" class="btn btn-primary btn-sm"
+                                        v-if="$can('seller_update')" v-b-tooltip.hover :title="__('edit')">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </router-link>
 
-<!--                                <button class="btn btn-sm btn-primary" @click="edit_record = row.item" v-if="$can('delivery_boy_update')" v-b-tooltip.hover :title="__('edit')"><i class="fa fa-pencil-alt"></i></button>-->
-                                <button class="btn btn-sm btn-danger" @click="deleteDeliveryBoys(row.index,row.item.id)" v-if="$can('delivery_boy_delete')" v-b-tooltip.hover :title="__('delete')"><i class="fa fa-trash"></i></button>
-                            </template>
+                                    <!--                                <button class="btn btn-sm btn-primary" @click="edit_record = row.item" v-if="$can('delivery_boy_update')" v-b-tooltip.hover :title="__('edit')"><i class="fa fa-pencil-alt"></i></button>-->
+                                    <button class="btn btn-sm btn-danger"
+                                        @click="deleteDeliveryBoys(row.index, row.item.id)"
+                                        v-if="$can('delivery_boy_delete')" v-b-tooltip.hover :title="__('delete')"><i
+                                            class="fa fa-trash"></i></button>
+                                </template>
 
-                        </b-table>
+                            </b-table>
                         </div>
                         <b-row>
-                            <b-col  md="2" class="my-1">
-                                <b-form-group
-                                    :label="__('per_page')"
-                                    label-for="per-page-select"
-                                    label-align-sm="right"
-                                    label-size="sm"
-                                    class="mb-0">
-                                    <b-form-select
-                                        id="per-page-select"
-                                        v-model="perPage"
-                                        :options="pageOptions"
-                                        size="sm"
-                                        class="form-control form-select"
-                                    ></b-form-select>
+                            <b-col md="2" class="my-1">
+                                <b-form-group :label="__('per_page')" label-for="per-page-select" label-align-sm="right"
+                                    label-size="sm" class="mb-0">
+                                    <b-form-select id="per-page-select" v-model="perPage" :options="pageOptions"
+                                        size="sm" class="form-control form-select"></b-form-select>
                                 </b-form-group>
                             </b-col>
-                            <b-col  md="4" class="my-1" offset-md="6">
-                                <b-pagination
-                                    v-model="currentPage"
-                                    :total-rows="totalRows"
-                                    :per-page="perPage"
-                                    align="fill"
-                                    size="sm"
-                                    class="my-0"
-                                ></b-pagination>
+                            <b-col md="4" class="my-1" offset-md="6">
+                                <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage"
+                                    align="fill" size="sm" class="my-0"></b-pagination>
                             </b-col>
                         </b-row>
 
@@ -176,32 +171,30 @@
             </section>
         </div>
         <!-- Add / Edit -->
-        <app-edit-record
-            v-if="create_new || edit_record"
-            :record="edit_record"
-            @modalClose="hideModal()"
-        ></app-edit-record>
+        <app-edit-record v-if="create_new || edit_record" :record="edit_record"
+            @modalClose="hideModal()"></app-edit-record>
     </div>
 </template>
 <script>
 import EditRecord from './Edit';
+import * as XLSX from 'xlsx';
 export default {
     components: {
-        'app-edit-record' : EditRecord,
+        'app-edit-record': EditRecord,
     },
-    data: function() {
+    data: function () {
         return {
             fields: [
-                { key: 'id', label:  __('id') , sortable: true, sortDirection: 'desc' },
-                { key: 'name', label:  __('name') , sortable: true, class: 'text-center' },
+                { key: 'id', label: __('id'), sortable: true, sortDirection: 'desc' },
+                { key: 'name', label: __('name'), sortable: true, class: 'text-center' },
                 { key: 'mobile', label: __('mobile'), sortable: true, class: 'text-center' },
-                { key: 'address', label: __('address'), sortable: true,  class: 'text-center' },
+                { key: 'address', label: __('address'), sortable: true, class: 'text-center' },
                 { key: 'bonus_percentage', label: __('bonus'), sortable: true, class: 'text-center' },
-                { key: 'balance', label: __('balance'), sortable: true,  class: 'text-center' },
-                { key: 'cash_received', label: __('cash_received'), sortable: true,  class: 'text-center' },
-                { key: 'other_payment_information', sortable: true, label: __('other_payment_information'),  class: 'text-center' },
+                { key: 'balance', label: __('balance'), sortable: true, class: 'text-center' },
+                { key: 'cash_received', label: __('cash_received'), sortable: true, class: 'text-center' },
+                { key: 'other_payment_information', sortable: true, label: __('other_payment_information'), class: 'text-center' },
                 { key: 'status', label: __('status'), sortable: true, class: 'text-center' },
-                { key: 'is_available', label: __('available'),  class: 'text-center' },
+                { key: 'is_available', label: __('available'), class: 'text-center' },
                 { key: 'actions', label: __('actions') }
             ],
             totalRows: 1,
@@ -216,18 +209,18 @@ export default {
             page: 1,
 
             isLoading: false,
-            sectionStyle : 'style_1',
-            max_visible_units : 12,
-            max_col_in_single_row : 3,
-            create_new : null,
-            edit_record : null,
+            sectionStyle: 'style_1',
+            max_visible_units: 12,
+            max_col_in_single_row: 3,
+            create_new: null,
+            edit_record: null,
 
             categories: null,
             products: null,
 
             deliveryBoys: [],
 
-            filterStatus : ""
+            filterStatus: ""
         }
     },
     computed: {
@@ -249,7 +242,7 @@ export default {
             this.showCreateModal();
         }
     },*/
-    created: function() {
+    created: function () {
         //this.showCreateModal();
         this.$eventBus.$on('deliveryBoysSaved', (message) => {
             //this.showSuccess(message);
@@ -260,10 +253,10 @@ export default {
         this.getDeliveryBoys();
     },
     methods: {
-        getDeliveryBoys(){
+        getDeliveryBoys() {
             this.isLoading = true
 
-            axios.get(this.$apiUrl + '/delivery_boys',{
+            axios.get(this.$apiUrl + '/delivery_boys', {
                 params: {
                     filterStatus: this.filterStatus
                 }
@@ -274,7 +267,7 @@ export default {
                     this.totalRows = this.deliveryBoys.length
                 });
         },
-        deleteDeliveryBoys(index, id){
+        deleteDeliveryBoys(index, id) {
             this.$swal.fire({
                 title: "Are you Sure?",
                 text: "You want be able to revert this",
@@ -289,9 +282,9 @@ export default {
                 if (result.value) {
                     this.isLoading = true
                     let postData = {
-                        id : id
+                        id: id
                     }
-                    axios.post(this.$apiUrl + '/delivery_boys/delete',postData)
+                    axios.post(this.$apiUrl + '/delivery_boys/delete', postData)
                         .then((response) => {
                             this.isLoading = false
                             this.deliveryBoys.splice(index, 1)
@@ -309,7 +302,31 @@ export default {
         hideModal() {
             this.create_new = false
             this.edit_record = false
-            this.$router.push({path: '/delivery_boys'});
+            this.$router.push({ path: '/delivery_boys' });
+        },
+        downloadExcel() {
+            // Format data for the Excel file
+            const formattedData = this.deliveryBoys.map((boy) => ({
+                ID: boy.id,
+                Name: boy.name,
+                Mobile: boy.mobile,
+                Address: boy.address,
+                Bonus: boy.bonus_percentage,
+                Balance: boy.balance,
+                CashReceived: boy.cash_received,
+                Status: boy.status,
+                Available: boy.is_available ? 'Yes' : 'No',
+            }));
+
+            // Create a new worksheet from the data
+            const ws = XLSX.utils.json_to_sheet(formattedData);
+
+            // Create a new workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'DeliveryBoys');
+
+            // Export the workbook to an Excel file
+            XLSX.writeFile(wb, 'delivery_boys.xlsx');
         },
     }
 };

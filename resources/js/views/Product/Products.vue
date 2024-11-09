@@ -137,6 +137,11 @@
                                     </b-sidebar>
                                 </b-col>
                             </b-row>
+                            <div class="d-flex justify-content-start mb-3">
+                                <button @click="downloadProducts" class="btn btn-primary">
+                                        <i class="fa fa-download"></i> Download Products
+                                </button>
+                            </div>
                             <div class="table-responsive">
                                 <b-table
                                     :items="products"
@@ -342,6 +347,8 @@ import axios from "axios";
 import Auth from '../../Auth.js';
 import Vue from "vue";
 import FsLightbox from "fslightbox-vue";
+import * as XLSX from 'xlsx';
+
 export default {
     components: {
         VuejsDatatableFactory,
@@ -464,6 +471,73 @@ export default {
 
             });
         },
+        downloadProducts() {
+    // Fetch all products matching the current filter settings
+    this.isLoading = true;  // Show loading indicator while fetching the data
+
+    let param = {
+        "category": this.category,
+        "seller": this.seller,
+        "is_approved": this.is_approved,
+        filter: this.filter,
+        per_page: 10000 // Or any other large number to fetch all products, or you can paginate with a large page size
+    };
+
+    axios.get(this.$apiUrl + '/products', { params: param })
+        .then((response) => {
+            this.isLoading = false; // Hide loading indicator
+
+            // Get all the products
+            const productsToDownload = response.data.data.products;
+
+            // Format the data to match the structure of the table
+            const formattedData = productsToDownload.map(product => ({
+                'ID': product.product_variant_id,
+                'Product ID': product.product_id,
+                'Seller Name': product.seller_name,
+                'Name': product.name,
+                'Image': product.image, // You can choose to leave this out or add a URL
+                'Price': product.price,
+                'Discounted Price': product.discounted_price,
+                'Measurement': product.measurement,
+                'Stock': product.stock,
+                'Status': product.status === 1 ? 'Available' : 'Sold Out',
+                'Indicator': this.getProductIndicator(product.indicator),
+                'Approval Status': product.is_approved == 1 ? 'Approved' : 'Not Approved',
+                'Return Status': product.return_status == 1 ? 'Allowed' : 'Not Allowed',
+                'Cancelable Status': product.cancelable_status == 1 ? 'Allowed' : 'Not Allowed',
+                'Till Status': product.till_status_name || 'Not Applicable',
+            }));
+
+            // Create a new workbook
+            const ws = XLSX.utils.json_to_sheet(formattedData);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Products');
+
+            // Generate the Excel file and trigger the download
+            XLSX.writeFile(wb, 'products.xlsx');
+        })
+        .catch((error) => {
+            this.isLoading = false; // Hide loading indicator on error
+            console.error('Error fetching products:', error);
+            this.showMessage('error', 'Error fetching products.');
+        });
+}
+,
+
+    // Helper function to map product indicator
+    getProductIndicator(indicator) {
+      switch (indicator) {
+        case 0:
+          return 'None';
+        case 1:
+          return 'Veg';
+        case 2:
+          return 'Non-Veg';
+        default:
+          return 'Unknown';
+      }
+    },
         getSubCategories() {
 
             this.isLoading = true
