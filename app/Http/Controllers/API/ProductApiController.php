@@ -544,7 +544,12 @@ $productSql = Product::from('products as p')->select(
             $product->total_allowed_quantity = $max_allowed_quantity;
             $product->description = $request->description;
             $product->is_unlimited_stock = $request->is_unlimited_stock;
-            $product->is_approved = $request->is_approved;
+            $require_products_approval = Seller::where('id', $product->seller_id)->pluck('require_products_approval')->first();
+            if ($require_products_approval == 1) {
+                $product->is_approved = 0;
+            }elseif($require_products_approval == 0){
+                $product->is_approved = 1;
+            }
             $product->status = 1;
             $product->brand_id = $request->brand_id;
             $product->fssai_lic_no = $request->fssai_lic_no ?? "";
