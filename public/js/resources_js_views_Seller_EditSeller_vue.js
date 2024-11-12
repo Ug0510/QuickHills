@@ -2116,7 +2116,6 @@ var render = function () {
                           attrs: {
                             type: "number",
                             placeholder: "Enter commission (%)",
-                            readonly: "",
                           },
                           domProps: { value: _vm.commission },
                           on: {

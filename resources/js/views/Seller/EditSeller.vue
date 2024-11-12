@@ -169,7 +169,7 @@
                                     <div class="form-group col-md-4">
                                         <label>{{__('commission')}}<i class="text-danger">*</i></label>
                                         <input type="number" class="form-control" v-model="commission"
-                                               placeholder="Enter commission (%)" @input="validateCommission" readonly>
+                                               placeholder="Enter commission (%)" @input="validateCommission" >
                                         <p v-if="commissionvalidationError" class="error">{{ commissionvalidationError }}</p>
                                         <span class="text text-success font-size-13"> 
                                             <a href="javascript:void(0)" @click="commissionRule = true"
