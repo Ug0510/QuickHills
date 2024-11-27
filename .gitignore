@@ -2,4 +2,4 @@
 .env
 /public/storage
 
-storage/framework/sessions
+storage/framework/sessions/*
