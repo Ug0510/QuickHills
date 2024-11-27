@@ -416,7 +416,8 @@ class ProductApiController extends Controller
             );
         }])->select('p.*', 'p.type as d_type', 's.id as seller_id', 's.store_name as seller_name', 's.slug as seller_slug', 's.status as seller_status', 's.latitude', 's.longitude',
             'co.name as country_made_in', 'co.id as made_in_id', 'cities.boundary_points', 'cities.max_deliverable_distance', 'c.name as category_name', 'br.name as brand_name',
-            DB::raw("GROUP_CONCAT(t.name) as tag_names"))
+            DB::raw("GROUP_CONCAT(t.name) as tag_names"),
+            DB::raw('taxes.percentage as tax_percentage'))
             ->from('products as p')
             ->leftJoin("countries as co", "p.made_in", "=", "co.id")
             ->leftJoin('sellers as s', 'p.seller_id', '=', 's.id')
@@ -425,6 +426,7 @@ class ProductApiController extends Controller
             ->leftJoin('brands as br', 'p.brand_id', '=', 'br.id')
             ->leftJoin('product_tag as pt', 'p.id', '=', 'pt.product_id')
             ->leftJoin('tags as t', 'pt.tag_id', '=', 't.id')
+            ->leftJoin('taxes', 'p.tax_id', '=', 'taxes.id')
             ->where('s.status', 1)
             ->where('p.is_approved', 1)
             ->where(function ($query) use ($product_id, $product_slug) {
