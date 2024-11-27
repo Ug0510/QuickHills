@@ -265,11 +265,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         label: __('dcharges') + '(' + this.$currency + ')',
         sortable: false,
         "class": 'text-center'
-      },
-      // { key: 'tax', label: __('tax_per')+'('+ this.$currency +')', sortable: true, class: 'text-center' },
-      //{ key: 'discount', label: __('disc_per')+'('+ this.$currency +')', sortable: true, class: 'text-center' },
-      // { key: 'promo_discount', label: __('promo_disc_per')+'('+ this.$currency +')', sortable: true, class: 'text-center' },
-      {
+      }, {
+        key: 'tax_amount',
+        label: __('tax_amount') + '(' + this.$currency + ')',
+        sortable: true,
+        "class": 'text-center'
+      }, {
+        key: 'discount',
+        label: __('discount') + '(' + this.$currency + ')',
+        sortable: true,
+        "class": 'text-center'
+      }, {
+        key: 'promo_discount',
+        label: __('promo_disc_per') + '(' + this.$currency + ')',
+        sortable: true,
+        "class": 'text-center'
+      }, {
         key: 'wallet_balance',
         label: __('wallet_used') + '(' + this.$currency + ')',
         sortable: false,
@@ -391,6 +402,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             Mobile: order.mobile,
             Total: order.total,
             DeliveryCharge: order.delivery_charge,
+            tax_amount: order.tax_amount,
+            discount: order.discount,
+            promo_discount: order.promo_discount,
             WalletUsed: order.wallet_balance,
             FinalTotal: order.final_total,
             PaymentMethod: order.payment_method,

@@ -868,5 +868,6 @@
   "placeholder_image":"Placeholder Image",
   "manage_delivery_boy":"Manage Delivery Boy",
   "new_registered_delivery_boys":"New Registered Delivery Boys",
-  "sms_template":"SMS Template"
+  "sms_template":"SMS Template",
+  "tax_amount": "Tax Amount"
 }
