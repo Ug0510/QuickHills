@@ -483,6 +483,7 @@ class ProductApiController extends Controller
             $product->till_status = $product->till_status ?? '';
             $product->seller_name = $product->seller_name ?? '';
             $variants = $product->variants;
+            $product->tax_percentage = $product->tax_percentage ?? 20 ;
 
             if ($variants->count() == 0) {
                 return CommonHelper::responseError(__('no_items_found'));
