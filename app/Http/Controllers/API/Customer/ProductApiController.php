@@ -513,6 +513,7 @@ class ProductApiController extends Controller
                 $variants[$key]->images = CommonHelper::getImages($variants[$key]->product_id, $variants[$key]->id);
 
                 $variants[$key]->stock_unit_name = $variants[$key]->stock_unit_name ?? '';
+                $variants[$key]->tax_percentage = $product->tax_percentage ?? '';
             }
 
             $product->variants = $variants;
