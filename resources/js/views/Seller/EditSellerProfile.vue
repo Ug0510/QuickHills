@@ -166,7 +166,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-4" style="display:none;">
                                         <label>{{__('commission')}}<i class="text-danger">*</i></label>
                                         <input type="number" class="form-control" v-model="commission"
                                                placeholder="Enter commission (%)" @input="validateCommission" readonly>
