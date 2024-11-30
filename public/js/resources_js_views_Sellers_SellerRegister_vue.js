@@ -1398,41 +1398,48 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "form-group col-md-3" }, [
-                        _vm._m(9),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.commission,
-                              expression: "commission",
+                      _c(
+                        "div",
+                        {
+                          staticClass: "form-group col-md-3",
+                          staticStyle: { display: "none" },
+                        },
+                        [
+                          _vm._m(9),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.commission,
+                                expression: "commission",
+                              },
+                            ],
+                            staticClass: "form-control",
+                            attrs: {
+                              type: "number",
+                              placeholder: "Enter commission (%)",
+                              value: "0.0",
                             },
-                          ],
-                          staticClass: "form-control",
-                          attrs: {
-                            type: "number",
-                            placeholder: "Enter commission (%)",
-                            readonly: "",
-                          },
-                          domProps: { value: _vm.commission },
-                          on: {
-                            input: function ($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.commission = $event.target.value
+                            domProps: { value: _vm.commission },
+                            on: {
+                              input: function ($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.commission = $event.target.value
+                              },
                             },
-                          },
-                        }),
-                        _vm._v(" "),
-                        _vm.commissionvalidationError
-                          ? _c("p", { staticClass: "error" }, [
-                              _vm._v(_vm._s(_vm.commissionvalidationError)),
-                            ])
-                          : _vm._e(),
-                      ]),
+                          }),
+                          _vm._v(" "),
+                          _vm.commissionvalidationError
+                            ? _c("p", { staticClass: "error" }, [
+                                _vm._v(_vm._s(_vm.commissionvalidationError)),
+                              ])
+                            : _vm._e(),
+                        ]
+                      ),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group col-md-4" }, [
                         _c("div", { staticClass: "form-group" }, [

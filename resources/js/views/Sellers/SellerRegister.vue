@@ -150,10 +150,10 @@
                                             </div>
                                         </div>
 
-                                          <div class="form-group col-md-3">
+                                          <div class="form-group col-md-3" style="display:none;">
                                         <label>Commission (%) <i class="text-danger">*</i></label>
                                         <input type="number" class="form-control" v-model="commission"
-                                               placeholder="Enter commission (%)" readonly>
+                                               placeholder="Enter commission (%)" value="0.0">
                                         <p v-if="commissionvalidationError" class="error">{{ commissionvalidationError }}</p>
                                  
                                     </div>

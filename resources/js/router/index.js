@@ -212,7 +212,7 @@ const SellerViewProduct = () => import("../views/Product/ViewProduct");
 const SellerProductRatings = () => import("../views/Product/ProductRatings");
 const SellerMedia = () => import("../views/Product/Media");
 const SellerSettings = () => import('../views/Settings');
-const SellerProfile = () => import("../views/Seller/EditSeller");
+const SellerProfile = () => import("../views/Seller/EditSellerProfile");
 //const SellerWalletTransactions = () => import("../views/Seller/WalletTransactions/SellerWalletTransactions");
 //const SellerWalletTransactions = () => import("../views/Seller/SellerWalletTransactions");
 /***********************************************************/
