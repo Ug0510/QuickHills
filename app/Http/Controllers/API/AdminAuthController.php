@@ -241,7 +241,6 @@ class AdminAuthController extends Controller
             'store_url' => 'required',
             'city_id' => 'required',
             'pan_number' => 'required',
-            'commission' => 'required',
             'national_id_card' => 'required|mimes:jpeg,jpg,png,gif,pdf',
             'address_proof' => 'required|mimes:jpeg,jpg,png,gif,pdf',
             'store_logo' => 'required|mimes:jpeg,jpg,png,gif,pdf',
