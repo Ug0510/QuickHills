@@ -463,7 +463,7 @@ class CartApiController extends Controller
                             $sub_total = $total->total_amount;
                             $saved_amount =  $total->save_price -  $total->total_amount;
                             $saved_amount = ($saved_amount <= 0) ? 0 : $saved_amount;
-                            return Response::json(array('status' => 1, 'message' => __('item_updated_in_users_cart_successfully'), 'cart_items_count' => $total->cart_items_count, 'cart_total_qty' => $total->cart_total_qty, 'sub_total' => $sub_total, 'saved_amount' => $saved_amount));
+                            return Response::json(array('status' => 1, 'message' => __('item_updated_in_users_cart_successfully'), 'cart_items_count' => $total->cart_items_count, 'cart_total_qty' => $total->cart_total_qty, 'sub_total' => $sub_total,'total_amount_excluding_tax' => $total->total_amount_excluding_tax, 'saved_amount' => $saved_amount));
 
                             //return CommonHelper::responseSuccess(__('item_updated_in_users_cart_successfully'));
 
