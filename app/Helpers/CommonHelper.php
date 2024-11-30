@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Jobs\SendEmailJob;
 use App\Models\Admin;
+use App\Models\Tax;
 use App\Models\AdminToken;
 use App\Models\Brand;
 use App\Models\Cart;
@@ -1101,12 +1102,17 @@ class CommonHelper
 
     public static function getProductVariant($variant_id,$user_id=null){
 
-        //$variant = ProductVariant::where('id',$variant_id)->first();
-        $variant = ProductVariant::select('*',
+       //$variant = ProductVariant::where('id',$variant_id)->first();
+        $variant = ProductVariant::select(
+            '*',
             \Illuminate\Support\Facades\DB::raw("(SELECT short_code FROM units as u WHERE u.id = pv.stock_unit_id) as stock_unit_name"),
             DB::raw("ceil(((pv.price - pv.discounted_price)/pv.price)*100) as cal_discount_percentage"),
-            DB::raw("(SELECT is_unlimited_stock FROM products as p WHERE p.id = pv.product_id) as is_unlimited_stock")
-        )->from('product_variants as pv')->where('id',$variant_id)->first();
+            DB::raw("(SELECT is_unlimited_stock FROM products WHERE products.id = pv.product_id) as is_unlimited_stock"),
+            DB::raw("(SELECT tax_id FROM products WHERE products.id = pv.product_id) as tax_id")
+        )->from('product_variants as pv')->where('id', $variant_id)->first();
+
+        $tax_id = $variant->tax_id;
+        $tax_percentage = Tax::where('id', $tax_id)->where('status', 1)->value('percentage');
 
         // \Log::info('variant : ',[$variant]);
         if($variant){
@@ -1137,6 +1143,8 @@ class CommonHelper
             $variant['taxable_amount'] = CommonHelper::doubleNumber($taxed->taxable_amount);
 
             $variant['stock_unit_name'] = $variant['stock_unit_name'] ?? '';
+            
+            $variant['tax_percentage'] =  $tax_percentage ?? 0;
 
             return $variant;
         }

@@ -78,6 +78,21 @@ class CartApiController extends Controller
             $seller_ids = array_values(array_unique( array_column($res->toArray(),'seller_id')));
 
             $res = $res->makeHidden(['user_id','id','save_for_later','type','stock_unit_name','image','images','created_at','updated_at','seller_id']);
+            
+            //To fetch the quantity 
+            // only used to fetch the quantity of item in cart
+            $totalCounter = CommonHelper::getCartCount($user_id);
+            $quan = $totalCounter->quantity;
+            
+            $quanArr = explode(",", $quan);
+            
+            // Convert each value in the array to an integer using array_map()
+            $quanArr = array_map('intval', $quanArr);
+            
+            $indexer = 0;
+            
+            
+            
 
             foreach ($res as $key => $row) {
 
@@ -138,13 +153,19 @@ class CartApiController extends Controller
                 /*$res[$key]->discounted_price = ($item->discounted_price != 0 && $item->discounted_price != "") ? $taxed->taxable_amount : $item->discounted_price;
                 $res[$key]->price = ($item->discounted_price == 0 || $item->discounted_price == "") ? $taxed->taxable_amount : $item->price;
                 $res[$key]->taxable_amount = $taxed->taxable_amount;*/
+                
+                
+                
+                $itemTax = ($item->discounted_price * $item->tax_percentage) / 100; // Calculate tax for the item
+                $totalTax += ($itemTax * ($quanArr[$indexer] ?? 1));
+                $indexer += 1;
 
-                $res[$key]->discounted_price =  CommonHelper::doubleNumber($taxed->taxable_discounted_price?? $item->discounted_price);
+                $res[$key]->discounted_price =  CommonHelper::doubleNumber($taxed->taxable_discounted_price ?? $item->discounted_price);
                 $res[$key]->price = CommonHelper::doubleNumber($taxed->taxable_price??$item->price);
                 $res[$key]->taxable_amount = CommonHelper::doubleNumber($taxed->taxable_amount);
+                $res[$key]->tax_percentage = $item->tax_percentage;
 
-                $itemTax = ($item->price * $item->tax_percentage) / 100; // Calculate tax for the item
-                $totalTax += $itemTax;
+               
 
                 $res[$key]->stock = $item->stock;
                 $res[$key]->images = CommonHelper::getImages($row['id'],$row->product_variant_id);
@@ -301,6 +322,7 @@ class CartApiController extends Controller
             
                 $response['user_balance'] = $user_balance;
                 $response['sub_total'] = $sub_total;
+                $response['sub_total_exclude_tax'] = $sub_total - $totalTax;
                 $response['saved_amount'] = $saved_amount;
                 $response['tax'] = $totalTax;
 
