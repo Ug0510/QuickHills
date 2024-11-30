@@ -534,7 +534,7 @@ class CartApiController extends Controller
                     $saved_amount =  $total->save_price -  $total->total_amount;
                     $saved_amount = ($saved_amount <= 0) ? 0 : $saved_amount;
 
-                    return Response::json(array('status' => 1, 'message' => __('item_removed_from_users_cart_successfully'), 'cart_items_count' => $total->cart_items_count, 'cart_total_qty' => $total->cart_total_qty, 'sub_total' => $sub_total, 'saved_amount' => $saved_amount));
+                    return Response::json(array('status' => 1, 'message' => __('item_removed_from_users_cart_successfully'), 'cart_items_count' => $total->cart_items_count, 'cart_total_qty' => $total->cart_total_qty, 'sub_total' => $sub_total,'total_amount_excluding_tax' => $total->total_amount_excluding_tax, 'saved_amount' => $saved_amount));
                     //return CommonHelper::responseSuccess(__('item_removed_from_users_cart_successfully'));
                 } else {
                     return CommonHelper::responseError(__('no_product_found'));
@@ -680,10 +680,10 @@ class CartApiController extends Controller
                         $saved_amount = ($saved_amount <= 0) ? 0 : $saved_amount;
 
                         if($save_for_later == 1){
-                            return Response::json(array('status' => 1, 'message' => __('item_added_to_save_for_later_successfully'), 'cart_items_count' => $total->cart_items_count, 'cart_total_qty' => $total->cart_total_qty, 'sub_total' => $sub_total, 'saved_amount' => $saved_amount, 'data' => $result));
+                            return Response::json(array('status' => 1, 'message' => __('item_added_to_save_for_later_successfully'), 'cart_items_count' => $total->cart_items_count, 'cart_total_qty' => $total->cart_total_qty, 'sub_total' => $sub_total,'total_amount_excluding_tax' => $total->total_amount_excluding_tax, 'saved_amount' => $saved_amount, 'data' => $result));
                             //return CommonHelper::responseSuccessWithData(__('item_added_to_save_for_later_successfully'), $result);
                         }else{
-                            return Response::json(array('status' => 1, 'message' => __('item_remove_from_save_for_later_successfully'), 'cart_items_count' => $total->cart_items_count, 'cart_total_qty' => $total->cart_total_qty, 'sub_total' => $sub_total, 'saved_amount' => $saved_amount, 'data' => $result));
+                            return Response::json(array('status' => 1, 'message' => __('item_remove_from_save_for_later_successfully'), 'cart_items_count' => $total->cart_items_count, 'cart_total_qty' => $total->cart_total_qty, 'sub_total' => $sub_total,'total_amount_excluding_tax' => $total->total_amount_excluding_tax, 'saved_amount' => $saved_amount, 'data' => $result));
                             //return CommonHelper::responseSuccessWithData(__('item_remove_from_save_for_later_successfully'), $result);
                         }
 
@@ -921,6 +921,7 @@ class CartApiController extends Controller
         'cart_items_count' => $total->cart_items_count,
         'cart_total_qty' => $total->cart_total_qty,
         'sub_total' => $sub_total,
+        'total_amount_excluding_tax' => $total->total_amount_excluding_tax,
         'saved_amount' => $saved_amount
     ]);
 }
