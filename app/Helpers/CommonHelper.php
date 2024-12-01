@@ -2561,6 +2561,7 @@ class CommonHelper
      
         $total['save_price'] = $totalAmt['save_price'];
         $total['total_amount'] = $totalAmt['total_amount'];
+        $total['sub_total_exclude_tax'] = $totalAmt['sub_total_exclude_tax'];
 
         $total['product_variant_id'] = implode(',', $variant_id);
         $total['quantity'] = implode(',',$quantity);
