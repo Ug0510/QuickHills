@@ -260,6 +260,7 @@ class CartApiController extends Controller
 
                 $total = CommonHelper::getCartCount($user_id);
                 $sub_total = $total->total_amount;
+                $sub_total_exclude_tax = $total->sub_total_exclude_tax;
 
                 $saved_amount =  $total->save_price -  $total->total_amount;
                 $saved_amount = ($saved_amount <= 0) ? 0 : $saved_amount;
@@ -323,9 +324,10 @@ class CartApiController extends Controller
             
                 $response['user_balance'] = $user_balance;
                 $response['sub_total'] = $sub_total;
-                $response['sub_total_exclude_tax'] = $sub_total - $totalTax;
+                // $response['sub_total_exclude_tax'] = $sub_total - $totalTax;
+                $response['sub_total_exclude_tax'] = $sub_total_exclude_tax;
                 $response['saved_amount'] = $saved_amount;
-                $response['tax'] = $totalTax;
+                $response['tax'] = $sub_total - $sub_total_exclude_tax;
                 $response['tax_percentage'] = $taxPercentage;
 
                 if($request->is_checkout != 1){
