@@ -1180,7 +1180,7 @@ class CommonHelper
 
         $total->save_price = $totalAmt['save_price'];
         $total->total_amount = $totalAmt['total_amount'];
-        $total->total_amount_excluding_tax = $totalAmt['total_amount_excluding_tax'];
+        $total->sub_total_exclude_tax = $totalAmt['sub_total_exclude_tax'];
 
         $total->product_variant_id = implode(',', $variant_ids);
         $total->quantity = implode(',',$quantityArray);
@@ -1195,7 +1195,7 @@ class CommonHelper
     public static function calculateTotalAmount($variant_ids,$quantityArray){
         $save_price = 0;
         $total_amount = 0;
-        $total_amount_excluding_tax = 0;
+        $sub_total_exclude_tax = 0;
 
         if(count($variant_ids) === count($quantityArray)){
             foreach ($variant_ids as $key => $variant_id){
@@ -1216,14 +1216,14 @@ class CommonHelper
 
                 $price2 = floatval($mainPrice) * intval($quantityArray[$key]);
 
-                $total_amount_excluding_tax += $price2;
+                $sub_total_exclude_tax += $price2;
 
                 $total_amount += floatval($price);
 
                 $save_price += floatval($taxed_amount->price) * intval($quantityArray[$key]);
             }
         }
-        return array('save_price' => $save_price,'total_amount' => $total_amount,'total_amount_excluding_tax' => $total_amount_excluding_tax);
+        return array('save_price' => $save_price,'total_amount' => $total_amount,'sub_total_exclude_tax' => $sub_total_exclude_tax);
     }
 
     public static function calculateOrderTotalTax($item_details, $quantityArray){
