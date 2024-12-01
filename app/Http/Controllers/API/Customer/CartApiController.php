@@ -779,12 +779,14 @@ class CartApiController extends Controller
 
                 $total = CommonHelper::getGuestCartCount($variant_id, $quantity);
                 $sub_total = $total['total_amount'];
+                $sub_total_exclude_tax = $total['sub_total_exclude_tax'];
 
                 $saved_amount =  $total['save_price'] -  $total['total_amount'];
                 $saved_amount = ($saved_amount <= 0) ? 0 : $saved_amount;
 
                
                 $response['sub_total'] = $sub_total;
+                $response['sub_total_exclude_tax'] = $sub_total_exclude_tax;
                 $response['saved_amount'] = $saved_amount;
 
                 if($request->is_checkout != 1){
