@@ -39,6 +39,7 @@ class CartApiController extends Controller
         $request->latitude = 23.2419997;
         $request->longitude = 69.6669324;*/
         $totalTax = 0;
+        $taxPercentage = 0;
 
         $validator = Validator::make($request->all(), [
             'latitude' => 'required',
@@ -164,8 +165,8 @@ class CartApiController extends Controller
                 $res[$key]->price = CommonHelper::doubleNumber($taxed->taxable_price??$item->price);
                 $res[$key]->taxable_amount = CommonHelper::doubleNumber($taxed->taxable_amount);
                 $res[$key]->tax_percentage = $item->tax_percentage;
+                $taxPercentage = $item->tax_percentage;
 
-               
 
                 $res[$key]->stock = $item->stock;
                 $res[$key]->images = CommonHelper::getImages($row['id'],$row->product_variant_id);
@@ -325,6 +326,7 @@ class CartApiController extends Controller
                 $response['sub_total_exclude_tax'] = $sub_total - $totalTax;
                 $response['saved_amount'] = $saved_amount;
                 $response['tax'] = $totalTax;
+                $response['tax_percentage'] = $taxPercentage;
 
                 if($request->is_checkout != 1){
                     $response['cart'] = $res;
