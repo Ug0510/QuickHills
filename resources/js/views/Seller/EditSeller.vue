@@ -202,8 +202,27 @@
                                                     <a target="_blank" :href="national_id_card_url" class="badge bg-success"> <i class="fa fa-eye"></i> Identity Card</a>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
+
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label"> {{__('shop_opened_closed')}}</label><br>
+                                            <b-form-radio-group
+                                                v-model="shop_opened_closed"
+                                                :options="[
+                                                                { text: ' Opened', 'value': 1 },
+                                                                { text: ' Closed', 'value': 0 },
+                                                            ]"
+                                                buttons
+                                                button-variant="outline-primary"
+                                                required
+                                            ></b-form-radio-group>
+                                        </div>
+                                    </div>
+
+
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
                                             <label> {{__('address_proof')}}<i v-if="!id" class="text-danger">*</i></label>
@@ -635,7 +654,7 @@ export default {
             showPassword: false,
             confirm_password: "",
             showConfirmPassword:false, 
-
+            shop_opened_closed:1,
             store_name: "",
             street: "",
             pincode_id: "",
@@ -932,7 +951,7 @@ export default {
                         this.admin_id = this.record.admin.id ?? this.record.admin_id;
                         this.name = this.record.admin.username ?? this.record.name;
                         this.email = this.record.admin.email ?? this.record.email;
-
+                        this.shop_opened_closed = this.record.shop_opened_closed;
                         this.mobile = this.record.mobile;
                         this.store_url = this.record.store_url;
 
@@ -1029,6 +1048,7 @@ export default {
             formData.append('pincode_id', this.pincode_id);
             formData.append('city_id', this.city_id);
             formData.append('categories_ids', this.categories_ids);
+            formData.append('shop_opened_closed', this.shop_opened_closed);
             formData.append('state', this.state);
             formData.append('remark', this.remark);
             formData.append('account_number', this.account_number);

@@ -176,6 +176,21 @@
                                                title="How it works">How seller commission works?</a>
                                         </span>
                                     </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label"> {{__('shop_opened_closed')}}</label><br>
+                                            <b-form-radio-group
+                                                v-model="shop_opened_closed"
+                                                :options="[
+                                                                { text: ' Opened', 'value': 1 },
+                                                                { text: ' Closed', 'value': 0 },
+                                                            ]"
+                                                buttons
+                                                button-variant="outline-primary"
+                                                required
+                                            ></b-form-radio-group>
+                                        </div>
+                                    </div>
                                     <br>
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
@@ -635,7 +650,7 @@ export default {
             showPassword: false,
             confirm_password: "",
             showConfirmPassword:false, 
-
+            shop_opened_closed:1,
             store_name: "",
             street: "",
             pincode_id: "",
@@ -935,7 +950,7 @@ export default {
 
                         this.mobile = this.record.mobile;
                         this.store_url = this.record.store_url;
-
+                        this.shop_opened_closed = this.record.shop_opened_closed;
                         this.password = "";
                         this.confirm_password = "";
 
@@ -1041,7 +1056,7 @@ export default {
             formData.append('pan_number', this.pan_number);
             formData.append('latitude', this.latitude);
             formData.append('longitude', this.longitude);
-
+            formData.append('shop_opened_closed', this.shop_opened_closed);
             formData.append('place_name', this.place_name);
             formData.append('formatted_address', this.formatted_address);
 

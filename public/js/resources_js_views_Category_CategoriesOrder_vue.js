@@ -15,84 +15,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -228,6 +150,190 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("div", {
+    staticClass: "page-heading"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12 col-md-6 order-md-1 order-last"
+  }, [_c("h3", [_vm._v(_vm._s(_vm.__("categories_order")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-12 col-md-6 order-md-2 order-first"
+  }, [_c("nav", {
+    staticClass: "breadcrumb-header float-start float-lg-end",
+    attrs: {
+      "aria-label": "breadcrumb"
+    }
+  }, [_c("ol", {
+    staticClass: "breadcrumb"
+  }, [_c("li", {
+    staticClass: "breadcrumb-item"
+  }, [_c("router-link", {
+    attrs: {
+      to: "/dashboard"
+    }
+  }, [_vm._v(_vm._s(_vm.__("dashboard")))])], 1), _vm._v(" "), _c("li", {
+    staticClass: "breadcrumb-item active",
+    attrs: {
+      "aria-current": "page"
+    }
+  }, [_vm._v(_vm._s(_vm.__("categories_order")))])])])])]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12 col-md-12 order-md-1 order-last"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header"
+  }, [_c("h4", [_vm._v(_vm._s(_vm.__("main_categories_order_list")))])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("b-row", [_c("b-col", {
+    attrs: {
+      md: "6"
+    }
+  }, [_c("div", {
+    staticClass: "mb-2 d-flex justify-content-between align-items-center"
+  }, [_c("div", {
+    staticClass: "form-check form-switch"
+  }, [_c("label", [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.editable,
+      expression: "editable"
+    }],
+    staticClass: "form-check-input",
+    attrs: {
+      type: "checkbox"
+    },
+    domProps: {
+      checked: Array.isArray(_vm.editable) ? _vm._i(_vm.editable, null) > -1 : _vm.editable
+    },
+    on: {
+      change: function change($event) {
+        var $$a = _vm.editable,
+          $$el = $event.target,
+          $$c = $$el.checked ? true : false;
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && (_vm.editable = $$a.concat([$$v]));
+          } else {
+            $$i > -1 && (_vm.editable = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+          }
+        } else {
+          _vm.editable = $$c;
+        }
+      }
+    }
+  }), _vm._v("\n                                                " + _vm._s(_vm.__("enable_drag_and_drop")))])]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-sm btn-primary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.orderList
+    }
+  }, [_vm._v(_vm._s(_vm.__("sort_by_original_order")))])])])], 1), _vm._v(" "), _c("b-row", [_c("b-col", {
+    staticStyle: {
+      "overflow-y": "scroll",
+      height: "600px"
+    },
+    attrs: {
+      md: "6"
+    }
+  }, [_c("ul", {
+    staticClass: "list-group",
+    attrs: {
+      id: "sortable-row"
+    }
+  }, [_c("draggable", _vm._b({
+    staticClass: "list-group",
+    attrs: {
+      tag: "ul",
+      move: _vm.onMove,
+      animation: "200"
+    },
+    on: {
+      start: function start($event) {
+        _vm.isDragging = true;
+      },
+      end: function end($event) {
+        _vm.isDragging = false;
+      },
+      change: function change($event) {
+        return _vm.updateCategoriesOrder();
+      }
+    },
+    model: {
+      value: _vm.list,
+      callback: function callback($$v) {
+        _vm.list = $$v;
+      },
+      expression: "list"
+    }
+  }, "draggable", _vm.dragOptions, false), _vm._l(_vm.list, function (category) {
+    return _c("li", {
+      key: category.row_order,
+      staticClass: "list-group-item d-flex justify-content-between align-items-center"
+    }, [_c("span", [_c("span", {
+      staticClass: "text-left mr-2"
+    }, [_vm._v(_vm._s(category.row_order))]), _vm._v(" "), _c("span", {
+      staticClass: "text-left mr-2"
+    }, [_vm._v("-")]), _vm._v(" "), _c("span", {
+      staticClass: "text-left mr-2"
+    }, [_vm._v(_vm._s(category.id))]), _vm._v(" "), _c("span", {
+      staticClass: "text-left mr-2"
+    }, [_c("img", {
+      attrs: {
+        src: category.image_url,
+        height: "30"
+      }
+    })]), _vm._v(" "), _c("span", {
+      staticClass: "text-left mr-2"
+    }, [_vm._v(_vm._s(category.name))]), _vm._v(" "), category.all_parents ? _c("span", {
+      staticClass: "ml-4 all_parents"
+    }, _vm._l(_vm.getParentsList(category.all_parents), function (parent, index) {
+      return _c("span", {
+        key: index,
+        staticClass: "ml-4"
+      }, [_c("span", [_c("span", {
+        staticClass: "fas fa-angle-left mr-2"
+      }), _vm._v(" "), _c("span", {
+        staticClass: "text-left"
+      }, [_c("img", {
+        attrs: {
+          src: parent.image_url,
+          height: "20",
+          title: parent.id + "-" + parent.name
+        }
+      })])])]);
+    }), 0) : _vm._e()]), _vm._v(" "), _c("span", [_c("i", {
+      staticClass: "fas fa-arrows-alt"
+    })])]);
+  }), 0)], 1)])], 1)], 1)])])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css ***!
@@ -339,19 +445,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/Category/CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css":
-/*!*****************************************************************************************************************!*\
-  !*** ./resources/js/views/Category/CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css ***!
-  \*****************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoriesOrder_vue_vue_type_style_index_0_id_150fb500_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css");
-
-
-/***/ }),
-
 /***/ "./resources/js/views/Category/CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true":
 /*!***************************************************************************************************!*\
   !*** ./resources/js/views/Category/CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true ***!
@@ -361,338 +454,23 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoriesOrder_vue_vue_type_template_id_150fb500_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoriesOrder_vue_vue_type_template_id_150fb500_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoriesOrder_vue_vue_type_template_id_150fb500_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoriesOrder_vue_vue_type_template_id_150fb500_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoriesOrder_vue_vue_type_template_id_150fb500_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoriesOrder_vue_vue_type_template_id_150fb500_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true");
 
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true":
-/*!******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=template&id=150fb500&scoped=true ***!
-  \******************************************************************************************************************************************************************************************************************************************/
+/***/ "./resources/js/views/Category/CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/views/Category/CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css ***!
+  \*****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* binding */ render),
-/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "page-heading" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 col-md-6 order-md-1 order-last" }, [
-          _c("h3", [_vm._v(_vm._s(_vm.__("categories_order")))]),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-md-6 order-md-2 order-first" }, [
-          _c(
-            "nav",
-            {
-              staticClass: "breadcrumb-header float-start float-lg-end",
-              attrs: { "aria-label": "breadcrumb" },
-            },
-            [
-              _c("ol", { staticClass: "breadcrumb" }, [
-                _c(
-                  "li",
-                  { staticClass: "breadcrumb-item" },
-                  [
-                    _c("router-link", { attrs: { to: "/dashboard" } }, [
-                      _vm._v(_vm._s(_vm.__("dashboard"))),
-                    ]),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  {
-                    staticClass: "breadcrumb-item active",
-                    attrs: { "aria-current": "page" },
-                  },
-                  [_vm._v(_vm._s(_vm.__("categories_order")))]
-                ),
-              ]),
-            ]
-          ),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12 col-md-12 order-md-1 order-last" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("h4", [_vm._v(_vm._s(_vm.__("main_categories_order_list")))]),
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "card-body" },
-              [
-                _c(
-                  "b-row",
-                  [
-                    _c("b-col", { attrs: { md: "6" } }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "mb-2 d-flex justify-content-between align-items-center",
-                        },
-                        [
-                          _c("div", { staticClass: "form-check form-switch" }, [
-                            _c("label", [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.editable,
-                                    expression: "editable",
-                                  },
-                                ],
-                                staticClass: "form-check-input",
-                                attrs: { type: "checkbox" },
-                                domProps: {
-                                  checked: Array.isArray(_vm.editable)
-                                    ? _vm._i(_vm.editable, null) > -1
-                                    : _vm.editable,
-                                },
-                                on: {
-                                  change: function ($event) {
-                                    var $$a = _vm.editable,
-                                      $$el = $event.target,
-                                      $$c = $$el.checked ? true : false
-                                    if (Array.isArray($$a)) {
-                                      var $$v = null,
-                                        $$i = _vm._i($$a, $$v)
-                                      if ($$el.checked) {
-                                        $$i < 0 &&
-                                          (_vm.editable = $$a.concat([$$v]))
-                                      } else {
-                                        $$i > -1 &&
-                                          (_vm.editable = $$a
-                                            .slice(0, $$i)
-                                            .concat($$a.slice($$i + 1)))
-                                      }
-                                    } else {
-                                      _vm.editable = $$c
-                                    }
-                                  },
-                                },
-                              }),
-                              _vm._v(
-                                "\n                                                " +
-                                  _vm._s(_vm.__("enable_drag_and_drop"))
-                              ),
-                            ]),
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-sm btn-primary",
-                              attrs: { type: "button" },
-                              on: { click: _vm.orderList },
-                            },
-                            [_vm._v(_vm._s(_vm.__("sort_by_original_order")))]
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "b-row",
-                  [
-                    _c(
-                      "b-col",
-                      {
-                        staticStyle: {
-                          "overflow-y": "scroll",
-                          height: "600px",
-                        },
-                        attrs: { md: "6" },
-                      },
-                      [
-                        _c(
-                          "ul",
-                          {
-                            staticClass: "list-group",
-                            attrs: { id: "sortable-row" },
-                          },
-                          [
-                            _c(
-                              "draggable",
-                              _vm._b(
-                                {
-                                  staticClass: "list-group",
-                                  attrs: {
-                                    tag: "ul",
-                                    move: _vm.onMove,
-                                    animation: "200",
-                                  },
-                                  on: {
-                                    start: function ($event) {
-                                      _vm.isDragging = true
-                                    },
-                                    end: function ($event) {
-                                      _vm.isDragging = false
-                                    },
-                                    change: function ($event) {
-                                      return _vm.updateCategoriesOrder()
-                                    },
-                                  },
-                                  model: {
-                                    value: _vm.list,
-                                    callback: function ($$v) {
-                                      _vm.list = $$v
-                                    },
-                                    expression: "list",
-                                  },
-                                },
-                                "draggable",
-                                _vm.dragOptions,
-                                false
-                              ),
-                              _vm._l(_vm.list, function (category) {
-                                return _c(
-                                  "li",
-                                  {
-                                    key: category.row_order,
-                                    staticClass:
-                                      "list-group-item d-flex justify-content-between align-items-center",
-                                  },
-                                  [
-                                    _c("span", [
-                                      _c(
-                                        "span",
-                                        { staticClass: "text-left mr-2" },
-                                        [_vm._v(_vm._s(category.row_order))]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "span",
-                                        { staticClass: "text-left mr-2" },
-                                        [_vm._v("-")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "span",
-                                        { staticClass: "text-left mr-2" },
-                                        [_vm._v(_vm._s(category.id))]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "span",
-                                        { staticClass: "text-left mr-2" },
-                                        [
-                                          _c("img", {
-                                            attrs: {
-                                              src: category.image_url,
-                                              height: "30",
-                                            },
-                                          }),
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "span",
-                                        { staticClass: "text-left mr-2" },
-                                        [_vm._v(_vm._s(category.name))]
-                                      ),
-                                      _vm._v(" "),
-                                      category.all_parents
-                                        ? _c(
-                                            "span",
-                                            { staticClass: "ml-4 all_parents" },
-                                            _vm._l(
-                                              _vm.getParentsList(
-                                                category.all_parents
-                                              ),
-                                              function (parent, index) {
-                                                return _c(
-                                                  "span",
-                                                  {
-                                                    key: index,
-                                                    staticClass: "ml-4",
-                                                  },
-                                                  [
-                                                    _c("span", [
-                                                      _c("span", {
-                                                        staticClass:
-                                                          "fas fa-angle-left mr-2",
-                                                      }),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "span",
-                                                        {
-                                                          staticClass:
-                                                            "text-left",
-                                                        },
-                                                        [
-                                                          _c("img", {
-                                                            attrs: {
-                                                              src: parent.image_url,
-                                                              height: "20",
-                                                              title:
-                                                                parent.id +
-                                                                "-" +
-                                                                parent.name,
-                                                            },
-                                                          }),
-                                                        ]
-                                                      ),
-                                                    ]),
-                                                  ]
-                                                )
-                                              }
-                                            ),
-                                            0
-                                          )
-                                        : _vm._e(),
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("span", [
-                                      _c("i", {
-                                        staticClass: "fas fa-arrows-alt",
-                                      }),
-                                    ]),
-                                  ]
-                                )
-                              }),
-                              0
-                            ),
-                          ],
-                          1
-                        ),
-                      ]
-                    ),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
-          ]),
-        ]),
-      ]),
-    ]),
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoriesOrder_vue_vue_type_style_index_0_id_150fb500_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Category/CategoriesOrder.vue?vue&type=style&index=0&id=150fb500&scoped=true&lang=css");
 
 
 /***/ }),

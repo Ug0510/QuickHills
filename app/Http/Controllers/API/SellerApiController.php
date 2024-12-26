@@ -73,6 +73,8 @@ class SellerApiController extends Controller
             $admin = Admin::create($data);
 
             $record = new Seller();
+            $shop_opened_closed = $request->input('shop_opened_closed', 1);
+            $record->shop_opened_closed = $shop_opened_closed;
             $record->admin_id = $admin->id;
             $record->name = $request->name;
             $record->email = $request->email;
@@ -207,6 +209,9 @@ class SellerApiController extends Controller
                     $record->email = $request->email;
                     $record->mobile = $request->mobile;
                     $record->store_name = $request->store_name;
+                    
+                    $shop_opened_closed = $request->input('shop_opened_closed', '1');
+                    $record->shop_opened_closed = $shop_opened_closed;
 
                     $record->store_url = $request->store_url;
                     $record->street = $request->street;

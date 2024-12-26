@@ -561,7 +561,7 @@ class CommonHelper
         return [];
     }
 
-    $query =Seller::where('status', 1); // Adding the status condition
+    $query =Seller::where('status', 1)->where('shop_opened_closed','1');
 
     $query->where(function($q) use ($cityIds) {
         foreach ($cityIds as $cityId) {
