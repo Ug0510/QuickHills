@@ -132,6 +132,7 @@ class ShopApiController extends Controller
                                 + sin(radians(" .$request->latitude. ")) * sin(radians(sellers.latitude))), 2) AS distance"), 'cities.max_deliverable_distance')
             ->leftJoin("cities", "sellers.city_id", "cities.id")
             ->where('status', Seller::$statusActive)
+            ->where('shop_opened_closed','1')
             ->orderBy('distance','asc')
             ->limit($count_seller_section_in_homepage)
             ->get();
