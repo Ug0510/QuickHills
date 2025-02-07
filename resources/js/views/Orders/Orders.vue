@@ -109,6 +109,9 @@
                             show-empty
                             small>
 
+                            <template #cell(total)="row">
+                                {{ formatCurrency(row.item.total - row.item.tax_amount) }}  </template>
+
                             <template #table-busy>
                                 <div class="text-center text-black my-2">
                                     <b-spinner class="align-middle"></b-spinner>
@@ -130,7 +133,7 @@
                             <!-- A custom formatted footer cell for field 'name' -->
 
                             <template #foot(total)="data">
-                                <span class="text-success">{{ $currency }} {{ total_amount }}</span>
+                                <span class="text-success">{{ $currency }} {{ calculateTotalAmount() }}</span>
                             </template>
                             <template #foot(delivery_charge)="data">
                                 <span class="text-success">{{ $currency }} {{ delivery_charge }}</span>
@@ -288,6 +291,16 @@ export default {
        
     },
     methods: {
+        formatCurrency(value) {
+      return this.$currency + ' ' + Number(value).toFixed(2);
+    },
+    calculateTotalAmount() {
+      return this.orders.reduce((sum, item) => {
+        const total = Number(item.total) || 0;
+        const taxAmount = Number(item.tax_amount) || 0;
+        return sum + (total - taxAmount);
+      }, 0).toFixed(2);
+    },
         getTodayRange() {
       let startDate = new Date();
       startDate.setHours(0, 0, 0, 0); // Start of today

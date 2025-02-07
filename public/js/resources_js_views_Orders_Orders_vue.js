@@ -181,6 +181,16 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
     }
   },
   methods: {
+    formatCurrency: function formatCurrency(value) {
+      return this.$currency + ' ' + Number(value).toFixed(2);
+    },
+    calculateTotalAmount: function calculateTotalAmount() {
+      return this.orders.reduce(function (sum, item) {
+        var total = Number(item.total) || 0;
+        var taxAmount = Number(item.tax_amount) || 0;
+        return sum + (total - taxAmount);
+      }, 0).toFixed(2);
+    },
     getTodayRange: function getTodayRange() {
       var startDate = new Date();
       startDate.setHours(0, 0, 0, 0); // Start of today
@@ -796,6 +806,11 @@ var render = function render() {
       }
     },
     scopedSlots: _vm._u([{
+      key: "cell(total)",
+      fn: function fn(row) {
+        return [_vm._v("\n                            " + _vm._s(_vm.formatCurrency(row.item.total - row.item.tax_amount)) + "  ")];
+      }
+    }, {
       key: "table-busy",
       fn: function fn() {
         return [_c("div", {
@@ -860,7 +875,7 @@ var render = function render() {
       fn: function fn(data) {
         return [_c("span", {
           staticClass: "text-success"
-        }, [_vm._v(_vm._s(_vm.$currency) + " " + _vm._s(_vm.total_amount))])];
+        }, [_vm._v(_vm._s(_vm.$currency) + " " + _vm._s(_vm.calculateTotalAmount()))])];
       }
     }, {
       key: "foot(delivery_charge)",
