@@ -13,6 +13,66 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -94,103 +154,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SystemUpdater.vue?vue&type=template&id=2fc7d8ec":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SystemUpdater.vue?vue&type=template&id=2fc7d8ec ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* binding */ render),
-/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", [_c("div", {
-    staticClass: "page-heading"
-  }, [_c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-12 col-md-6 order-md-1 order-last"
-  }, [_c("h3", [_vm._v(_vm._s(_vm.__("system_updater")))])]), _vm._v(" "), _c("div", {
-    staticClass: "col-12 col-md-6 order-md-2 order-first"
-  }, [_c("nav", {
-    staticClass: "breadcrumb-header float-start float-lg-end",
-    attrs: {
-      "aria-label": "breadcrumb"
-    }
-  }, [_c("ol", {
-    staticClass: "breadcrumb"
-  }, [_c("li", {
-    staticClass: "breadcrumb-item"
-  }, [_c("router-link", {
-    attrs: {
-      to: "/dashboard"
-    }
-  }, [_vm._v(_vm._s(_vm.__("dashboard")))])], 1), _vm._v(" "), _c("li", {
-    staticClass: "breadcrumb-item active",
-    attrs: {
-      "aria-current": "page"
-    }
-  }, [_vm._v(_vm._s(_vm.__("system_updater")))])])])])]), _vm._v(" "), _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-6 col-md-6 order-md-1 order-last"
-  }, [_vm.updaterResult && _vm.updaterResult.description ? _c("div", {
-    staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-header"
-  }, [_c("h4", [_vm._v(_vm._s(_vm.__("change_logs_of_egrocer")) + " " + _vm._s("v - " + _vm.updaterResult.version) + " ")]), _vm._v(" "), _c("span", {
-    staticClass: "pull-right"
-  }, [_c("span", {
-    staticClass: "badge bg-primary"
-  }, [_vm._v("\n                  " + _vm._s(_vm.__("new_update_available"))), _c("span", {
-    staticClass: "badge rounded-pill bg-success text-white ms-1"
-  }, [_vm._v(_vm._s("v - " + _vm.updaterResult.version))])])])]), _vm._v(" "), _c("div", {
-    staticClass: "card-body"
-  }, [_c("span", {
-    attrs: {
-      id: "update_description"
-    },
-    domProps: {
-      innerHTML: _vm._s(_vm.updaterResult.description)
-    }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "card-footer"
-  }, [_c("b-button", {
-    attrs: {
-      type: "button",
-      variant: "primary",
-      disabled: _vm.isLoading
-    },
-    on: {
-      click: _vm.systemUpdate
-    }
-  }, [_vm.isLoading ? _c("span", [_c("b-spinner", {
-    attrs: {
-      small: "",
-      label: "Spinning"
-    }
-  }), _vm._v("  " + _vm._s(_vm.__("system_is_updating")))], 1) : _c("span", [_vm._v(" " + _vm._s(_vm.__("update_the_system")))])])], 1)]) : _c("div", {
-    staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-header"
-  }, [_c("h4", [_vm._v(" " + _vm._s(_vm.__("new_system_update_is_not_available")))]), _vm._v(" "), _c("span", {
-    staticClass: "pull-right"
-  }, [_c("span", {
-    staticClass: "badge bg-primary"
-  }, [_vm._v("\n                          " + _vm._s(_vm.__("egrocer_current_version_is")) + "\n                          "), _c("span", {
-    staticClass: "badge rounded-pill bg-success text-white ms-1"
-  }, [_vm._v(_vm._s("v - " + _vm.$currentVersion))])])])])])])])])]);
-};
-var staticRenderFns = [];
-render._withStripped = true;
-
-
-/***/ }),
-
 /***/ "./resources/js/views/Setting/SystemUpdater.vue":
 /*!******************************************************!*\
   !*** ./resources/js/views/Setting/SystemUpdater.vue ***!
@@ -252,10 +215,183 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SystemUpdater_vue_vue_type_template_id_2fc7d8ec__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SystemUpdater_vue_vue_type_template_id_2fc7d8ec__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SystemUpdater_vue_vue_type_template_id_2fc7d8ec__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SystemUpdater_vue_vue_type_template_id_2fc7d8ec__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SystemUpdater_vue_vue_type_template_id_2fc7d8ec__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SystemUpdater.vue?vue&type=template&id=2fc7d8ec */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SystemUpdater.vue?vue&type=template&id=2fc7d8ec");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SystemUpdater_vue_vue_type_template_id_2fc7d8ec__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SystemUpdater.vue?vue&type=template&id=2fc7d8ec */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SystemUpdater.vue?vue&type=template&id=2fc7d8ec");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SystemUpdater.vue?vue&type=template&id=2fc7d8ec":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SystemUpdater.vue?vue&type=template&id=2fc7d8ec ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "page-heading" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 col-md-6 order-md-1 order-last" }, [
+          _c("h3", [_vm._v(_vm._s(_vm.__("system_updater")))]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12 col-md-6 order-md-2 order-first" }, [
+          _c(
+            "nav",
+            {
+              staticClass: "breadcrumb-header float-start float-lg-end",
+              attrs: { "aria-label": "breadcrumb" },
+            },
+            [
+              _c("ol", { staticClass: "breadcrumb" }, [
+                _c(
+                  "li",
+                  { staticClass: "breadcrumb-item" },
+                  [
+                    _c("router-link", { attrs: { to: "/dashboard" } }, [
+                      _vm._v(_vm._s(_vm.__("dashboard"))),
+                    ]),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  {
+                    staticClass: "breadcrumb-item active",
+                    attrs: { "aria-current": "page" },
+                  },
+                  [_vm._v(_vm._s(_vm.__("system_updater")))]
+                ),
+              ]),
+            ]
+          ),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-6 col-md-6 order-md-1 order-last" }, [
+          _vm.updaterResult && _vm.updaterResult.description
+            ? _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _c("h4", [
+                    _vm._v(
+                      _vm._s(_vm.__("change_logs_of_egrocer")) +
+                        " " +
+                        _vm._s("v - " + _vm.updaterResult.version) +
+                        " "
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "pull-right" }, [
+                    _c("span", { staticClass: "badge bg-primary" }, [
+                      _vm._v(
+                        "\n                  " +
+                          _vm._s(_vm.__("new_update_available"))
+                      ),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "badge rounded-pill bg-success text-white ms-1",
+                        },
+                        [_vm._v(_vm._s("v - " + _vm.updaterResult.version))]
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c("span", {
+                    attrs: { id: "update_description" },
+                    domProps: {
+                      innerHTML: _vm._s(_vm.updaterResult.description),
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "card-footer" },
+                  [
+                    _c(
+                      "b-button",
+                      {
+                        attrs: {
+                          type: "button",
+                          variant: "primary",
+                          disabled: _vm.isLoading,
+                        },
+                        on: { click: _vm.systemUpdate },
+                      },
+                      [
+                        _vm.isLoading
+                          ? _c(
+                              "span",
+                              [
+                                _c("b-spinner", {
+                                  attrs: { small: "", label: "Spinning" },
+                                }),
+                                _vm._v(
+                                  "  " + _vm._s(_vm.__("system_is_updating"))
+                                ),
+                              ],
+                              1
+                            )
+                          : _c("span", [
+                              _vm._v(" " + _vm._s(_vm.__("update_the_system"))),
+                            ]),
+                      ]
+                    ),
+                  ],
+                  1
+                ),
+              ])
+            : _c("div", { staticClass: "card" }, [
+                _c("div", { staticClass: "card-header" }, [
+                  _c("h4", [
+                    _vm._v(
+                      " " + _vm._s(_vm.__("new_system_update_is_not_available"))
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "pull-right" }, [
+                    _c("span", { staticClass: "badge bg-primary" }, [
+                      _vm._v(
+                        "\n                          " +
+                          _vm._s(_vm.__("egrocer_current_version_is")) +
+                          "\n                          "
+                      ),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "badge rounded-pill bg-success text-white ms-1",
+                        },
+                        [_vm._v(_vm._s("v - " + _vm.$currentVersion))]
+                      ),
+                    ]),
+                  ]),
+                ]),
+              ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
 
 
 /***/ })
