@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-group">
                     <label for="amount">Amount</label>
-                    <input type="number" name="amount" id="amount" v-model="withdrawalRequests.amount" v-on:keyup="checkAmount" required class="form-control" placeholder="Enter Transfer Amount" min="1"   @input="validateAmount" step="any">
+                    <input type="number" name="amount" id="amount" v-model="withdrawalRequests.amount" v-on:keyup="checkAmount" required class="form-control" placeholder="Enter Transfer Amount"  @input="validateAmount" step="any">
                     <span class="text-danger" v-if="graterAmount === true">{{ __('requested_amount_should_not_greater_then_available_balance') }}</span>
                     <span v-if="validationError" class="error">{{ validationError }}</span>
                 </div>
@@ -70,7 +70,7 @@ export default {
             this.$refs['my-modal'].hide()
         },
          validateAmount() {
-            if (this.withdrawalRequests.amount < 1 ) {
+            if (this.withdrawalRequests.amount <= 0) {
                 this.validationError = "Amount must be greater than 0";
             } else {
                 this.validationError = null;

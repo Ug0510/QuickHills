@@ -13,6 +13,84 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -100,268 +178,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SmsSettings.vue?vue&type=template&id=1acac124":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SmsSettings.vue?vue&type=template&id=1acac124 ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* binding */ render),
-/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", [_c("div", {
-    staticClass: "page-heading"
-  }, [_c("div", {
-    staticClass: "page-title"
-  }, [_c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-12 col-md-6 order-md-1 order-last"
-  }, [_c("h3", [_vm._v(_vm._s(_vm.__("sms_gateways_methods_settings")))])]), _vm._v(" "), _c("div", {
-    staticClass: "col-12 col-md-6 order-md-2 order-first"
-  }, [_c("nav", {
-    staticClass: "breadcrumb-header float-start float-lg-end",
-    attrs: {
-      "aria-label": "breadcrumb"
-    }
-  }, [_c("ol", {
-    staticClass: "breadcrumb"
-  }, [_c("li", {
-    staticClass: "breadcrumb-item"
-  }, [_c("router-link", {
-    attrs: {
-      to: "/dashboard"
-    }
-  }, [_vm._v(_vm._s(_vm.__("dashboard")))])], 1), _vm._v(" "), _c("li", {
-    staticClass: "breadcrumb-item active",
-    attrs: {
-      "aria-current": "page"
-    }
-  }, [_vm._v(_vm._s(_vm.__("sms_gateways_methods_settings")))])])])])])]), _vm._v(" "), _c("section", {
-    staticClass: "section"
-  }, [_c("form", {
-    attrs: {
-      id: "sms_method_settings_form",
-      method: "post",
-      enctype: "multipart/form-data"
-    },
-    on: {
-      submit: function submit($event) {
-        $event.preventDefault();
-        return _vm.saveRecord.apply(null, arguments);
-      }
-    }
-  }, [_c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-6 mb-4"
-  }, [_c("div", {
-    staticClass: "card h-100"
-  }, [_c("div", {
-    staticClass: "card-header"
-  }, [_c("h4", {
-    staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.__("twilio")))])]), _vm._v(" "), _c("div", {
-    staticClass: "card-body"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.sms_settings.sms_method_settings,
-      expression: "sms_settings.sms_method_settings"
-    }],
-    attrs: {
-      type: "hidden",
-      id: "sms_method_settings",
-      name: "sms_method_settings",
-      required: "",
-      value: "1",
-      "aria-required": "true"
-    },
-    domProps: {
-      value: _vm.sms_settings.sms_method_settings
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.sms_settings, "sms_method_settings", $event.target.value);
-      }
-    }
-  }), _vm._v(" "), _c("div", {}, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "twilio_method"
-    }
-  }, [_vm._v(_vm._s(_vm.__("twilio")) + " "), _c("small", [_vm._v("[ " + _vm._s(_vm.__("enable")) + " / " + _vm._s(_vm.__("disable")) + " ] ")])]), _c("br"), _vm._v(" "), _c("div", {
-    staticClass: "form-check form-switch"
-  }, [_c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.sms_settings.twilio_method,
-      expression: "sms_settings.twilio_method"
-    }],
-    staticClass: "form-check-input",
-    attrs: {
-      id: "sms_settings",
-      type: "checkbox",
-      "true-value": "1",
-      "false-value": "0"
-    },
-    domProps: _defineProperty({
-      checked: _vm.sms_settings.twilio_method
-    }, "checked", Array.isArray(_vm.sms_settings.twilio_method) ? _vm._i(_vm.sms_settings.twilio_method, null) > -1 : _vm._q(_vm.sms_settings.twilio_method, "1")),
-    on: {
-      change: function change($event) {
-        var $$a = _vm.sms_settings.twilio_method,
-          $$el = $event.target,
-          $$c = $$el.checked ? "1" : "0";
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && _vm.$set(_vm.sms_settings, "twilio_method", $$a.concat([$$v]));
-          } else {
-            $$i > -1 && _vm.$set(_vm.sms_settings, "twilio_method", $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
-          }
-        } else {
-          _vm.$set(_vm.sms_settings, "twilio_method", $$c);
-        }
-      }
-    }
-  })])]), _vm._v(" "), _vm.sms_settings.twilio_method == 1 ? _c("div", {
-    staticClass: "row"
-  }, [_c("div", {
-    staticClass: "col-md-6"
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "twilio_sid"
-    }
-  }, [_vm._v(_vm._s(_vm.__("twilio_sid"))), _c("span", {
-    staticClass: "text-danger text-xs"
-  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.sms_settings.twilio_sid,
-      expression: "sms_settings.twilio_sid"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      name: "twilio_sid",
-      id: "twilio_sid",
-      placeholder: "Enter twilio sid."
-    },
-    domProps: {
-      value: _vm.sms_settings.twilio_sid
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.sms_settings, "twilio_sid", $event.target.value);
-      }
-    }
-  })])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-6"
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "twilio_auth_token"
-    }
-  }, [_vm._v(_vm._s(_vm.__("twilio_auth_token"))), _c("span", {
-    staticClass: "text-danger text-xs"
-  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.sms_settings.twilio_auth_token,
-      expression: "sms_settings.twilio_auth_token"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      name: "authDomain",
-      id: "authDomain",
-      placeholder: "Enter twilio auth token."
-    },
-    domProps: {
-      value: _vm.sms_settings.twilio_auth_token
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.sms_settings, "twilio_auth_token", $event.target.value);
-      }
-    }
-  })])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-6"
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("label", {
-    attrs: {
-      "for": "twilio_phone_number"
-    }
-  }, [_vm._v(_vm._s(_vm.__("twilio_phone_number"))), _c("span", {
-    staticClass: "text-danger text-xs"
-  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.sms_settings.twilio_phone_number,
-      expression: "sms_settings.twilio_phone_number"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      type: "text",
-      name: "twilio_phone_number",
-      id: "twilio_phone_number",
-      placeholder: "Enter twilio phone number."
-    },
-    domProps: {
-      value: _vm.sms_settings.twilio_phone_number
-    },
-    on: {
-      input: function input($event) {
-        if ($event.target.composing) return;
-        _vm.$set(_vm.sms_settings, "twilio_phone_number", $event.target.value);
-      }
-    }
-  })])])]) : _vm._e()])])])]), _vm._v(" "), _c("div", {
-    staticClass: "form-group"
-  }, [_vm.$can("manage_payment_methods") ? _c("b-button", {
-    attrs: {
-      type: "submit",
-      id: "btn_update",
-      variant: "primary",
-      disabled: _vm.isLoading
-    }
-  }, [_vm._v(" " + _vm._s(_vm.__("update")) + "\n                            "), _vm.isLoading ? _c("b-spinner", {
-    attrs: {
-      small: "",
-      label: "Spinning"
-    }
-  }) : _vm._e()], 1) : _vm._e()], 1)])])])])]);
-};
-var staticRenderFns = [];
-render._withStripped = true;
-
-
-/***/ }),
-
 /***/ "./resources/js/views/Setting/SmsSettings.vue":
 /*!****************************************************!*\
   !*** ./resources/js/views/Setting/SmsSettings.vue ***!
@@ -423,10 +239,413 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SmsSettings_vue_vue_type_template_id_1acac124__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SmsSettings_vue_vue_type_template_id_1acac124__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SmsSettings_vue_vue_type_template_id_1acac124__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SmsSettings_vue_vue_type_template_id_1acac124__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SmsSettings_vue_vue_type_template_id_1acac124__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SmsSettings.vue?vue&type=template&id=1acac124 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SmsSettings.vue?vue&type=template&id=1acac124");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SmsSettings_vue_vue_type_template_id_1acac124__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SmsSettings.vue?vue&type=template&id=1acac124 */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SmsSettings.vue?vue&type=template&id=1acac124");
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SmsSettings.vue?vue&type=template&id=1acac124":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/SmsSettings.vue?vue&type=template&id=1acac124 ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "page-heading" }, [
+      _c("div", { staticClass: "page-title" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12 col-md-6 order-md-1 order-last" }, [
+            _c("h3", [_vm._v(_vm._s(_vm.__("sms_gateways_methods_settings")))]),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-md-6 order-md-2 order-first" }, [
+            _c(
+              "nav",
+              {
+                staticClass: "breadcrumb-header float-start float-lg-end",
+                attrs: { "aria-label": "breadcrumb" },
+              },
+              [
+                _c("ol", { staticClass: "breadcrumb" }, [
+                  _c(
+                    "li",
+                    { staticClass: "breadcrumb-item" },
+                    [
+                      _c("router-link", { attrs: { to: "/dashboard" } }, [
+                        _vm._v(_vm._s(_vm.__("dashboard"))),
+                      ]),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    {
+                      staticClass: "breadcrumb-item active",
+                      attrs: { "aria-current": "page" },
+                    },
+                    [_vm._v(_vm._s(_vm.__("sms_gateways_methods_settings")))]
+                  ),
+                ]),
+              ]
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("section", { staticClass: "section" }, [
+        _c(
+          "form",
+          {
+            attrs: {
+              id: "sms_method_settings_form",
+              method: "post",
+              enctype: "multipart/form-data",
+            },
+            on: {
+              submit: function ($event) {
+                $event.preventDefault()
+                return _vm.saveRecord.apply(null, arguments)
+              },
+            },
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-6 mb-4" }, [
+                _c("div", { staticClass: "card h-100" }, [
+                  _c("div", { staticClass: "card-header" }, [
+                    _c("h4", { staticClass: "card-title" }, [
+                      _vm._v(_vm._s(_vm.__("twilio"))),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.sms_settings.sms_method_settings,
+                          expression: "sms_settings.sms_method_settings",
+                        },
+                      ],
+                      attrs: {
+                        type: "hidden",
+                        id: "sms_method_settings",
+                        name: "sms_method_settings",
+                        required: "",
+                        value: "1",
+                        "aria-required": "true",
+                      },
+                      domProps: { value: _vm.sms_settings.sms_method_settings },
+                      on: {
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.sms_settings,
+                            "sms_method_settings",
+                            $event.target.value
+                          )
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("div", {}, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "twilio_method" } }, [
+                          _vm._v(_vm._s(_vm.__("twilio")) + " "),
+                          _c("small", [
+                            _vm._v(
+                              "[ " +
+                                _vm._s(_vm.__("enable")) +
+                                " / " +
+                                _vm._s(_vm.__("disable")) +
+                                " ] "
+                            ),
+                          ]),
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "form-check form-switch" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.sms_settings.twilio_method,
+                                expression: "sms_settings.twilio_method",
+                              },
+                            ],
+                            staticClass: "form-check-input",
+                            attrs: {
+                              id: "sms_settings",
+                              type: "checkbox",
+                              "true-value": "1",
+                              "false-value": "0",
+                            },
+                            domProps: {
+                              checked: _vm.sms_settings.twilio_method,
+                              checked: Array.isArray(
+                                _vm.sms_settings.twilio_method
+                              )
+                                ? _vm._i(_vm.sms_settings.twilio_method, null) >
+                                  -1
+                                : _vm._q(_vm.sms_settings.twilio_method, "1"),
+                            },
+                            on: {
+                              change: function ($event) {
+                                var $$a = _vm.sms_settings.twilio_method,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? "1" : "0"
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.sms_settings,
+                                        "twilio_method",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.sms_settings,
+                                        "twilio_method",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.sms_settings,
+                                    "twilio_method",
+                                    $$c
+                                  )
+                                }
+                              },
+                            },
+                          }),
+                        ]),
+                      ]),
+                      _vm._v(" "),
+                      _vm.sms_settings.twilio_method == 1
+                        ? _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", { attrs: { for: "twilio_sid" } }, [
+                                  _vm._v(_vm._s(_vm.__("twilio_sid"))),
+                                  _c(
+                                    "span",
+                                    { staticClass: "text-danger text-xs" },
+                                    [_vm._v("*")]
+                                  ),
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.sms_settings.twilio_sid,
+                                      expression: "sms_settings.twilio_sid",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "twilio_sid",
+                                    id: "twilio_sid",
+                                    placeholder: "Enter twilio sid.",
+                                  },
+                                  domProps: {
+                                    value: _vm.sms_settings.twilio_sid,
+                                  },
+                                  on: {
+                                    input: function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.sms_settings,
+                                        "twilio_sid",
+                                        $event.target.value
+                                      )
+                                    },
+                                  },
+                                }),
+                              ]),
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "twilio_auth_token" } },
+                                  [
+                                    _vm._v(_vm._s(_vm.__("twilio_auth_token"))),
+                                    _c(
+                                      "span",
+                                      { staticClass: "text-danger text-xs" },
+                                      [_vm._v("*")]
+                                    ),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.sms_settings.twilio_auth_token,
+                                      expression:
+                                        "sms_settings.twilio_auth_token",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "authDomain",
+                                    id: "authDomain",
+                                    placeholder: "Enter twilio auth token.",
+                                  },
+                                  domProps: {
+                                    value: _vm.sms_settings.twilio_auth_token,
+                                  },
+                                  on: {
+                                    input: function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.sms_settings,
+                                        "twilio_auth_token",
+                                        $event.target.value
+                                      )
+                                    },
+                                  },
+                                }),
+                              ]),
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "label",
+                                  { attrs: { for: "twilio_phone_number" } },
+                                  [
+                                    _vm._v(
+                                      _vm._s(_vm.__("twilio_phone_number"))
+                                    ),
+                                    _c(
+                                      "span",
+                                      { staticClass: "text-danger text-xs" },
+                                      [_vm._v("*")]
+                                    ),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value:
+                                        _vm.sms_settings.twilio_phone_number,
+                                      expression:
+                                        "sms_settings.twilio_phone_number",
+                                    },
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    type: "text",
+                                    name: "twilio_phone_number",
+                                    id: "twilio_phone_number",
+                                    placeholder: "Enter twilio phone number.",
+                                  },
+                                  domProps: {
+                                    value: _vm.sms_settings.twilio_phone_number,
+                                  },
+                                  on: {
+                                    input: function ($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.sms_settings,
+                                        "twilio_phone_number",
+                                        $event.target.value
+                                      )
+                                    },
+                                  },
+                                }),
+                              ]),
+                            ]),
+                          ])
+                        : _vm._e(),
+                    ]),
+                  ]),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-group" },
+                [
+                  _vm.$can("manage_payment_methods")
+                    ? _c(
+                        "b-button",
+                        {
+                          attrs: {
+                            type: "submit",
+                            id: "btn_update",
+                            variant: "primary",
+                            disabled: _vm.isLoading,
+                          },
+                        },
+                        [
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.__("update")) +
+                              "\n                            "
+                          ),
+                          _vm.isLoading
+                            ? _c("b-spinner", {
+                                attrs: { small: "", label: "Spinning" },
+                              })
+                            : _vm._e(),
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                ],
+                1
+              ),
+            ]),
+          ]
+        ),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
 
 
 /***/ })
