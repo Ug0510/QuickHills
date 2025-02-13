@@ -13,139 +13,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -242,6 +109,352 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/FirebaseSettings.vue?vue&type=template&id=f7e07230":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/FirebaseSettings.vue?vue&type=template&id=f7e07230 ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", [_c("div", {
+    staticClass: "page-heading"
+  }, [_c("div", {
+    staticClass: "page-title"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-12 col-md-6 order-md-1 order-last"
+  }, [_c("h3", [_vm._v(_vm._s(_vm.__("firebase_settings")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-12 col-md-6 order-md-2 order-first"
+  }, [_c("nav", {
+    staticClass: "breadcrumb-header float-start float-lg-end",
+    attrs: {
+      "aria-label": "breadcrumb"
+    }
+  }, [_c("ol", {
+    staticClass: "breadcrumb"
+  }, [_c("li", {
+    staticClass: "breadcrumb-item"
+  }, [_c("router-link", {
+    attrs: {
+      to: "/dashboard"
+    }
+  }, [_vm._v(_vm._s(_vm.__("dashboard")))])], 1), _vm._v(" "), _c("li", {
+    staticClass: "breadcrumb-item active",
+    attrs: {
+      "aria-current": "page"
+    }
+  }, [_vm._v(_vm._s(_vm.__("firebase_settings")))])])])])])]), _vm._v(" "), _c("section", {
+    staticClass: "section"
+  }, [_c("form", {
+    attrs: {
+      id: "api_key_form",
+      method: "post",
+      enctype: "multipart/form-data"
+    },
+    on: {
+      submit: function submit($event) {
+        $event.preventDefault();
+        return _vm.saveRecord.apply(null, arguments);
+      }
+    }
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v(_vm._s(_vm.__("firebase_setup_keys")))]), _vm._v(" "), _c("label", [_c("span", {
+    staticClass: "text-danger text-xs"
+  }, [_vm._v("*")]), _vm._v(" " + _vm._s(_vm.__("required_fields")) + ".")]), _vm._v(" "), _c("div", {
+    staticClass: "divider"
+  }, [_c("div", {
+    staticClass: "divider-text"
+  }, [_vm._v(_vm._s(_vm.__("firebase_setup_keys_form")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "apiKey"
+    }
+  }, [_vm._v(_vm._s(_vm.__("apikey"))), _c("span", {
+    staticClass: "text-danger text-xs"
+  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.firebase.apiKey,
+      expression: "firebase.apiKey"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      name: "apiKey",
+      id: "apiKey",
+      placeholder: "Enter api key."
+    },
+    domProps: {
+      value: _vm.firebase.apiKey
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.firebase, "apiKey", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "authDomain"
+    }
+  }, [_vm._v(_vm._s(_vm.__("authdomain"))), _c("span", {
+    staticClass: "text-danger text-xs"
+  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.firebase.authDomain,
+      expression: "firebase.authDomain"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      name: "authDomain",
+      id: "authDomain",
+      placeholder: "Enter aith domain."
+    },
+    domProps: {
+      value: _vm.firebase.authDomain
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.firebase, "authDomain", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "projectId"
+    }
+  }, [_vm._v(_vm._s(_vm.__("projectid")) + " "), _c("span", {
+    staticClass: "text-danger text-xs"
+  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.firebase.projectId,
+      expression: "firebase.projectId"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      name: "projectId",
+      id: "projectId",
+      placeholder: "Enter project id."
+    },
+    domProps: {
+      value: _vm.firebase.projectId
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.firebase, "projectId", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "storageBucket"
+    }
+  }, [_vm._v(_vm._s(_vm.__("storagebucket"))), _c("span", {
+    staticClass: "text-danger text-xs"
+  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.firebase.storageBucket,
+      expression: "firebase.storageBucket"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      name: "storageBucket",
+      id: "storageBucket",
+      placeholder: "Enter storage bucket."
+    },
+    domProps: {
+      value: _vm.firebase.storageBucket
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.firebase, "storageBucket", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "messagingSenderId"
+    }
+  }, [_vm._v(" " + _vm._s(_vm.__("messagingsenderid"))), _c("span", {
+    staticClass: "text-danger text-xs"
+  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.firebase.messagingSenderId,
+      expression: "firebase.messagingSenderId"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      name: "messagingSenderId",
+      id: "messagingSenderId",
+      placeholder: "Enter messaging sender id."
+    },
+    domProps: {
+      value: _vm.firebase.messagingSenderId
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.firebase, "messagingSenderId", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "appId"
+    }
+  }, [_vm._v(" " + _vm._s(_vm.__("appid"))), _c("span", {
+    staticClass: "text-danger text-xs"
+  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.firebase.appId,
+      expression: "firebase.appId"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      name: "appId",
+      id: "appId",
+      placeholder: "Enter app id."
+    },
+    domProps: {
+      value: _vm.firebase.appId
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.firebase, "appId", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "measurementId"
+    }
+  }, [_vm._v(_vm._s(_vm.__("measurementid"))), _c("span", {
+    staticClass: "text-danger text-xs"
+  }, [_vm._v("*")])]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.firebase.measurementId,
+      expression: "firebase.measurementId"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      name: "measurementId",
+      id: "measurementId",
+      placeholder: "Enter measurement id."
+    },
+    domProps: {
+      value: _vm.firebase.measurementId
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.firebase, "measurementId", $event.target.value);
+      }
+    }
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "divider"
+  }, [_c("div", {
+    staticClass: "divider-text"
+  }, [_vm._v(_vm._s(_vm.__("firebase_json_file_upload")))])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "jsonFile"
+    }
+  }, [_vm._v(_vm._s(_vm.__("firebase_json_file")))]), _vm._v(" "), _c("input", {
+    ref: "jsonFile",
+    staticClass: "form-control",
+    attrs: {
+      type: "file",
+      name: "jsonFile",
+      id: "jsonFile",
+      accept: ".json"
+    },
+    on: {
+      change: _vm.handleFileUpload
+    }
+  })])])])]), _vm._v(" "), _c("div", {
+    staticClass: "card-footer"
+  }, [_c("b-button", {
+    attrs: {
+      type: "submit",
+      variant: "primary",
+      disabled: _vm.isLoading
+    }
+  }, [_vm._v(_vm._s(_vm.__("update")) + "\n                                "), _vm.isLoading ? _c("b-spinner", {
+    attrs: {
+      small: "",
+      label: "Spinning"
+    }
+  }) : _vm._e()], 1)], 1)])])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./resources/js/views/Setting/FirebaseSettings.vue":
 /*!*********************************************************!*\
   !*** ./resources/js/views/Setting/FirebaseSettings.vue ***!
@@ -303,466 +516,10 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FirebaseSettings_vue_vue_type_template_id_f7e07230__WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FirebaseSettings_vue_vue_type_template_id_f7e07230__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FirebaseSettings_vue_vue_type_template_id_f7e07230__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FirebaseSettings_vue_vue_type_template_id_f7e07230__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FirebaseSettings_vue_vue_type_template_id_f7e07230__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FirebaseSettings.vue?vue&type=template&id=f7e07230 */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/FirebaseSettings.vue?vue&type=template&id=f7e07230");
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/FirebaseSettings.vue?vue&type=template&id=f7e07230":
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/FirebaseSettings.vue?vue&type=template&id=f7e07230 ***!
-  \******************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* binding */ render),
-/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function () {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "page-heading" }, [
-      _c("div", { staticClass: "page-title" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12 col-md-6 order-md-1 order-last" }, [
-            _c("h3", [_vm._v(_vm._s(_vm.__("firebase_settings")))]),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-md-6 order-md-2 order-first" }, [
-            _c(
-              "nav",
-              {
-                staticClass: "breadcrumb-header float-start float-lg-end",
-                attrs: { "aria-label": "breadcrumb" },
-              },
-              [
-                _c("ol", { staticClass: "breadcrumb" }, [
-                  _c(
-                    "li",
-                    { staticClass: "breadcrumb-item" },
-                    [
-                      _c("router-link", { attrs: { to: "/dashboard" } }, [
-                        _vm._v(_vm._s(_vm.__("dashboard"))),
-                      ]),
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    {
-                      staticClass: "breadcrumb-item active",
-                      attrs: { "aria-current": "page" },
-                    },
-                    [_vm._v(_vm._s(_vm.__("firebase_settings")))]
-                  ),
-                ]),
-              ]
-            ),
-          ]),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("section", { staticClass: "section" }, [
-        _c(
-          "form",
-          {
-            attrs: {
-              id: "api_key_form",
-              method: "post",
-              enctype: "multipart/form-data",
-            },
-            on: {
-              submit: function ($event) {
-                $event.preventDefault()
-                return _vm.saveRecord.apply(null, arguments)
-              },
-            },
-          },
-          [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c("h4", { staticClass: "card-title" }, [
-                    _vm._v(_vm._s(_vm.__("firebase_setup_keys"))),
-                  ]),
-                  _vm._v(" "),
-                  _c("label", [
-                    _c("span", { staticClass: "text-danger text-xs" }, [
-                      _vm._v("*"),
-                    ]),
-                    _vm._v(" " + _vm._s(_vm.__("required_fields")) + "."),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "divider" }, [
-                    _c("div", { staticClass: "divider-text" }, [
-                      _vm._v(_vm._s(_vm.__("firebase_setup_keys_form"))),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "apiKey" } }, [
-                        _vm._v(_vm._s(_vm.__("apikey"))),
-                        _c("span", { staticClass: "text-danger text-xs" }, [
-                          _vm._v("*"),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.firebase.apiKey,
-                            expression: "firebase.apiKey",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "apiKey",
-                          id: "apiKey",
-                          placeholder: "Enter api key.",
-                        },
-                        domProps: { value: _vm.firebase.apiKey },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.firebase,
-                              "apiKey",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "authDomain" } }, [
-                        _vm._v(_vm._s(_vm.__("authdomain"))),
-                        _c("span", { staticClass: "text-danger text-xs" }, [
-                          _vm._v("*"),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.firebase.authDomain,
-                            expression: "firebase.authDomain",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "authDomain",
-                          id: "authDomain",
-                          placeholder: "Enter aith domain.",
-                        },
-                        domProps: { value: _vm.firebase.authDomain },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.firebase,
-                              "authDomain",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "projectId" } }, [
-                        _vm._v(_vm._s(_vm.__("projectid")) + " "),
-                        _c("span", { staticClass: "text-danger text-xs" }, [
-                          _vm._v("*"),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.firebase.projectId,
-                            expression: "firebase.projectId",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "projectId",
-                          id: "projectId",
-                          placeholder: "Enter project id.",
-                        },
-                        domProps: { value: _vm.firebase.projectId },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.firebase,
-                              "projectId",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "storageBucket" } }, [
-                        _vm._v(_vm._s(_vm.__("storagebucket"))),
-                        _c("span", { staticClass: "text-danger text-xs" }, [
-                          _vm._v("*"),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.firebase.storageBucket,
-                            expression: "firebase.storageBucket",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "storageBucket",
-                          id: "storageBucket",
-                          placeholder: "Enter storage bucket.",
-                        },
-                        domProps: { value: _vm.firebase.storageBucket },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.firebase,
-                              "storageBucket",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "messagingSenderId" } }, [
-                        _vm._v(" " + _vm._s(_vm.__("messagingsenderid"))),
-                        _c("span", { staticClass: "text-danger text-xs" }, [
-                          _vm._v("*"),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.firebase.messagingSenderId,
-                            expression: "firebase.messagingSenderId",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "messagingSenderId",
-                          id: "messagingSenderId",
-                          placeholder: "Enter messaging sender id.",
-                        },
-                        domProps: { value: _vm.firebase.messagingSenderId },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.firebase,
-                              "messagingSenderId",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "appId" } }, [
-                        _vm._v(" " + _vm._s(_vm.__("appid"))),
-                        _c("span", { staticClass: "text-danger text-xs" }, [
-                          _vm._v("*"),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.firebase.appId,
-                            expression: "firebase.appId",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "appId",
-                          id: "appId",
-                          placeholder: "Enter app id.",
-                        },
-                        domProps: { value: _vm.firebase.appId },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.firebase, "appId", $event.target.value)
-                          },
-                        },
-                      }),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "measurementId" } }, [
-                        _vm._v(_vm._s(_vm.__("measurementid"))),
-                        _c("span", { staticClass: "text-danger text-xs" }, [
-                          _vm._v("*"),
-                        ]),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.firebase.measurementId,
-                            expression: "firebase.measurementId",
-                          },
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          name: "measurementId",
-                          id: "measurementId",
-                          placeholder: "Enter measurement id.",
-                        },
-                        domProps: { value: _vm.firebase.measurementId },
-                        on: {
-                          input: function ($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.firebase,
-                              "measurementId",
-                              $event.target.value
-                            )
-                          },
-                        },
-                      }),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "divider" }, [
-                    _c("div", { staticClass: "divider-text" }, [
-                      _vm._v(_vm._s(_vm.__("firebase_json_file_upload"))),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "jsonFile" } }, [
-                        _vm._v(_vm._s(_vm.__("firebase_json_file"))),
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        ref: "jsonFile",
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "file",
-                          name: "jsonFile",
-                          id: "jsonFile",
-                          accept: ".json",
-                        },
-                        on: { change: _vm.handleFileUpload },
-                      }),
-                    ]),
-                  ]),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "card-footer" },
-                [
-                  _c(
-                    "b-button",
-                    {
-                      attrs: {
-                        type: "submit",
-                        variant: "primary",
-                        disabled: _vm.isLoading,
-                      },
-                    },
-                    [
-                      _vm._v(
-                        _vm._s(_vm.__("update")) +
-                          "\n                                "
-                      ),
-                      _vm.isLoading
-                        ? _c("b-spinner", {
-                            attrs: { small: "", label: "Spinning" },
-                          })
-                        : _vm._e(),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-            ]),
-          ]
-        ),
-      ]),
-    ]),
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_FirebaseSettings_vue_vue_type_template_id_f7e07230__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./FirebaseSettings.vue?vue&type=template&id=f7e07230 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/views/Setting/FirebaseSettings.vue?vue&type=template&id=f7e07230");
 
 
 /***/ })
