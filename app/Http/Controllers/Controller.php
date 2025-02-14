@@ -226,16 +226,8 @@ class Controller extends BaseController
             $existsInSellerWalletTransaction = SellerWalletTransaction::where('order_item_id', $item->id)->exists();
     
             if (!$existsInSellerWalletTransaction) {
-                // $commission = SellerCommission::where('seller_id', $product_info->seller_id)->where('category_id', $product_info->category_id)->first();
-               
-                // if ($commission && $commission->commission > 0) {
-                //     $commission = $commission->commission;
-                    
-                // } else {
-                //     $commission = $item->seller->commission;
-                // }
                 $commission = $item->seller->commission;
-                $seller_amount = $item->sub_total - ($item->sub_total * $commission / 100);
+                $seller_amount = ($item->price*$item->quantity) - ($item->sub_total * $commission / 100);
                 $seller_id = $item->seller_id;
     
                 $getSellerWalletBalance = CommonHelper::getSellerWalletBalance($seller_id);
