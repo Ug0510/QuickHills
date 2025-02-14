@@ -227,7 +227,7 @@ class Controller extends BaseController
     
             if (!$existsInSellerWalletTransaction) {
                 $commission = $item->seller->commission;
-                $seller_amount = ($item->price*$item->quantity) - ($item->sub_total * $commission / 100);
+                $seller_amount = ($item->price*$item->quantity) - (($item->price*$item->quantity)* $commission / 100);
                 $seller_id = $item->seller_id;
     
                 $getSellerWalletBalance = CommonHelper::getSellerWalletBalance($seller_id);
