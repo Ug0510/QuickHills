@@ -227,10 +227,19 @@ class Controller extends BaseController
     
             if (!$existsInSellerWalletTransaction) {
                 $commission = $item->seller->commission;
+
+                // logging the item 
+                Log::debug('Here is the item:', ['item' => $item]);
+
+                $seller_amount = 0;
+
                 if($item -> discounted_price == 0)
                     $seller_amount = ($item->price*$item->quantity) - (($item->price*$item->quantity) * $commission / 100);
                 else
                     $seller_amount = ($item->discounted_price*$item->quantity) - (($item->discounted_price*$item->quantity) * $commission / 100);
+
+                // logging the item 
+                Log::debug('Here is the item amount:', ['seller_amount' => $seller_amount]);
 
                 $seller_id = $item->seller_id;
     
