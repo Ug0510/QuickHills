@@ -211,12 +211,12 @@ class Controller extends BaseController
                         }
                     }
                 } catch (Exception $e) {
-                    \Log::error("Set seller wallet transaction :",[$e->getMessage()] );
+                    Log::error("Set seller wallet transaction :",[$e->getMessage()] );
                 }
             }
         } catch (Exception $e) {
            
-            \Log::error("Set seller wallet transactions :",[$e->getMessage()] );
+            Log::error("Set seller wallet transactions :",[$e->getMessage()] );
         }
     }
     
@@ -227,7 +227,11 @@ class Controller extends BaseController
     
             if (!$existsInSellerWalletTransaction) {
                 $commission = $item->seller->commission;
-                $seller_amount = ($item->price*$item->quantity) - (($item->price*$item->quantity)* $commission / 100);
+                if($item -> discounted_price == 0)
+                    $seller_amount = ($item->price*$item->quantity) - (($item->price*$item->quantity) * $commission / 100);
+                else
+                    $seller_amount = ($item->discounted_price*$item->quantity) - (($item->discounted_price*$item->quantity) * $commission / 100);
+
                 $seller_id = $item->seller_id;
     
                 $getSellerWalletBalance = CommonHelper::getSellerWalletBalance($seller_id);
@@ -240,7 +244,7 @@ class Controller extends BaseController
             }
         } catch (Exception $e) {
             
-            \Log::error("Process seller transaction :",[$e->getMessage()] );
+            Log::error("Process seller transaction :",[$e->getMessage()] );
         }
     }
     public function unauthorized()
