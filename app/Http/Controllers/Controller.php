@@ -31,6 +31,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Config;
+use Exception;
 
 class Controller extends BaseController
 {
@@ -237,7 +238,7 @@ class Controller extends BaseController
                     $seller_amount = ($item->price*$item->quantity) - (($item->price*$item->quantity) * $commission / 100);
                 else
                     $seller_amount = ($item->discounted_price*$item->quantity) - (($item->discounted_price*$item->quantity) * $commission / 100);
-
+                    
                 // logging the item 
                 Log::debug('Here is the item amount:', ['seller_amount' => $seller_amount]);
 
