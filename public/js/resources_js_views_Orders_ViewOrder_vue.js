@@ -495,7 +495,7 @@ var render = function render() {
     attrs: {
       "aria-current": "page"
     }
-  }, [_vm._v("\n                                Order Detailss\n                            ")])])])])]), _vm._v(" "), _vm.order ? _c("div", {
+  }, [_vm._v("\n                                Order Details\n                            ")])])])])]), _vm._v(" "), _vm.order ? _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-md-6"

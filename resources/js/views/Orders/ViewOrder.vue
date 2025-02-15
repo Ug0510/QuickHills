@@ -27,7 +27,7 @@
                                 <router-link to="/orders">View Order</router-link>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Order Detailss
+                                Order Details
                             </li>
                         </ol>
                     </nav>
