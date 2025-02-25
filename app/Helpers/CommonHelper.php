@@ -1146,6 +1146,11 @@ class CommonHelper
             
             $variant['tax_percentage'] =  $tax_percentage ?? 0;
 
+            if ($tax_percentage == 0) {
+                $variant['tax_free_amount'] = $variant['discounted_price'] != 0 ? $variant['discounted_price'] : $variant['price'];
+            } else {
+                $variant['tax_free_amount'] = $variant['discounted_price'] != 0 ? $variant['discounted_price'] / (1 + $tax_percentage / 100) : $variant['price'] / (1 + $tax_percentage / 100);
+            }
             return $variant;
         }
     }
