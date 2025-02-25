@@ -1140,11 +1140,21 @@ class CommonHelper
 
             $variant['discounted_price'] = CommonHelper::doubleNumber($taxed->taxable_discounted_price ?? $variant['discounted_price']);
             $variant['price'] = CommonHelper::doubleNumber($taxed->taxable_price ?? $variant['price']);
+
             $variant['taxable_amount'] = CommonHelper::doubleNumber($taxed->taxable_amount);
 
             $variant['stock_unit_name'] = $variant['stock_unit_name'] ?? '';
             
             $variant['tax_percentage'] =  $tax_percentage ?? 0;
+
+            if($tax_percentage != 0)
+            {
+                $variant['price_tax_free'] = $variant['price'] / (1 + $tax_percentage / 100);
+            }
+            else
+            {
+                $variant['price_tax_free'] = $variant['price'];
+            }
 
             if ($tax_percentage == 0) {
                 $variant['tax_free_amount'] = $variant['discounted_price'] != 0 ? $variant['discounted_price'] : $variant['price'];
