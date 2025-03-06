@@ -278,11 +278,7 @@ class AdminAuthController extends Controller
             $seller->city_id = $request->city_id;
             $seller->store_description = $request->store_description;
             $seller->commission = $request->commission;
-<<<<<<< Updated upstream
-            $seller->status = $request->status ?? Seller::$statusRegistered; // Set status from request
-=======
-            $seller->status = $request->status ?? 0; //0=Pending, 1=Approved, 2=Rejected, 3=Deactivated
->>>>>>> Stashed changes
+            $seller->status = $request->status ?? 0;
             $seller->require_products_approval = 1;
             if($request->hasFile('store_logo')){
                 $file = $request->file('store_logo');
