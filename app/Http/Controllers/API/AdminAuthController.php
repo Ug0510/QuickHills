@@ -270,7 +270,6 @@ class AdminAuthController extends Controller
             $seller->store_name = $request->store_name;
             $seller->email = $request->email;
             $seller->mobile = $request->mobile;
-            $seller->status = Seller::$statusRegistered;
             $seller->store_url = $request->store_url;
             $seller->categories = $request->categories_ids;
             $seller->tax_name = $request->tax_name;
@@ -279,6 +278,12 @@ class AdminAuthController extends Controller
             $seller->city_id = $request->city_id;
             $seller->store_description = $request->store_description;
             $seller->commission = $request->commission;
+<<<<<<< Updated upstream
+            $seller->status = $request->status ?? Seller::$statusRegistered; // Set status from request
+=======
+            $seller->status = $request->status ?? 0; //0=Pending, 1=Approved, 2=Rejected, 3=Deactivated
+>>>>>>> Stashed changes
+            $seller->require_products_approval = 1;
             if($request->hasFile('store_logo')){
                 $file = $request->file('store_logo');
                 $fileName = time().'_'.rand(1111,99999).'.'.$file->getClientOriginalExtension();
