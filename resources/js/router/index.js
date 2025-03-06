@@ -50,6 +50,7 @@ const Brands = () => import("../views/Product/Brands/Brands");
 const Sellers = () => import("../views/Seller/Sellers");
 const RegisteredSellers = () => import("../views/Seller/RegisteredSellers");
 const EditSeller = () => import("../views/Seller/EditSeller");
+const CreateSellers = () => import("../views/Seller/CreateSellers");
 const SellerCommissions = () => import("../views/Seller/Commissions/SellerCommissions")
 const SellerWalletTransactions = () => import("../views/Seller/WalletTransactions/SellerWalletTransactions");
 
@@ -606,7 +607,7 @@ fetchData();
                 {
                     path: "sellers/create",
                     name: "CreateSellers",
-                    component: EditSeller,
+                    component: CreateSellers,
                     meta: {
                         permission: 'order_list',
                         role: adminRoles,
