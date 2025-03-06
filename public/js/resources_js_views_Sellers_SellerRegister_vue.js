@@ -195,6 +195,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('address_proof', this.address_proof);
       formData.append('city_id', this.city_id);
       formData.append('commission', this.commission);
+      formData.append('status', this.status);
       var url = this.$apiUrl + '/seller/register';
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, formData, {
         headers: {
