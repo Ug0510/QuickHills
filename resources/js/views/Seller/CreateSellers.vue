@@ -166,30 +166,15 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-4" style="display:none;">
+                                    <div class="form-group col-md-4">
                                         <label>{{__('commission')}}<i class="text-danger">*</i></label>
                                         <input type="number" class="form-control" v-model="commission"
-                                               placeholder="Enter commission (%)" @input="validateCommission" readonly>
+                                               placeholder="Enter commission (%)" @input="validateCommission" >
                                         <p v-if="commissionvalidationError" class="error">{{ commissionvalidationError }}</p>
                                         <span class="text text-success font-size-13"> 
                                             <a href="javascript:void(0)" @click="commissionRule = true"
                                                title="How it works">How seller commission works?</a>
                                         </span>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <div class="form-group">
-                                            <label class="control-label"> {{__('shop_opened_closed')}}</label><br>
-                                            <b-form-radio-group
-                                                v-model="shop_opened_closed"
-                                                :options="[
-                                                                { text: ' Opened', 'value': 1 },
-                                                                { text: ' Closed', 'value': 0 },
-                                                            ]"
-                                                buttons
-                                                button-variant="outline-primary"
-                                                required
-                                            ></b-form-radio-group>
-                                        </div>
                                     </div>
                                     <br>
                                     <div class="form-group col-md-4">
@@ -217,8 +202,27 @@
                                                     <a target="_blank" :href="national_id_card_url" class="badge bg-success"> <i class="fa fa-eye"></i> Identity Card</a>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
+
+                                    <div class="form-group col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label"> {{__('shop_opened_closed')}}</label><br>
+                                            <b-form-radio-group
+                                                v-model="shop_opened_closed"
+                                                :options="[
+                                                                { text: ' Opened', 'value': 1 },
+                                                                { text: ' Closed', 'value': 0 },
+                                                            ]"
+                                                buttons
+                                                button-variant="outline-primary"
+                                                required
+                                            ></b-form-radio-group>
+                                        </div>
+                                    </div>
+
+
                                     <div class="form-group col-md-4">
                                         <div class="form-group">
                                             <label> {{__('address_proof')}}<i v-if="!id" class="text-danger">*</i></label>
@@ -669,6 +673,7 @@ export default {
             latitude: "",
             longitude: "",
             store_description: "",
+            require_products_approval: 1,
             customer_privacy: 0,
             view_order_otp: 0,
             assign_delivery_boy: 0,
@@ -775,9 +780,7 @@ export default {
         },
         getSellerCommission() {
             //this.isLoading = true
-            // copilot please sned sller_id with this route and get the commission.The sller_id is basically id of the seller table
-
-            axios.get(this.$sellerApiUrl + '/seller_commission_not_default' + this.id)
+            axios.get(this.$sellerApiUrl + '/seller_commission')
                 .then((response) => {
                     let data = response.data;
                     this.commission = data.data.value;
@@ -948,10 +951,10 @@ export default {
                         this.admin_id = this.record.admin.id ?? this.record.admin_id;
                         this.name = this.record.admin.username ?? this.record.name;
                         this.email = this.record.admin.email ?? this.record.email;
-
+                        this.shop_opened_closed = this.record.shop_opened_closed;
                         this.mobile = this.record.mobile;
                         this.store_url = this.record.store_url;
-                        this.shop_opened_closed = this.record.shop_opened_closed;
+
                         this.password = "";
                         this.confirm_password = "";
 
@@ -1045,6 +1048,7 @@ export default {
             formData.append('pincode_id', this.pincode_id);
             formData.append('city_id', this.city_id);
             formData.append('categories_ids', this.categories_ids);
+            formData.append('shop_opened_closed', this.shop_opened_closed);
             formData.append('state', this.state);
             formData.append('remark', this.remark);
             formData.append('account_number', this.account_number);
@@ -1057,7 +1061,7 @@ export default {
             formData.append('pan_number', this.pan_number);
             formData.append('latitude', this.latitude);
             formData.append('longitude', this.longitude);
-            formData.append('shop_opened_closed', this.shop_opened_closed);
+
             formData.append('place_name', this.place_name);
             formData.append('formatted_address', this.formatted_address);
 

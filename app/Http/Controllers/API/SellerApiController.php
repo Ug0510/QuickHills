@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
+
 class SellerApiController extends Controller
 {
     public function getSellers(Request $request){
@@ -432,4 +433,17 @@ class SellerApiController extends Controller
         }
 
     }
+
+    public function getSellerCommissionNotDefault($id){
+    //I want sller commision to be fetched from the sellers table on the basis of seller_id on which I am currently updating the profile, I also want to send the seller_id from the route present inside the EditSellerProfile.vue file
+        $seller_id = $id;
+        $seller_commission = Seller::select('commission')->where('id',$seller_id)->first();
+        if (!empty($seller_commission) && $seller_commission->count() !== 0) {
+            return CommonHelper::responseWithData($seller_commission);
+        } else {
+            return CommonHelper::responseError("Seller(s) commission not available");
+        }
+    }
+
+
 }

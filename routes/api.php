@@ -45,7 +45,7 @@ Route::get('seller-terms-conditions', [\App\Http\Controllers\API\PrivacyPolicyDe
 
 Route::get('seller/categories', [\App\Http\Controllers\API\CategoryApiController::class, 'getMainCategories']);
 Route::get('seller/seller_commission', [\App\Http\Controllers\API\SellerApiController::class, 'getSellerCommission']);
-
+Route::get('seller/seller_commission_not_default/{id}', [\App\Http\Controllers\API\SellerApiController::class, 'getSellerCommissionNotDefault']);
 Route::get('role', [\App\Http\Controllers\API\RoleApiController::class, 'index']);
 
 Route::group(['middleware' => ['auth:api']], function () {  
