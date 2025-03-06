@@ -471,6 +471,8 @@ export default {
             formData.append('address_proof', this.address_proof);
             formData.append('city_id', this.city_id);
             formData.append('commission', this.commission);
+            formData.append('status', this.status);
+
 
             let url = this.$apiUrl + '/seller/register';
             axios.post(url, formData, {
