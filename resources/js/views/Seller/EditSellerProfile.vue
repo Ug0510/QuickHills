@@ -669,7 +669,6 @@ export default {
             latitude: "",
             longitude: "",
             store_description: "",
-            require_products_approval: 0,
             customer_privacy: 0,
             view_order_otp: 0,
             assign_delivery_boy: 0,
