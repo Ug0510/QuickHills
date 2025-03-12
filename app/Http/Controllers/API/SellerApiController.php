@@ -280,6 +280,7 @@ class SellerApiController extends Controller
                     }
 
                     DB::commit();
+                    Log::info('Seller is updated, Caught you!', [$record]);
                 // } catch (\Exception $e) {
                 //     Log::info("Error : ".$e->getMessage());
                 //     DB::rollBack();
