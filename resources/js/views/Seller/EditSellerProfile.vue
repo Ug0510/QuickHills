@@ -775,8 +775,7 @@ export default {
         },
         getSellerCommission() {
             //this.isLoading = true
-            // copilot please sned sller_id with this route and get the commission.The sller_id is basically id of the seller table
-
+            
             axios.get(this.$sellerApiUrl + '/seller_commission_not_default' + this.id)
                 .then((response) => {
                     let data = response.data;

@@ -195,7 +195,7 @@ __webpack_require__.r(__webpack_exports__);
     getSellerCommission: function getSellerCommission() {
       var _this3 = this;
       //this.isLoading = true
-      axios__WEBPACK_IMPORTED_MODULE_1___default().get(this.$sellerApiUrl + '/seller_commission').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get(this.$sellerApiUrl + '/seller_commission_not_default' + this.id).then(function (response) {
         var data = response.data;
         _this3.commission = data.data.value;
       });

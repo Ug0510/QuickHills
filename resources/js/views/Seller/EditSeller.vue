@@ -780,7 +780,7 @@ export default {
         },
         getSellerCommission() {
             //this.isLoading = true
-            axios.get(this.$sellerApiUrl + '/seller_commission')
+            axios.get(this.$sellerApiUrl + '/seller_commission_not_default' + this.id)
                 .then((response) => {
                     let data = response.data;
                     this.commission = data.data.value;

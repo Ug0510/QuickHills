@@ -194,7 +194,6 @@ __webpack_require__.r(__webpack_exports__);
     getSellerCommission: function getSellerCommission() {
       var _this3 = this;
       //this.isLoading = true
-      // copilot please sned sller_id with this route and get the commission.The sller_id is basically id of the seller table
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().get(this.$sellerApiUrl + '/seller_commission_not_default' + this.id).then(function (response) {
         var data = response.data;
