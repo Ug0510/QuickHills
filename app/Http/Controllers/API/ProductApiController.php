@@ -47,8 +47,14 @@ class ProductApiController extends Controller
     }
 
     Log::info('Fetching categories');
-    // $categories = Category::where('status',1)->orderBy('id','DESC')->get()->toArray();
+
+try {
+    $categories = Category::where('status', 1)->orderBy('id', 'DESC')->get()->toArray();
     Log::info('Fetching categories end');
+} catch (\Exception $e) {
+    Log::error('Error fetching categories: ' . $e->getMessage());
+}
+
 
     // Initialize an array to hold the where conditions
     $where = [];
