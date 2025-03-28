@@ -49,8 +49,9 @@ class ProductApiController extends Controller
     Log::info('Fetching categories');
 
 try {
-    $categories = Category::where('status', 1)->orderBy('id', 'DESC')->get()->toArray();
-    Log::info('Fetching categories end');
+    // $categories = Category::where('status', 1)->orderBy('id', 'DESC')->get()->toArray();
+    $categories = Category::get()->toArray();
+    Log::info($categories);
 } catch (\Exception $e) {
     Log::error('Error fetching categories: ' . $e->getMessage());
 }
