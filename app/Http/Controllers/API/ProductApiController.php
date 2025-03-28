@@ -30,108 +30,139 @@ use Illuminate\Support\Str;
 
 class ProductApiController extends Controller
 {
-    public function getProducts(Request $request){ 
-        $limit = $request->input('per_page'); // Default items per page
-        $offset = (($request->input('page'))-1)*$limit; // Default page
-        $filter = $request->input('filter', ''); // Filter query
+    public function getProducts(Request $request)
+{ 
+    // Log incoming request data
+    Log::info('Fetching products', ['request_data' => $request->all()]);
+    
+    $limit = $request->input('per_page'); // Default items per page
+    $offset = (($request->input('page'))-1)*$limit; // Default page
+    $filter = $request->input('filter', ''); // Filter query
 
-        if(!isset($request->type)){
-            $sellers = Seller::where('status',1)->orderBy('id','DESC')->get()->toArray();
+    Log::info('Limit and Offset values', ['limit' => $limit, 'offset' => $offset]);
+
+    if(!isset($request->type)){
+        Log::info('Fetching sellers as "type" is not set');
+        $sellers = Seller::where('status',1)->orderBy('id','DESC')->get()->toArray();
+    }
+
+    Log::info('Fetching categories');
+    $categories = Category::where('status',1)->orderBy('id','DESC')->get()->toArray();
+
+    // Initialize an array to hold the where conditions
+    $where = [];
+
+    if (isset($request->is_approved) && $request->is_approved !== "") {
+        Log::info('Adding "is_approved" condition', ['is_approved' => $request->is_approved]);
+        $where[] = ['p.is_approved', '=', $request->is_approved];
+    }
+
+    if (isset($request->seller) && $request->seller !== "") {
+        Log::info('Adding seller condition', ['seller_id' => $request->seller]);
+        $where[] = ['p.seller_id', '=', $request->seller];
+
+        // Get the assigned categories from the seller table
+        $assignedCategories = Seller::where('id', $request->seller)->value('categories');
+        Log::info('Assigned categories from seller', ['assigned_categories' => $assignedCategories]);
+
+        // Convert the assigned categories into an array
+        $categoryIds = explode(',', $assignedCategories);
+
+        // Query the categories based on the assigned categories from the seller
+        $categories = Category::whereIn('id', $categoryIds)->orderBy('id', 'DESC')->get()->toArray();
+    }
+
+    if (isset($request->category) && $request->category !== "") {
+        Log::info('Adding category condition', ['category_id' => $request->category]);
+        $where[] = ['p.category_id', '=', $request->category];
+    }
+
+    // Packet products
+    if (isset($request->type) && $request->type === 'packet_products') {
+        Log::info('Filtering by packet products');
+        $where[] = ['p.type', '=', 'packet'];
+    }
+
+    // Loose products
+    if (isset($request->type) && $request->type === 'loose_products') {
+        Log::info('Filtering by loose products');
+        $where[] = ['p.type', '=', 'loose'];
+    }
+
+    // Sold Out
+    if (isset($request->type) && $request->type === 'sold_out') {
+        Log::info('Filtering sold out products');
+        $where[] = [DB::raw('(pv.stock <= 0 OR pv.status = "0")'), '=', DB::raw('0')];
+        $where[] = ['p.is_unlimited_stock', '=', 0];
+    }
+
+    // Low Stock
+    if (isset($request->type) && $request->type === 'low_stock') {
+        Log::info('Filtering low stock products');
+        $low_stock_limit = Setting::where('variable', 'low_stock_limit')->first();
+        if ($low_stock_limit) {
+            Log::info('Low stock limit found', ['low_stock_limit' => $low_stock_limit['value']]);
+            $where[] = ['pv.stock', '<=', $low_stock_limit['value']];
+            $where[] = ['pv.status', '=', '1'];
+            $where[] = ['p.is_unlimited_stock', '!=', '1'];
         }
-        $categories = Category::where('status',1)->orderBy('id','DESC')->get()->toArray();
+    }
 
-       // Initialize an array to hold the where conditions
-        $where = [];
-
-        if (isset($request->is_approved) && $request->is_approved !== "") {
-            $where[] = ['p.is_approved', '=', $request->is_approved];
-        }
-
-        if (isset($request->seller) && $request->seller !== "") {
-            $where[] = ['p.seller_id', '=', $request->seller];
-            // Get the assigned categories from the seller table
-            $assignedCategories = Seller::where('id', $request->seller)->value('categories');
-
-            // Convert the assigned categories into an array
-            $categoryIds = explode(',', $assignedCategories);
-
-            // Query the categories based on the assigned categories from the seller
-            $categories = Category::whereIn('id', $categoryIds)->orderBy('id', 'DESC')->get()->toArray();
-        }
-
-        if (isset($request->category) && $request->category !== "") {
-            $where[] = ['p.category_id', '=', $request->category];
-        }
-
-        // Packet products
-        if (isset($request->type) && $request->type === 'packet_products') {
-            $where[] = ['p.type', '=', 'packet'];
-        }
-
-        // Loose products
-        if (isset($request->type) && $request->type === 'loose_products') {
-            $where[] = ['p.type', '=', 'loose'];
-        }
-
-        // Sold Out
-        if (isset($request->type) && $request->type === 'sold_out') {
-            $where[] = [DB::raw('(pv.stock <= 0 OR pv.status = "0")'), '=', DB::raw('0')];
-            $where[] = ['p.is_unlimited_stock', '=', 0];
-        }
-
-        // Low Stock
-        if (isset($request->type) && $request->type === 'low_stock') {
-            $low_stock_limit = Setting::where('variable', 'low_stock_limit')->first();
-            if ($low_stock_limit) {
-                $where[] = ['pv.stock', '<=', $low_stock_limit['value']];
-                $where[] = ['pv.status', '=', '1'];
-                $where[] = ['p.is_unlimited_stock', '!=', '1'];
-            }
-        }
-
-        $products  = \DB::table('products as p')->select('p.id as product_id', 'p.*', 'p.name', 'p.seller_id', 'p.status', 'p.tax_id', 'p.image', 's.name as seller_name', 'p.indicator', 'p.manufacturer', 'p.made_in', 'p.return_status', 'p.cancelable_status', 'p.till_status',  'p.description', 'pv.id as product_variant_id', 'pv.price', 'pv.discounted_price', 'pv.measurement', 'pv.status as pv_status', 'pv.stock', 'pv.stock_unit_id', 'u.short_code', \DB::raw('(select short_code from units where units.id = pv.stock_unit_id) as stock_unit'))
+    Log::info('Building product query');
+    $products  = \DB::table('products as p')->select('p.id as product_id', 'p.*', 'p.name', 'p.seller_id', 'p.status', 'p.tax_id', 'p.image', 's.name as seller_name', 'p.indicator', 'p.manufacturer', 'p.made_in', 'p.return_status', 'p.cancelable_status', 'p.till_status',  'p.description', 'pv.id as product_variant_id', 'pv.price', 'pv.discounted_price', 'pv.measurement', 'pv.status as pv_status', 'pv.stock', 'pv.stock_unit_id', 'u.short_code', \DB::raw('(select short_code from units where units.id = pv.stock_unit_id) as stock_unit'))
         ->join('sellers as s', 'p.seller_id', '=', 's.id')
         ->join('product_variants as pv', 'p.id', '=', 'pv.product_id')
-        //->join('order_status_lists as osl', 'p.till_status', '=', 'osl.id')
         ->join('units as u', 'pv.stock_unit_id', '=', 'u.id');
 
-       // Add where conditions if any
-        if (!empty($where)) {
-            foreach ($where as $condition) {
-                $products->where($condition[0], $condition[1], $condition[2]);
-            }
+    // Add where conditions if any
+    if (!empty($where)) {
+        foreach ($where as $condition) {
+            Log::info('Adding where condition', ['condition' => $condition]);
+            $products->where($condition[0], $condition[1], $condition[2]);
         }
-        $products = $products->orderBy('pv.id', 'desc');
-
-        // Apply filter to all columns in all joined tables
-        if ($filter) {
-            $columns = [
-                'p.id', 'pv.id', 'p.name','s.name','pv.price','pv.discounted_price','pv.measurement','pv.stock',
-                // Add more columns as needed
-            ];
-            
-            $products = $products->where(function($query) use ($filter, $columns) {
-                foreach ($columns as $column) {
-                    $query->orWhere($column, 'like', "%{$filter}%");
-                }
-            });
-        }
-        $total = $products->count();
-        if (isset($limit)) {
-            $products->limit($limit)->offset($offset);
-        }
-        $products = $products->get();
-        $data = array(
-            "categories" => $categories,
-            "products" => $products,
-         
-        );
-        if(!isset($request->type)){
-            $data["sellers"] = $sellers;
-        }
-       
-        return CommonHelper::responseWithData($data, $total);
     }
+
+    Log::info('Applying sorting and filtering');
+    $products = $products->orderBy('pv.id', 'desc');
+
+    // Apply filter to all columns in all joined tables
+    if ($filter) {
+        Log::info('Applying filter to query', ['filter' => $filter]);
+        $columns = [
+            'p.id', 'pv.id', 'p.name','s.name','pv.price','pv.discounted_price','pv.measurement','pv.stock',
+        ];
+        
+        $products = $products->where(function($query) use ($filter, $columns) {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'like', "%{$filter}%");
+            }
+        });
+    }
+
+    Log::info('Counting total products');
+    $total = $products->count();
+
+    if (isset($limit)) {
+        Log::info('Applying pagination', ['limit' => $limit, 'offset' => $offset]);
+        $products->limit($limit)->offset($offset);
+    }
+
+    Log::info('Fetching products');
+    $products = $products->get();
+
+    $data = array(
+        "categories" => $categories,
+        "products" => $products,
+    );
+
+    if(!isset($request->type)){
+        Log::info('Adding sellers data');
+        $data["sellers"] = $sellers;
+    }
+
+    Log::info('Returning response with data');
+    return CommonHelper::responseWithData($data, $total);
+}
 
     public function getProducts_sellerapp(Request $request)
     {
