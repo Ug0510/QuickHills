@@ -147,6 +147,10 @@ class ProductApiController extends Controller
         $products->limit($limit)->offset($offset);
     }
 
+    $products = $products->toSql();
+    Log::info('Generated SQL query: ' . $products);
+
+
     Log::info('Fetching products');
     $products = $products->get();
 
