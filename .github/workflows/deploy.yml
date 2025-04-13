@@ -11,10 +11,14 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
-          host: 34.131.24.196 
+          host: 34.131.24.196
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script_stop: true  # Stop script execution if any command fails
+          # Disable strict host key checking
+          ssh_known_hosts: accept-new
           script: |
             cd /home/quickhills/public_html/admin
-            git pull origin main
+            git config --global --add safe.directory /home/quickhills/public_html/admin
+            git pull
             php artisan optimize:clear
