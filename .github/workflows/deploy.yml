@@ -8,19 +8,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-          ssh-keyscan -t rsa 34.131.24.196 >> ~/.ssh/known_hosts
-
       - name: Deploy to server
-        run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no root@34.131.24.196 '
-            cd /home/quickhills/public_html/admin && 
-            git config --global --add safe.directory /home/quickhills/public_html/admin &&
-            git pull origin main &&
+        uses: appleboy/ssh-action@master
+        with:
+          host: 34.131.24.196
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/quickhills/public_html/admin
+            git config --global --add safe.directory /home/quickhills/public_html/admin
+            git pull https://${{ secrets.MY_PAT }}@github.com/Ug0510/QuickHills.git main
             php artisan optimize:clear
-          '
