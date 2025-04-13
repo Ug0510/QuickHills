@@ -8,22 +8,26 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Install SSH key to runner
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: unnecessary
-          
-      - name: Adding Known Hosts
-        run: ssh-keyscan -H 34.131.24.196 >> ~/.ssh/known_hosts
-          
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Deploy code
-        run: |
-          rsync -avz --exclude '.git/' ./ root@34.131.24.196:/home/quickhills/public_html/admin/
+      - name: Deploy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: root
+          server: 34.131.24.196
+          port: 22
+          local_path: './*'
+          remote_path: '/home/quickhills/public_html/admin'
+          sftp_only: true
+          password: ${{ secrets.SERVER_PASSWORD }}
           
       - name: Run optimization
-        run: |
-          ssh root@34.131.24.196 'cd /home/quickhills/public_html/admin && php artisan optimize:clear'
+        uses: appleboy/ssh-action@master
+        with:
+          host: 34.131.24.196
+          username: root
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            cd /home/quickhills/public_html/admin
+            php artisan optimize:clear
