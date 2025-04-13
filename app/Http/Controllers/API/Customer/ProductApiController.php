@@ -345,7 +345,6 @@ class ProductApiController extends Controller
                 'pickup_location',
                 'tags',
                 'd_type',
-                'seller_name',
                 'seller_slug',
                 'seller_status',
                 'created_at',
