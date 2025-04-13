@@ -2,32 +2,25 @@ name: Deploy to Production
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ] # Change this if your default branch is different
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          username: root
-          server: 34.131.24.196
-          port: 22
-          local_path: './*'
-          remote_path: '/home/quickhills/public_html/admin'
-          sftp_only: true
-          password: ${{ secrets.SERVER_PASSWORD }}
-          
-      - name: Run optimization
-        uses: appleboy/ssh-action@master
-        with:
-          host: 34.131.24.196
-          username: root
-          password: ${{ secrets.SERVER_PASSWORD }}
-          script: |
-            cd /home/quickhills/public_html/admin
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa 34.131.24.196 >> ~/.ssh/known_hosts
+
+      - name: Deploy to server
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no root@34.131.24.196 '
+            cd /home/quickhills/public_html/admin &&
+            git config --global --add safe.directory /home/quickhills/public_html/admin &&
+            git pull origin main &&
             php artisan optimize:clear
+          '
