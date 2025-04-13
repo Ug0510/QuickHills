@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class CategoryApiController extends Controller
 {
@@ -67,44 +68,68 @@ class CategoryApiController extends Controller
         $categories = Category::where('parent_id',0)->orderBy('row_order','ASC')->get();
         return CommonHelper::responseWithData($categories);
     }
-    public function save(Request $request){
-        // \Log::info('Save : ',[$request->all()]);
-        $validator = Validator::make($request->all(),[
-            'name' => 'required',
-            'subtitle' => 'required',
-            'image' => 'required|mimes:jpeg,jpg,png,gif'
-        ]);
-        if ($validator->fails()) {
-            return CommonHelper::responseError($validator->errors()->first());
-        }
+   public function save(Request $request)
+{
+    Log::info('Save function called', ['request_data' => $request->all()]);
 
-        // Generate slug from the title
-        $slug = Str::slug($request->name);
+    $validator = Validator::make($request->all(), [
+        'name' => 'required',
+        'subtitle' => 'required',
+        'image' => 'required|mimes:jpeg,jpg,png,gif'
+    ]);
 
-        // Check for uniqueness
-        $count = Category::where('slug', $slug)->count();
-        if ($count > 0) {
-            // Append a number to make the slug unique
-            $slug .= '-' . ($count + 1);
-        }
-
-        $category = new Category();
-        $category->name = $request->name;
-        $category->subtitle = $request->subtitle;
-        $category->slug = $slug;
-        $image = '';
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $fileName = time().'_'.rand(1111,99999).'.'.$file->getClientOriginalExtension();
-            $image = Storage::disk('public')->putFileAs('categories', $file, $fileName);
-        }
-        $category->image = $image;
-        $category->web_image = '';
-        $category->status = 1;
-        $category->parent_id = $request->parent_id;
-        $category->save();
-        return CommonHelper::responseSuccess("Category Saved Successfully!");
+    if ($validator->fails()) {
+        Log::error('Validation failed', ['errors' => $validator->errors()->toArray()]);
+        return CommonHelper::responseError($validator->errors()->first());
     }
+
+    // Generate slug from the title
+    $slug = Str::slug($request->name);
+    Log::info('Generated slug', ['slug' => $slug]);
+
+    // Check for uniqueness
+    $count = Category::where('slug', $slug)->count();
+    Log::info('Slug count in DB', ['count' => $count]);
+
+    if ($count > 0) {
+        $slug .= '-' . ($count + 1);
+        Log::info('Updated slug for uniqueness', ['new_slug' => $slug]);
+    }
+
+    $category = new Category();
+    $category->name = $request->name;
+    $category->subtitle = $request->subtitle;
+    $category->slug = $slug;
+
+    $image = '';
+    if ($request->hasFile('image')) {
+        Log::info('Image file detected', ['file_name' => $request->file('image')->getClientOriginalName()]);
+        
+        $file = $request->file('image');
+        $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
+        
+        try {
+            $image = Storage::disk('public')->putFileAs('categories', $file, $fileName);
+            Log::info('Image uploaded successfully', ['image_path' => $image]);
+        } catch (\Exception $e) {
+            Log::error('Image upload failed', ['error' => $e->getMessage()]);
+        }
+    }
+
+    $category->image = $image;
+    $category->web_image = '';
+    $category->status = 1;
+    $category->parent_id = $request->parent_id;
+
+    try {
+        $category->save();
+        Log::info('Category saved successfully', ['category_id' => $category->id]);
+        return CommonHelper::responseSuccess("Category Saved Successfully!");
+    } catch (\Exception $e) {
+        Log::error('Category save failed', ['error' => $e->getMessage()]);
+        return CommonHelper::responseError('Failed to save category.');
+    }
+}
     public function update(Request $request){
         $validator = Validator::make($request->all(),[
             'name' => 'required',

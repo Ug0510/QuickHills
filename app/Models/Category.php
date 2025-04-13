@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $table = 'categories';
     use HasFactory;
     protected $appends = ['image_url','has_child','has_active_child']; 
     protected $hidden = ['created_at','updated_at','deleted_at'];

@@ -15,7 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
-    'website_url' => env('WEBSITE_URL', 'https://egrocerweb.wrteam.me'),
+    'website_url' => env('WEBSITE_URL', 'https://admin.quickhills.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Kolkata',
 
     /*
     |--------------------------------------------------------------------------

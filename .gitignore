@@ -4,3 +4,5 @@
 
 storage/framework/sessions/*
 /storage
+error_log
+laravel_backup.sql.gz

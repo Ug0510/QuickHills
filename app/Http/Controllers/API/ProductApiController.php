@@ -35,27 +35,27 @@ class ProductApiController extends Controller
     // Log incoming request data
     Log::info('Fetching products', ['request_data' => $request->all()]);
     
-    $limit = $request->input('per_page'); // Default items per page
-    $offset = (($request->input('page'))-1)*$limit; // Default page
+    // Set default values for pagination
+    $limit = (int)$request->input('per_page', 10); // Default to 10 items per page
+    $page = (int)$request->input('page', 1); // Default to page 1
+    $offset = ($page - 1) * $limit; // Calculate offset
     $filter = $request->input('filter', ''); // Filter query
 
     Log::info('Limit and Offset values', ['limit' => $limit, 'offset' => $offset]);
 
-    if(!isset($request->type)){
+    if (!isset($request->type)) {
         Log::info('Fetching sellers as "type" is not set');
-        $sellers = Seller::where('status',1)->orderBy('id','DESC')->get()->toArray();
+        $sellers = Seller::where('status', 1)->orderBy('id', 'DESC')->get()->toArray();
     }
 
     Log::info('Fetching categories');
-
-try {
-    // $categories = Category::where('status', 1)->orderBy('id', 'DESC')->get()->toArray();
-    $categories = Category::get()->toArray();
-    Log::info($categories);
-} catch (\Exception $e) {
-    Log::error('Error fetching categories: ' . $e->getMessage());
-}
-
+    try {
+        $categories = Category::get()->toArray();
+        Log::info($categories);
+    } catch (\Exception $e) {
+        Log::error('Error fetching categories: ' . $e->getMessage());
+        $categories = []; // Set default empty array in case of error
+    }
 
     // Initialize an array to hold the where conditions
     $where = [];
@@ -117,7 +117,33 @@ try {
     }
 
     Log::info('Building product query');
-    $products  = \DB::table('products as p')->select('p.id as product_id', 'p.*', 'p.name', 'p.seller_id', 'p.status', 'p.tax_id', 'p.image', 's.name as seller_name', 'p.indicator', 'p.manufacturer', 'p.made_in', 'p.return_status', 'p.cancelable_status', 'p.till_status',  'p.description', 'pv.id as product_variant_id', 'pv.price', 'pv.discounted_price', 'pv.measurement', 'pv.status as pv_status', 'pv.stock', 'pv.stock_unit_id', 'u.short_code', \DB::raw('(select short_code from units where units.id = pv.stock_unit_id) as stock_unit'))
+    $products = \DB::table('products as p')
+        ->select(
+            'p.id as product_id', 
+            'p.*', 
+            'p.name', 
+            'p.seller_id', 
+            'p.status', 
+            'p.tax_id', 
+            'p.image', 
+            's.name as seller_name', 
+            'p.indicator', 
+            'p.manufacturer', 
+            'p.made_in', 
+            'p.return_status', 
+            'p.cancelable_status', 
+            'p.till_status',  
+            'p.description', 
+            'pv.id as product_variant_id', 
+            'pv.price', 
+            'pv.discounted_price', 
+            'pv.measurement', 
+            'pv.status as pv_status', 
+            'pv.stock', 
+            'pv.stock_unit_id', 
+            'u.short_code', 
+            \DB::raw('(select short_code from units where units.id = pv.stock_unit_id) as stock_unit')
+        )
         ->join('sellers as s', 'p.seller_id', '=', 's.id')
         ->join('product_variants as pv', 'p.id', '=', 'pv.product_id')
         ->join('units as u', 'pv.stock_unit_id', '=', 'u.id');
@@ -131,16 +157,16 @@ try {
     }
 
     Log::info('Applying sorting and filtering');
-    $products = $products->orderBy('pv.id', 'desc');
+    $products->orderBy('pv.id', 'desc');
 
     // Apply filter to all columns in all joined tables
     if ($filter) {
         Log::info('Applying filter to query', ['filter' => $filter]);
         $columns = [
-            'p.id', 'pv.id', 'p.name','s.name','pv.price','pv.discounted_price','pv.measurement','pv.stock',
+            'p.id', 'pv.id', 'p.name', 's.name', 'pv.price', 'pv.discounted_price', 'pv.measurement', 'pv.stock',
         ];
         
-        $products = $products->where(function($query) use ($filter, $columns) {
+        $products->where(function ($query) use ($filter, $columns) {
             foreach ($columns as $column) {
                 $query->orWhere($column, 'like', "%{$filter}%");
             }
@@ -155,19 +181,18 @@ try {
         $products->limit($limit)->offset($offset);
     }
 
-    $products = $products->toSql();
-    Log::info('Generated SQL query: ' . $products);
-
+    // Log the generated SQL query without overwriting $products
+    Log::info('Generated SQL query: ' . $products->toSql());
 
     Log::info('Fetching products');
     $products = $products->get();
 
-    $data = array(
+    $data = [
         "categories" => $categories,
         "products" => $products,
-    );
+    ];
 
-    if(!isset($request->type)){
+    if (!isset($request->type)) {
         Log::info('Adding sellers data');
         $data["sellers"] = $sellers;
     }
