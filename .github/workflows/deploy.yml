@@ -8,14 +8,27 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to server
+      - name: Debug Environment
+        run: |
+          echo "GitHub Actions Runner IP:"
+          curl ifconfig.me
+          echo ""
+          
+      - name: Deploy with debugging
         uses: appleboy/ssh-action@master
         with:
           host: 34.131.24.196
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            echo "Connected to server successfully"
             cd /home/quickhills/public_html/admin
+            echo "Changed directory"
             git config --global --add safe.directory /home/quickhills/public_html/admin
-            git pull https://${{ secrets.MY_PAT }}@github.com/Ug0510/QuickHills.git main
+            echo "Added safe directory"
+            ls -la
+            git remote -v
+            echo "Pulling latest code..."
+            GIT_SSH_COMMAND="ssh -v" git pull
+            echo "Running optimization..."
             php artisan optimize:clear
