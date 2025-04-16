@@ -167,163 +167,165 @@ class SellerApiController extends Controller
     }
 
     public function update(Request $request)
-    {
-        Log::info("Seller update request received", ['request_id' => $request->id]);
-    
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'email|required|unique:admins,email,' . $request->admin_id,
-            'mobile' => 'required',
-            'confirm_password' => 'same:password',
-            'store_name' => 'required',
-            'categories_ids' => 'required',
-            'pan_number' => 'required',
-            'commission' => 'required',
-            'city_id' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
-        ]);
-    
-        if ($validator->fails()) {
-            Log::warning("Validation failed during seller update", ['errors' => $validator->errors()]);
-            return CommonHelper::responseError($validator->errors()->first());
-        }
-    
-        if (!isset($request->id)) {
-            Log::warning("No seller ID provided in update request");
-            return CommonHelper::responseSuccess("No seller ID provided.");
-        }
-    
-        try {
-            $record = Seller::find($request->id);
-            if (!$record) {
-                Log::warning("Seller not found", ['seller_id' => $request->id]);
-                return CommonHelper::responseSuccess("Seller Not Found!");
-            }
-    
-            $oldStatus = $record->status;
-            DB::beginTransaction();
-    
-            $data = [
-                'username' => $request->name,
-                'email' => $request->email
-            ];
-    
-            if (!empty($request->password)) {
-                $data['password'] = bcrypt($request->password);
-            }
-    
-            $admin = Admin::find($request->admin_id);
-            if ($admin) {
-                $admin->update($data);
-                Log::info("Admin details updated", ['admin_id' => $admin->id]);
-            } else {
-                Log::warning("Admin not found for update", ['admin_id' => $request->admin_id]);
-            }
-    
-            // Update Seller
-            $record->fill([
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile' => $request->mobile,
-                'store_name' => $request->store_name,
-                'shop_opened_closed' => $request->input('shop_opened_closed', '1'),
-                'store_url' => $request->store_url,
-                'street' => $request->street,
-                'pincode_id' => $request->pincode_id ?? 0,
-                'city_id' => $request->city_id,
-                'categories' => $request->categories_ids,
-                'state' => $request->state,
-                'account_number' => $request->account_number,
-                'bank_ifsc_code' => $request->ifsc_code,
-                'bank_name' => $request->bank_name,
-                'account_name' => $request->account_name,
-                'commission' => $request->commission,
-                'tax_name' => $request->tax_name,
-                'tax_number' => $request->tax_number,
-                'pan_number' => $request->pan_number,
-                'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
-                'place_name' => $request->place_name,
-                'formatted_address' => $request->formatted_address,
-                'store_description' => $request->store_description,
-                'require_products_approval' => $request->require_products_approval,
-                'customer_privacy' => $request->customer_privacy,
-                'view_order_otp' => $request->view_order_otp,
-                'assign_delivery_boy' => $request->assign_delivery_boy,
-                'change_order_status_delivered' => $request->change_order_status_delivered,
-                'status' => $request->status,
-                'remark' => $request->remark,
-                'slug' => Str::slug($request->name),
-            ]);
-    
-            // Upload logo
-            if ($request->hasFile('store_logo')) {
-                $file = $request->file('store_logo');
-                $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
-                $image = Storage::disk('public')->putFileAs('sellers', $file, $fileName);
-                $record->logo = $image;
-                Log::info("Store logo uploaded", ['filename' => $fileName]);
-            }
-    
-            // Upload national ID
-            if ($request->hasFile('national_id_card')) {
-                $file = $request->file('national_id_card');
-                $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
-                $image = Storage::disk('public')->putFileAs('sellers', $file, $fileName);
-                $record->national_identity_card = $image;
-                Log::info("National ID uploaded", ['filename' => $fileName]);
-            }
-    
-            // Upload address proof
-            if ($request->hasFile('address_proof')) {
-                $file = $request->file('address_proof');
-                $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
-                $image = Storage::disk('public')->putFileAs('sellers', $file, $fileName);
-                $record->address_proof = $image;
-                Log::info("Address proof uploaded", ['filename' => $fileName]);
-            }
-    
-            $record->save();
-            Log::info("Seller record updated", ['seller_id' => $record->id]);
-    
-            $categories_ids = is_array($request->categories_ids)
-                ? $request->categories_ids
-                : explode(',', $request->categories_ids);
-    
-            foreach ($categories_ids as $category_id) {
-                $existingCommission = SellerCommission::where('seller_id', $record->id)
-                    ->where('category_id', $category_id)
-                    ->first();
-    
-                if (!$existingCommission) {
-                    $commission = new SellerCommission();
-                    $commission->seller_id = $record->id;
-                    $commission->category_id = $category_id;
-                    $commission->save();
-                    Log::info("Commission entry added", ['seller_id' => $record->id, 'category_id' => $category_id]);
-                }
-            }
-    
-            DB::commit();
-    
-            if ($oldStatus !== $record->status) {
-                try {
-                    CommonHelper::sendMailAdminStatus("seller", $record, $record->status, $request->email);
-                    Log::info("Status change email sent", ['seller_id' => $record->id]);
-                } catch (\Exception $e) {
-                    Log::error("Error sending status update email", ['error' => $e->getMessage()]);
-                }
-            }
-    
-            return CommonHelper::responseSuccess("Seller Updated Successfully!");
-        } catch (\Throwable $e) {
-            
-            DB::rollBack();
-            Log::error("Error during seller update", ['error' => $e->getMessage()]);
-            return CommonHelper::responseSuccess("Something went wrong. Please try again.");
-        }
+{
+    Log::info("Seller update request received", ['request' => $request->all()]);
+
+    $validator = Validator::make($request->all(), [
+        'name' => 'required',
+        'email' => 'email|required|unique:admins,email,' . $request->admin_id,
+        'mobile' => 'required',
+        'confirm_password' => 'same:password',
+        'store_name' => 'required',
+        'categories_ids' => 'required',
+        'pan_number' => 'required',
+        'commission' => 'required',
+        'city_id' => 'required',
+        'latitude' => 'required',
+        'longitude' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+        Log::warning("Validation failed", ['errors' => $validator->errors()]);
+        return CommonHelper::responseError($validator->errors()->first());
     }
+
+    if (!$request->id) {
+        Log::warning("Missing seller ID in update request");
+        return CommonHelper::responseError("Seller ID is required.");
+    }
+
+    try {
+        $record = Seller::find($request->id);
+        if (!$record) {
+            Log::warning("Seller not found", ['seller_id' => $request->id]);
+            return CommonHelper::responseError("Seller Not Found!");
+        }
+
+        $oldStatus = $record->status;
+        DB::beginTransaction();
+
+        $adminData = [
+            'username' => $request->name,
+            'email' => $request->email,
+        ];
+
+        if (!empty($request->password)) {
+            $adminData['password'] = bcrypt($request->password);
+        }
+
+        $admin = Admin::find($request->admin_id);
+        if ($admin) {
+            $admin->update($adminData);
+            Log::info("Admin updated", ['admin_id' => $admin->id]);
+        } else {
+            Log::warning("Admin not found", ['admin_id' => $request->admin_id]);
+        }
+
+        // Update seller fields
+        $record->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'store_name' => $request->store_name,
+            'shop_opened_closed' => $request->input('shop_opened_closed', '1'),
+            'store_url' => $request->store_url,
+            'street' => $request->street,
+            'pincode_id' => $request->pincode_id ?? 0,
+            'city_id' => $request->city_id,
+            'categories' => is_array($request->categories_ids) ? implode(',', $request->categories_ids) : $request->categories_ids,
+            'state' => $request->state,
+            'account_number' => $request->account_number,
+            'bank_ifsc_code' => $request->ifsc_code,
+            'bank_name' => $request->bank_name,
+            'account_name' => $request->account_name,
+            'commission' => $request->commission,
+            'tax_name' => $request->tax_name,
+            'tax_number' => $request->tax_number,
+            'pan_number' => $request->pan_number,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'place_name' => $request->place_name,
+            'formatted_address' => $request->formatted_address,
+            'store_description' => $request->store_description,
+            'require_products_approval' => $request->require_products_approval,
+            'customer_privacy' => $request->customer_privacy,
+            'view_order_otp' => $request->view_order_otp,
+            'assign_delivery_boy' => $request->assign_delivery_boy,
+            'change_order_status_delivered' => $request->change_order_status_delivered,
+            'status' => $request->status,
+            'remark' => $request->remark,
+            'slug' => Str::slug($request->name),
+        ]);
+
+        // Handle file uploads
+        if ($request->hasFile('store_logo')) {
+            $file = $request->file('store_logo');
+            $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
+            $image = Storage::disk('public')->putFileAs('sellers', $file, $fileName);
+            $record->logo = $image;
+            Log::info("Store logo uploaded", ['filename' => $fileName]);
+        }
+
+        if ($request->hasFile('national_id_card')) {
+            $file = $request->file('national_id_card');
+            $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
+            $image = Storage::disk('public')->putFileAs('sellers', $file, $fileName);
+            $record->national_identity_card = $image;
+            Log::info("National ID uploaded", ['filename' => $fileName]);
+        }
+
+        if ($request->hasFile('address_proof')) {
+            $file = $request->file('address_proof');
+            $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
+            $image = Storage::disk('public')->putFileAs('sellers', $file, $fileName);
+            $record->address_proof = $image;
+            Log::info("Address proof uploaded", ['filename' => $fileName]);
+        }
+
+        $record->save();
+        Log::info("Seller record saved", ['seller_id' => $record->id]);
+
+        $categories_ids = is_array($request->categories_ids)
+            ? $request->categories_ids
+            : explode(',', $request->categories_ids);
+
+        foreach ($categories_ids as $category_id) {
+            $existingCommission = SellerCommission::where('seller_id', $record->id)
+                ->where('category_id', $category_id)
+                ->first();
+
+            if (!$existingCommission) {
+                SellerCommission::create([
+                    'seller_id' => $record->id,
+                    'category_id' => $category_id,
+                ]);
+                Log::info("Commission added", ['seller_id' => $record->id, 'category_id' => $category_id]);
+            }
+        }
+
+        DB::commit();
+
+        if ($oldStatus !== $record->status) {
+            try {
+                CommonHelper::sendMailAdminStatus("seller", $record, $record->status, $request->email);
+                Log::info("Status change email sent", ['seller_id' => $record->id]);
+            } catch (\Exception $e) {
+                Log::error("Error sending email", ['error' => $e->getMessage()]);
+            }
+        }
+
+        return CommonHelper::responseSuccess("Seller Updated Successfully!");
+    } catch (\Throwable $e) {
+        DB::rollBack();
+        Log::error("Exception during seller update", [
+            'error' => $e->getMessage(),
+            'line' => $e->getLine(),
+            'file' => $e->getFile(),
+        ]);
+        return CommonHelper::responseError("Something went wrong. Please try again.");
+    }
+}
+
     
 
     public function delete(Request $request){
