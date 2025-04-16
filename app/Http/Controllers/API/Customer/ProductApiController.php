@@ -345,7 +345,6 @@ class ProductApiController extends Controller
                 'pickup_location',
                 'tags',
                 'd_type',
-                'seller_name',
                 'seller_slug',
                 'seller_status',
                 'created_at',
@@ -386,7 +385,7 @@ class ProductApiController extends Controller
 
                 $products[$i]->rating_count = CommonHelper::productAverageRating($row['id'])['rating_count'];
                 $products[$i]->average_rating = CommonHelper::productAverageRating($row['id'])['average_rating'];
-
+                $products[$i]->seller_name = $row->seller_name;
                 $i++;
             }
 
