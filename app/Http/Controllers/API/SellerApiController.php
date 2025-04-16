@@ -168,7 +168,7 @@ class SellerApiController extends Controller
 
     public function update(Request $request)
 {
-    Log::info("Seller update request received", ['request' => $request->all()]);
+    Log::info("Seller update request received", ['request_data' => $request->all()]);
 
     $validator = Validator::make($request->all(), [
         'name' => 'required',
@@ -185,43 +185,46 @@ class SellerApiController extends Controller
     ]);
 
     if ($validator->fails()) {
-        Log::warning("Validation failed", ['errors' => $validator->errors()]);
+        Log::warning("Validation failed during seller update", ['errors' => $validator->errors()]);
         return CommonHelper::responseError($validator->errors()->first());
     }
 
-    if (!$request->id) {
-        Log::warning("Missing seller ID in update request");
-        return CommonHelper::responseError("Seller ID is required.");
+    if (!isset($request->id)) {
+        Log::warning("No seller ID provided in update request");
+        return CommonHelper::responseSuccess("No seller ID provided.");
     }
 
     try {
+        Log::info("Attempting to find seller with ID: {$request->id}");
         $record = Seller::find($request->id);
         if (!$record) {
             Log::warning("Seller not found", ['seller_id' => $request->id]);
-            return CommonHelper::responseError("Seller Not Found!");
+            return CommonHelper::responseSuccess("Seller Not Found!");
         }
 
         $oldStatus = $record->status;
         DB::beginTransaction();
+        Log::info("Transaction started for seller update", ['seller_id' => $request->id]);
 
-        $adminData = [
+        $data = [
             'username' => $request->name,
-            'email' => $request->email,
+            'email' => $request->email
         ];
 
         if (!empty($request->password)) {
-            $adminData['password'] = bcrypt($request->password);
+            $data['password'] = bcrypt($request->password);
+            Log::info("Password updated for admin", ['admin_id' => $request->admin_id]);
         }
 
         $admin = Admin::find($request->admin_id);
         if ($admin) {
-            $admin->update($adminData);
-            Log::info("Admin updated", ['admin_id' => $admin->id]);
+            $admin->update($data);
+            Log::info("Admin details updated", ['admin_id' => $admin->id]);
         } else {
-            Log::warning("Admin not found", ['admin_id' => $request->admin_id]);
+            Log::warning("Admin not found for update", ['admin_id' => $request->admin_id]);
         }
 
-        // Update seller fields
+        // Updating Seller
         $record->fill([
             'name' => $request->name,
             'email' => $request->email,
@@ -232,7 +235,7 @@ class SellerApiController extends Controller
             'street' => $request->street,
             'pincode_id' => $request->pincode_id ?? 0,
             'city_id' => $request->city_id,
-            'categories' => is_array($request->categories_ids) ? implode(',', $request->categories_ids) : $request->categories_ids,
+            'categories' => $request->categories_ids,
             'state' => $request->state,
             'account_number' => $request->account_number,
             'bank_ifsc_code' => $request->ifsc_code,
@@ -256,8 +259,9 @@ class SellerApiController extends Controller
             'remark' => $request->remark,
             'slug' => Str::slug($request->name),
         ]);
+        Log::info("Seller base details filled");
 
-        // Handle file uploads
+        // Upload store logo
         if ($request->hasFile('store_logo')) {
             $file = $request->file('store_logo');
             $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
@@ -266,6 +270,7 @@ class SellerApiController extends Controller
             Log::info("Store logo uploaded", ['filename' => $fileName]);
         }
 
+        // Upload national ID
         if ($request->hasFile('national_id_card')) {
             $file = $request->file('national_id_card');
             $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
@@ -274,6 +279,7 @@ class SellerApiController extends Controller
             Log::info("National ID uploaded", ['filename' => $fileName]);
         }
 
+        // Upload address proof
         if ($request->hasFile('address_proof')) {
             $file = $request->file('address_proof');
             $fileName = time() . '_' . rand(1111, 99999) . '.' . $file->getClientOriginalExtension();
@@ -295,34 +301,31 @@ class SellerApiController extends Controller
                 ->first();
 
             if (!$existingCommission) {
-                SellerCommission::create([
-                    'seller_id' => $record->id,
-                    'category_id' => $category_id,
-                ]);
-                Log::info("Commission added", ['seller_id' => $record->id, 'category_id' => $category_id]);
+                $commission = new SellerCommission();
+                $commission->seller_id = $record->id;
+                $commission->category_id = $category_id;
+                $commission->save();
+                Log::info("Commission entry added", ['seller_id' => $record->id, 'category_id' => $category_id]);
             }
         }
 
         DB::commit();
+        Log::info("Transaction committed for seller update", ['seller_id' => $record->id]);
 
         if ($oldStatus !== $record->status) {
             try {
                 CommonHelper::sendMailAdminStatus("seller", $record, $record->status, $request->email);
-                Log::info("Status change email sent", ['seller_id' => $record->id]);
+                Log::info("Status change email sent", ['seller_id' => $record->id, 'new_status' => $record->status]);
             } catch (\Exception $e) {
-                Log::error("Error sending email", ['error' => $e->getMessage()]);
+                Log::error("Error sending status update email", ['error' => $e->getMessage()]);
             }
         }
 
         return CommonHelper::responseSuccess("Seller Updated Successfully!");
     } catch (\Throwable $e) {
         DB::rollBack();
-        Log::error("Exception during seller update", [
-            'error' => $e->getMessage(),
-            'line' => $e->getLine(),
-            'file' => $e->getFile(),
-        ]);
-        return CommonHelper::responseError("Something went wrong. Please try again.");
+        Log::error("Exception during seller update", ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+        return CommonHelper::responseSuccess("Something went wrong. Please try again.");
     }
 }
 
