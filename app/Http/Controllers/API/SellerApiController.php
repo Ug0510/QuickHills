@@ -318,6 +318,7 @@ class SellerApiController extends Controller
     
             return CommonHelper::responseSuccess("Seller Updated Successfully!");
         } catch (\Throwable $e) {
+            
             DB::rollBack();
             Log::error("Error during seller update", ['error' => $e->getMessage()]);
             return CommonHelper::responseSuccess("Something went wrong. Please try again.");
